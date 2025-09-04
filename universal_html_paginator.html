@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal HTML to Print Paginator v2</title>
+    <style>
+        /* Print styles */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+                max-width: none !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .page {
+                page-break-after: always !important;
+                page-break-before: auto !important;
+                page-break-inside: avoid !important;
+                margin: 0 !important;
+                padding: 0.6cm !important;
+                box-shadow: none !important;
+                border: none !important;
+                background: white !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                display: block !important;
+                overflow: visible !important;
+            }
+            .page:last-child {
+                page-break-after: auto !important;
+            }
+            /* Ensure all content elements respect page boundaries */
+            .page-content {
+                page-break-inside: avoid !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            /* Force callouts and styled elements to not break */
+            .callout, [class*="callout"], .warning, .success, .info, .alert, .card, .box {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                display: block !important;
+            }
+            /* Force tables to respect page boundaries */
+            table {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            /* Force headings to stay with following content */
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            /* Force lists and paragraphs to avoid bad breaks */
+            p, ul, ol, blockquote {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                orphans: 3 !important;
+                widows: 3 !important;
+            }
+            /* Hide all non-paginated content during print */
+            .controls {
+                display: none !important;
+            }
+            .file-input {
+                display: none !important;
+            }
+            .source-content {
+                display: none !important;
+            }
+            .status {
+                display: none !important;
+            }
+            .debug-info {
+                display: none !important;
+            }
+            .measurement-container {
+                display: none !important;
+            }
+            /* Only show paginated content */
+            .paginated-content {
+                display: block !important;
+            }
+        }
+
+        /* General styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background: white;
+            padding: 20px;
+            line-height: 1.4;
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            background: white;
+        }
+
+        /* Page container for screen view */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto 20px auto;
+            padding: 0.6cm;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ccc;
+            position: relative;
+            page-break-after: always;
+        }
+
+        /* Page content area - Let JavaScript handle height constraints */
+        .page-content {
+            /* No height constraints - pure JavaScript pagination logic */
+        }
+
+        /* Controls */
+        .controls {
+            text-align: center;
+            margin: 0 auto 30px auto;
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #000;
+            color: black;
+            width: 800px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .controls h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Helvetica, Arial, sans-serif;
+            color: black;
+        }
+
+        .controls button {
+            padding: 12px 24px;
+            margin: 8px 10px;
+            border: 2px solid #000;
+            background: #f0f8ff;
+            color: black;
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .controls button:hover {
+            background: #e0f0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .controls button:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .controls button:disabled:hover {
+            background: #ccc;
+        }
+
+        .controls button.primary {
+            background: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .controls button.primary:hover {
+            background: #45a049;
+        }
+
+        /* File input area */
+        .file-input {
+            background: #fffef7;
+            border: 2px solid #000;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        .file-input:hover {
+            background: #fff8e1;
+        }
+
+        .file-input.dragover {
+            border-color: #4CAF50;
+            background: #f9f9f9;
+        }
+
+        .upload-button {
+            margin: 15px 0;
+            padding: 12px 30px;
+            border: 2px solid #000;
+            border-radius: 25px;
+            background: #f0f8ff;
+            color: black;
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-button:hover {
+            background: #e0f0ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .html-input {
+            width: 100%;
+            height: 200px;
+            margin: 10px 0;
+            padding: 15px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            font-weight: normal;
+            background: #f8fff8;
+            resize: vertical;
+        }
+        
+        .html-input:focus {
+            outline: none;
+            background: #f0fff0;
+        }
+
+        /* Source content (shown initially) */
+        .source-content {
+            display: block;
+            width: 800px;
+            max-width: 100%;
+            margin: 0 auto 20px auto;
+            background: white;
+            padding: 0.6cm;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        
+        /* Paginated content container */
+        .paginated-content {
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        /* Ensure content fits properly within page bounds */
+        .source-content *,
+        .page-content * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Status and debug info */
+        .status {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+
+        /* Measurement container (hidden) */
+        .measurement-container {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+            visibility: hidden;
+            width: 210mm;
+            padding: 0.6cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+    <div class="controls">
+        <h2>Universal HTML to Print Paginator v2</h2>
+        <p>Transform any HTML content into perfectly paginated A4 print layouts</p>
+        
+        <div class="file-input" id="fileInput">
+            <p><strong>Method 1:</strong> Upload HTML File</p>
+            <input type="file" accept=".html,.htm" id="htmlFile" style="display: none;">
+            <button class="upload-button" onclick="document.getElementById('htmlFile').click()">📁 Choose HTML File</button>
+            
+            <p style="margin: 20px 0;"><strong>Method 2:</strong> Paste HTML Content</p>
+            <textarea class="html-input" id="htmlContent" placeholder="Paste your HTML content here..."></textarea>
+        </div>
+        
+        <button onclick="processHTML()" class="primary">✨ Process & Clean HTML</button>
+        <button onclick="paginateContent()" id="paginateBtn" disabled>📖 Paginate</button>
+        <button onclick="printPaginated()">🖨️ Print</button>
+    </div>
+
+    <div class="status" id="status">Ready - Upload HTML file or paste content above</div>
+    
+
+    <!-- Hidden measurement container -->
+    <div class="measurement-container" id="measurementContainer">
+        <!-- Cloned content for measurement will go here -->
+    </div>
+
+    <!-- Source content container -->
+    <div class="source-content" id="sourceContent" style="display: none;">
+        <!-- Original content will be displayed here -->
+    </div>
+
+    <!-- Paginated content container -->
+    <div class="paginated-content" id="paginatedContent">
+        <!-- Paginated pages will be generated here -->
+    </div>
+
+    <script>
+        let originalHTML = '';
+        let processedElements = [];
+        let elementHeights = [];
+
+        // Initialize the application
+        function init() {
+            console.log('Universal HTML Paginator v2 initialized');
+            
+            // Set up file input handlers
+            const fileInput = document.getElementById('htmlFile');
+            const fileInputArea = document.getElementById('fileInput');
+            
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Set up drag and drop
+            fileInputArea.addEventListener('dragover', handleDragOver);
+            fileInputArea.addEventListener('drop', handleDrop);
+            fileInputArea.addEventListener('dragenter', (e) => {
+                e.preventDefault();
+                fileInputArea.classList.add('dragover');
+            });
+            fileInputArea.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                fileInputArea.classList.remove('dragover');
+            });
+        }
+
+        // Handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file && (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('htmlContent').value = e.target.result;
+                    updateStatus('HTML file loaded successfully');
+                };
+                reader.readAsText(file);
+            } else {
+                updateStatus('Please select a valid HTML file', 'error');
+            }
+        }
+
+        // Handle drag and drop
+        function handleDragOver(event) {
+            event.preventDefault();
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            document.getElementById('fileInput').classList.remove('dragover');
+            
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('htmlContent').value = e.target.result;
+                        updateStatus('HTML file dropped and loaded successfully');
+                    };
+                    reader.readAsText(file);
+                } else {
+                    updateStatus('Please drop a valid HTML file', 'error');
+                }
+            }
+        }
+
+        // Update status message
+        function updateStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.color = type === 'error' ? '#d32f2f' : type === 'success' ? '#388e3c' : '#666';
+        }
+
+
+        // Print paginated content only
+        function printPaginated() {
+            // Ensure paginated content is visible
+            document.getElementById('sourceContent').style.display = 'none';
+            document.getElementById('paginatedContent').style.display = 'block';
+            
+            // Check if we have paginated content
+            const paginatedContent = document.getElementById('paginatedContent');
+            if (!paginatedContent.children.length) {
+                alert('Please paginate the content first before printing.');
+                return;
+            }
+            
+            updateStatus('Preparing paginated content for print...');
+            // Print
+            window.print();
+        }
+
+
+        // Show paginated content
+        function showPaginated() {
+            document.getElementById('sourceContent').style.display = 'none';
+            document.getElementById('paginatedContent').style.display = 'block';
+            updateStatus('Showing paginated content');
+        }
+
+        // CSS Sanitization Engine - remove pagination-breaking rules
+        function sanitizeCSS(htmlContent) {
+            console.log('Starting CSS sanitization...');
+            
+            // Remove CSS rules that break pagination flow
+            const problematicRules = [
+                /page-break-[^;]*;/gi,
+                /break-[^;]*;/gi,
+                /@page[^}]*}/gi,
+                /height:\s*100vh[^;]*;/gi,          // Remove viewport heights
+                /min-height:\s*100vh[^;]*;/gi,
+                /height:\s*100%[^;]*;/gi,           // Remove 100% heights that cause issues
+                /min-height:\s*100%[^;]*;/gi,
+                /height:\s*calc\([^)]*\)[^;]*;/gi,  // Remove calc() heights that constrain flow
+                /max-height:\s*[^;]*vh[^;]*;/gi,    // Remove viewport-based max heights
+                /\.page-content\s*\{[^}]*overflow:\s*hidden[^;]*;/gi,  // Only remove overflow:hidden from page-content specifically
+                /width:\s*793px[^;]*;/gi            // Remove hardcoded 793px width that breaks layout
+            ];
+            
+            let sanitized = htmlContent;
+            problematicRules.forEach(rule => {
+                sanitized = sanitized.replace(rule, '');
+            });
+            
+            
+            return sanitized;
+        }
+
+        // Extract and normalize content - preserve individual elements AND styling
+        function extractContent(htmlContent) {
+            console.log('Extracting and normalizing content...');
+            
+            // Create a temporary container to parse the HTML
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = htmlContent;
+            
+            // Extract and preserve style tags
+            const styleTags = Array.from(tempContainer.querySelectorAll('style'));
+            const preservedStyles = styleTags.map(style => style.outerHTML).join('\n');
+            
+            // Remove script tags for security and functionality
+            const scripts = tempContainer.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+            
+            // Get the body content, or the entire content if no body tag
+            let content = tempContainer.querySelector('body') || tempContainer;
+            
+            // FLATTEN EXISTING PAGE STRUCTURE - remove .page containers and extract content
+            const pageContainers = content.querySelectorAll('.page, .pages-container');
+            if (pageContainers.length > 0) {
+                console.log('Found pre-paginated structure - flattening to continuous content...');
+                
+                // Collect all content from page containers
+                const flattenedContent = document.createElement('div');
+                
+                pageContainers.forEach(pageContainer => {
+                    // Extract content from .page divs, but skip headers/footers
+                    const contentElements = pageContainer.querySelectorAll('.content > *:not(.footer):not(.header)');
+                    if (contentElements.length > 0) {
+                        contentElements.forEach(el => {
+                            flattenedContent.appendChild(el.cloneNode(true));
+                        });
+                    } else {
+                        // Fallback: get all children except known page structure elements
+                        Array.from(pageContainer.children).forEach(child => {
+                            if (!['HEADER', 'FOOTER'].includes(child.tagName) && 
+                                !child.classList.contains('header') && 
+                                !child.classList.contains('footer') &&
+                                !child.classList.contains('content')) {
+                                flattenedContent.appendChild(child.cloneNode(true));
+                            } else if (child.classList.contains('content')) {
+                                // Extract content from .content divs
+                                Array.from(child.children).forEach(contentChild => {
+                                    if (!['HEADER', 'FOOTER'].includes(contentChild.tagName) && 
+                                        !contentChild.classList.contains('header') && 
+                                        !contentChild.classList.contains('footer')) {
+                                        flattenedContent.appendChild(contentChild.cloneNode(true));
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                
+                content = flattenedContent;
+                console.log('Page structure flattened - extracted content from page containers');
+            }
+            
+            // Create a container with A4 styling but preserve individual elements
+            const container = document.createElement('div');
+            container.style.cssText = 'width: 210mm; padding: 0.6cm; font-family: Helvetica, Arial, sans-serif;';
+            
+            // Add preserved styles first
+            if (preservedStyles) {
+                container.innerHTML = preservedStyles;
+            }
+            
+            // Add each content element individually to preserve structure
+            Array.from(content.children).forEach(child => {
+                // Skip head elements and other non-content elements
+                if (!['SCRIPT', 'STYLE', 'META', 'TITLE', 'HEAD', 'LINK'].includes(child.tagName)) {
+                    container.appendChild(child.cloneNode(true));
+                }
+            });
+            
+            
+            return container.outerHTML;
+        }
+
+        // Process HTML input - just clean and show original
+        async function processHTML() {
+            try {
+                const htmlInput = document.getElementById('htmlContent').value.trim();
+                
+                if (!htmlInput) {
+                    updateStatus('Please provide HTML content to process', 'error');
+                    return;
+                }
+                
+                updateStatus('Processing and cleaning HTML...');
+                
+                // Step 1: Sanitize CSS
+                const sanitizedHTML = sanitizeCSS(htmlInput);
+                
+                // Step 2: Extract and normalize content
+                const normalizedContent = extractContent(sanitizedHTML);
+                
+                // Step 3: Store original for display
+                originalHTML = normalizedContent;
+                document.getElementById('sourceContent').innerHTML = originalHTML;
+                
+                // Step 4: Prepare for measurement (but don't paginate yet)
+                await measureElements(normalizedContent);
+                
+                // Enable paginate button and show processed content
+                document.getElementById('paginateBtn').disabled = false;
+                
+                // Show processed content
+                const sourceContent = document.getElementById('sourceContent');
+                const paginatedContent = document.getElementById('paginatedContent');
+                sourceContent.style.display = 'block';
+                paginatedContent.style.display = 'none';
+                updateStatus('HTML processed and cleaned! Ready for pagination.', 'success');
+                
+            } catch (error) {
+                console.error('Error processing HTML:', error);
+                updateStatus('Error processing HTML: ' + error.message, 'error');
+            }
+        }
+
+        // Smart HTML structure analysis - understand containers vs content
+        function analyzeHTMLStructure(element) {
+            const contentElements = [];
+            
+            // Define what we consider "content containers" vs "layout containers"
+            const contentTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'TABLE', 'UL', 'OL', 'BLOCKQUOTE', 'PRE', 'IMG', 'FIGURE'];
+            const layoutContainers = ['DIV', 'SECTION', 'ARTICLE', 'MAIN', 'HEADER', 'FOOTER', 'ASIDE'];
+            
+            // Special classes that should NEVER be split across pages
+            const indivisibleClasses = ['callout', 'warning', 'success', 'info', 'alert', 'card', 'box'];
+            
+            function traverseElement(el) {
+                const tagName = el.tagName;
+                const hasIndivisibleClass = indivisibleClasses.some(cls => el.classList.contains(cls));
+                
+                // Check if this element should be treated as indivisible
+                if (hasIndivisibleClass) {
+                    // Callout boxes and similar styled containers must not be split
+                    contentElements.push({
+                        element: el,
+                        height: el.offsetHeight,
+                        type: 'indivisible-content'
+                    });
+                    return; // Don't traverse children - treat as single unit
+                }
+                
+                if (contentTags.includes(tagName)) {
+                    // This is actual content - add it for measurement
+                    if (tagName === 'TABLE') {
+                        // Special handling for tables - extract rows
+                        const tbody = el.querySelector('tbody');
+                        if (tbody) {
+                            const rows = Array.from(tbody.querySelectorAll('tr'));
+                            rows.forEach(row => {
+                                contentElements.push({
+                                    element: row,
+                                    height: row.offsetHeight,
+                                    type: 'table-row',
+                                    parentTable: el
+                                });
+                            });
+                        }
+                    } else {
+                        // Regular content element
+                        contentElements.push({
+                            element: el,
+                            height: el.offsetHeight,
+                            type: 'content'
+                        });
+                    }
+                } else if (layoutContainers.includes(tagName)) {
+                    // Check if this is a small styled container that should be treated as content
+                    const computedStyle = window.getComputedStyle(el);
+                    const hasVisualStyling = 
+                        computedStyle.backgroundColor !== 'rgba(0, 0, 0, 0)' ||
+                        computedStyle.borderRadius !== '0px' ||
+                        computedStyle.backgroundImage !== 'none' ||
+                        computedStyle.boxShadow !== 'none' ||
+                        computedStyle.border !== '0px none rgb(51, 51, 51)' ||
+                        el.style.background !== '';
+                    
+                    // Only treat as content unit if it's small enough AND has visual styling
+                    const elementHeight = el.offsetHeight;
+                    const maxContentHeight = 500; // Increased to accommodate callout boxes
+                    
+                    if (hasVisualStyling && elementHeight <= maxContentHeight) {
+                        // Small styled element - treat as a content unit (indivisible)
+                        contentElements.push({
+                            element: el,
+                            height: elementHeight,
+                            type: 'indivisible-content'
+                        });
+                    } else {
+                        // Large container or unstyled - traverse its children
+                        Array.from(el.children).forEach(child => {
+                            traverseElement(child);
+                        });
+                    }
+                } else {
+                    // Unknown element - treat as content if it has text/no children, container otherwise
+                    if (el.children.length === 0 && el.textContent.trim()) {
+                        // Text content
+                        contentElements.push({
+                            element: el,
+                            height: el.offsetHeight,
+                            type: 'content'
+                        });
+                    } else if (el.children.length > 0) {
+                        // Has children - traverse
+                        Array.from(el.children).forEach(child => {
+                            traverseElement(child);
+                        });
+                    }
+                }
+            }
+            
+            traverseElement(element);
+            return contentElements;
+        }
+        
+        // Handle different content types with smart analysis
+        function processContentByType(element) {
+            return analyzeHTMLStructure(element);
+        }
+
+        // Measure all elements in the content
+        async function measureElements(content) {
+            console.log('Starting element measurement...');
+            
+            const measurementContainer = document.getElementById('measurementContainer');
+            measurementContainer.innerHTML = content;
+            
+            // Force layout calculation
+            measurementContainer.offsetHeight;
+            
+            // Get all top-level elements that should be measured individually
+            // Handle both wrapped and unwrapped content
+            let elements;
+            if (measurementContainer.children.length === 1 && measurementContainer.children[0].children.length > 0) {
+                // Content is wrapped in a container
+                elements = Array.from(measurementContainer.children[0].children);
+            } else {
+                // Content is not wrapped or multiple top-level elements
+                elements = Array.from(measurementContainer.children);
+            }
+            
+            processedElements = [];
+            elementHeights = [];
+            
+            console.log(`Total elements found: ${elements.length}`);
+            console.log('Elements detected:', elements.map(el => `${el.tagName}.${el.className || 'no-class'}`));
+            
+            elements.forEach((element, index) => {
+                const processedItems = processContentByType(element);
+                
+                processedItems.forEach((item, itemIndex) => {
+                    processedElements.push(item);
+                    elementHeights.push(item.height);
+                    
+                });
+            });
+            
+            console.log(`Total elements measured: ${processedElements.length}`);
+            console.log('Elements details:', processedElements.map(el => `${el.type}: ${el.element.tagName}.${el.element.className || 'no-class'} (${el.height}px)`));
+            
+        }
+
+        // Create a new page
+        function createNewPage(pageNumber, needsTable = false, tableTemplate = null) {
+            const page = document.createElement('div');
+            page.className = 'page';
+            
+            const content = document.createElement('div');
+            content.className = 'page-content';
+            
+            if (needsTable && tableTemplate) {
+                // Create table with header for table rows - preserve all styling
+                const table = tableTemplate.cloneNode(true);
+                const tbody = table.querySelector('tbody');
+                if (tbody) tbody.innerHTML = ''; // Clear body, keep header
+                
+                // Preserve the table container structure from original
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'table-container';
+                tableContainer.appendChild(table);
+                content.appendChild(tableContainer);
+            }
+            
+            page.appendChild(content);
+            document.getElementById('paginatedContent').appendChild(page);
+            
+            // Initialize page height tracking
+            pageHeights.set(page, 0);
+            
+            return { page, content, table: needsTable ? content.querySelector('table') : null };
+        }
+
+        // Track cumulative height per page
+        const pageHeights = new Map(); // page -> cumulative height
+        
+        // Measure remaining space in page - use cumulative approach  
+        function getRemainingSpace(page) {
+            // A4 is 297mm height. At 96 DPI: 297mm = 1123px approximately
+            const pageHeightPx = 1123;
+            // 0.6cm = 22.68px at 96 DPI
+            const paddingPx = 23 * 2; // top + bottom padding
+            const availableHeight = pageHeightPx - paddingPx;
+            
+            // Get cumulative height for this page
+            const currentHeight = pageHeights.get(page) || 0;
+            const remainingSpace = availableHeight - currentHeight;
+            
+            console.log(`Page height: ${pageHeightPx}px, Available: ${availableHeight}px, Current: ${currentHeight}px, Remaining: ${remainingSpace}px`);
+            
+            return remainingSpace;
+        }
+        
+        // Add element height to page tracking
+        function addElementHeightToPage(page, elementHeight) {
+            const currentHeight = pageHeights.get(page) || 0;
+            pageHeights.set(page, currentHeight + elementHeight);
+        }
+
+        // Main pagination logic - separated from initial processing
+        async function paginateContent() {
+            if (!processedElements.length) {
+                updateStatus('Please process HTML first before paginating', 'error');
+                return;
+            }
+            
+            console.log('Starting pagination...');
+            updateStatus('Creating paginated layout...');
+            
+            // Clear existing paginated content and height tracking
+            document.getElementById('paginatedContent').innerHTML = '';
+            pageHeights.clear();
+            
+            let currentElementIndex = 0;
+            let pageNumber = 1;
+            let { page, content } = createNewPage(pageNumber);
+            let table = null; // Will be created when needed for table rows
+            
+            let totalElementsPlaced = 0;
+            let pagesCreated = 1;
+            
+            while (currentElementIndex < processedElements.length) {
+                const currentItem = processedElements[currentElementIndex];
+                const elementHeight = elementHeights[currentElementIndex];
+                
+                const remainingSpace = getRemainingSpace(page);
+                
+                console.log(`Trying to place element ${currentElementIndex + 1} (${currentItem.type}, ${elementHeight}px) on page ${pageNumber} - Remaining: ${remainingSpace}px`);
+                
+                // Check if element fits (with 20px buffer for safety)
+                if (elementHeight <= remainingSpace - 20) {
+                    // Element fits - add it to current page
+                    if (currentItem.type === 'table-row') {
+                        // For table rows, add to tbody or create table if needed
+                        if (!table) {
+                            // Create table structure on current page if there's space
+                            // Add table structure to existing page
+                            const tableContainer = document.createElement('div');
+                            tableContainer.className = 'table-container';
+                            
+                            table = currentItem.parentTable.cloneNode(false); // Clone table structure without content
+                            const thead = currentItem.parentTable.querySelector('thead');
+                            if (thead) {
+                                table.appendChild(thead.cloneNode(true));
+                            }
+                            const tbody = document.createElement('tbody');
+                            table.appendChild(tbody);
+                            
+                            tableContainer.appendChild(table);
+                            content.appendChild(tableContainer);
+                        }
+                        const tbody = table.querySelector('tbody');
+                        if (tbody) {
+                            tbody.appendChild(currentItem.element.cloneNode(true));
+                        }
+                    } else if (currentItem.type === 'indivisible-content') {
+                        // Indivisible content (callouts, styled boxes) - must be placed as complete unit
+                        const clonedElement = currentItem.element.cloneNode(true);
+                        content.appendChild(clonedElement);
+                        // Reset table context since we're adding non-table content
+                        table = null;
+                    } else {
+                        // Regular element - preserve styling
+                        const clonedElement = currentItem.element.cloneNode(true);
+                        content.appendChild(clonedElement);
+                        // Reset table context since we're adding non-table content
+                        table = null;
+                    }
+                    
+                    totalElementsPlaced++;
+                    currentElementIndex++;
+                    
+                    // Update cumulative height tracking
+                    addElementHeightToPage(page, elementHeight);
+                    
+                    // Recalculate remaining space after adding element
+                    const newRemainingSpace = getRemainingSpace(page);
+                    console.log(`✓ Element ${currentElementIndex} (${elementHeight}px) placed on page ${pageNumber} - Used: ${elementHeight}px, New remaining: ${newRemainingSpace}px`);
+                } else {
+                    // Check if element is too large for any page
+                    const maxAvailableSpace = 1077; // pageHeightPx (1123) - paddingPx (46)
+                    if (elementHeight > maxAvailableSpace - 10) {
+                        console.log(`⚠️ Element ${currentElementIndex + 1} (${currentItem.type}, ${elementHeight}px) is too large for any page. Skipping.`);
+                        currentElementIndex++;
+                        continue;
+                    }
+                    
+                    // Element doesn't fit - create new page
+                    console.log(`✗ Element ${currentElementIndex + 1} doesn't fit, creating new page`);
+                    
+                    pageNumber++;
+                    pagesCreated++;
+                    const needsTable = currentItem.type === 'table-row';
+                    const newPageData = createNewPage(pageNumber, needsTable, currentItem.parentTable);
+                    page = newPageData.page;
+                    content = newPageData.content;
+                    table = newPageData.table;
+                    
+                    // Don't increment currentElementIndex - try placing the same element on new page
+                }
+            }
+            
+            console.log(`Pagination complete: ${totalElementsPlaced} elements placed across ${pagesCreated} pages`);
+            
+            showPaginated();
+            updateStatus(`Pagination complete! Created ${pagesCreated} pages with ${totalElementsPlaced} elements.`, 'success');
+            
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Fragrance Comparison</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 793px; /* A4 width in pixels */
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: 300;
+        }
+
+        .reference-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .reference-box h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.4em;
+            font-weight: 400;
+        }
+
+        .reference-notes {
+            font-size: 0.95em;
+            line-height: 1.4;
+            opacity: 0.9;
+        }
+
+        .table-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 1px solid #000;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            border: 1px solid #000;
+            word-wrap: break-word;
+        }
+
+        th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: left;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        td {
+            vertical-align: top;
+            font-size: 0.85em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f0f0;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        tr:hover {
+            background-color: #e3f2fd !important;
+            transition: background-color 0.3s ease;
+        }
+
+        .fragrance-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.9em;
+            margin-bottom: 3px;
+        }
+
+        .fragrance-name a {
+            color: #2c3e50;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .fragrance-name a:hover {
+            border-bottom-color: #3498db;
+        }
+
+        .inspired-by {
+            color: #7f8c8d;
+            font-size: 0.75em;
+            font-style: italic;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 700;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border: 2px solid #000;
+        }
+
+        .score-9, .score-10 { 
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+
+        .score-7, .score-8 { 
+            background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+            color: white;
+        }
+
+        .score-5, .score-6 { 
+            background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+            color: white;
+        }
+
+        .score-3, .score-4 { 
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+        }
+
+        .score-1, .score-2 { 
+            background: linear-gradient(135deg, #636e72 0%, #2d3436 100%);
+            color: white;
+        }
+
+        .notes {
+            line-height: 1.4;
+            color: #34495e;
+            font-size: 0.8em;
+        }
+
+        .notes-section {
+            margin: 6px 0;
+        }
+
+        .notes-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 5px;
+        }
+
+        .description {
+            line-height: 1.5;
+            color: #34495e;
+            font-size: 0.8em;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8e6cf 0%, #dcedc1 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .retailer {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .retailer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .retailer a:hover {
+            text-decoration: underline;
+        }
+        
+        .update-note {
+            text-align: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Column widths for A4 size */
+        th:nth-child(1), td:nth-child(1) {
+            width: 20%;
+        }
+        th:nth-child(2), td:nth-child(2) {
+            width: 25%;
+        }
+        th:nth-child(3), td:nth-child(3) {
+            width: 15%;
+        }
+        th:nth-child(4), td:nth-child(4) {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rose EDP Comparison vs AllSaints Ravaged Rose</h1>
+        
+        <div class="reference-box">
+            <h2>🌹 Reference: AllSaints Ravaged Rose</h2>
+            <div class="reference-notes">
+                <strong>Top:</strong> Italian bergamot, lemon sfuma, pink pepper Madagascar<br>
+                <strong>Middle:</strong> Rose damascena absolute, ivy greens, waterlily<br>
+                <strong>Base:</strong> Amber woods, soft musks, cedar<br>
+                <em>Character: Vibrant, provocative, floral, unisex, modern, edgy</em>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fragrance</th>
+                        <th>Fragrance Notes</th>
+                        <th>Closeness Score</th>
+                        <th>Description & Match Analysis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/inspired-by-atomic-rose-555-rose-fusion" target="_blank">555 ROSE FUSION</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Atomic Rose</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Bergamot, pink pepper
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Jasmine, rose
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Amber, vanilla
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-9">9/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Perfect match!</strong> Features the <span class="highlight">identical bergamot + pink pepper opening</span> as Ravaged Rose. Both share amber in the base and have a modern, bold rose character. The jasmine adds floral complexity similar to Ravaged Rose's ivy greens.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.spacenk.com/uk/en_GB/initio/atomic-rose-EDP-100ml/US-INS-ATR-100.html" target="_blank">Atomic Rose</a></div>
+                            <div class="inspired-by">Initio</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Pink pepper, bergamot
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Rose, jasmine
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Vanilla, musk, amber
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-9">9/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Exceptional match!</strong> Features the <span class="highlight">identical bergamot + pink pepper opening</span> as Ravaged Rose. Both share amber and musk in the base.
+                            <div class="retailer">Available at: <a href="https://www.spacenk.com/uk/en_GB/initio/atomic-rose-EDP-100ml/US-INS-ATR-100.html" target="_blank">Space NK</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.selfridges.com/GB/en/cat/le-labo-rose-31-100ml-edp_R03783009/" target="_blank">Rose 31</a></div>
+                            <div class="inspired-by">Le Labo</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Rose, cumin
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Cedar, vetiver
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Musk, amber, oud
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-9">9/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Excellent structural match!</strong> Shares the <span class="highlight">cedar and musk base notes</span> like Ravaged Rose. The cumin opening provides similar spicy impact to pink pepper.
+                            <div class="retailer">Available at: <a href="https://www.selfridges.com/GB/en/cat/le-labo-rose-31-100ml-edp_R03783009/" target="_blank">Selfridges</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.justmylook.com/products/swiss-arabian-rose-01-eau-de-parfum-50ml" target="_blank">SWISS ARABIAN ROSE 01</a></div>
+                            <div class="inspired-by">Original Creation</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Litchi, bergamot, pink pepper
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Bulgarian rose, peony, nutmeg
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Musk, vanilla, cashmeran
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-8">8/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Excellent match!</strong> Contains the <span class="highlight">exact bergamot + pink pepper combination</span> as Ravaged Rose with added litchi for fruity complexity. Bulgarian rose and musk create similar intensity.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.spacenk.com/uk/en_GB/byredo/young-rose-EDP-100ml/US-BYR-YOR-100.html" target="_blank">Young Rose</a></div>
+                            <div class="inspired-by">Byredo</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Sichuan pepper, bergamot
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Damask rose, iris
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Musk, amber
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-8">8/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Great modern alternative!</strong> Contains <span class="highlight">bergamot and pepper opening</span> with similar rose character. The Sichuan pepper adds a different but equally edgy spice profile.
+                            <div class="retailer">Available at: <a href="https://www.spacenk.com/uk/en_GB/byredo/young-rose-EDP-100ml/US-BYR-YOR-100.html" target="_blank">Space NK</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.cultbeauty.com/byredo-rose-of-no-mans-land-eau-de-parfum.html" target="_blank">Rose of No Man's Land</a></div>
+                            <div class="inspired-by">Byredo</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Pink pepper, Turkish rose
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Raspberry blossom
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Papyrus, white amber
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-8">8/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Excellent spicy-rose alternative!</strong> Shares the <span class="highlight">pink pepper opening</span> with Ravaged Rose. The white amber base provides a clean, modern feel.
+                            <div class="retailer">Available at: <a href="https://www.cultbeauty.com/byredo-rose-of-no-mans-land-eau-de-parfum.html" target="_blank">Cult Beauty</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/inspired-by-rose-31-622-romeo-31" target="_blank">622 ROMEO 31</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Rose 31</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Cumin, rose
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Cedar, rose, vetiver
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Agarwood (oud), guaiac wood, labdanum, musk, olibanum
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-7">7/10</div>
+                        </td>
+                        <td class="description">
+                            Strong match with <span class="highlight">cedar and musk</span> like Ravaged Rose. The spicy cumin opening provides similar impact to pink pepper. More woody and resinous than Ravaged Rose.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.libertylondon.com/uk/frederic-malle-portrait-of-a-lady-100ml-2100283013.html" target="_blank">Portrait of a Lady</a></div>
+                            <div class="inspired-by">Frédéric Malle</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Turkish rose, clove
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Raspberry, blackcurrant
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Patchouli, sandalwood
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-7">7/10</div>
+                        </td>
+                        <td class="description">
+                            <strong>Sophisticated alternative!</strong> Though more rose-forward, shares the <span class="highlight">spicy character</span> with clove instead of pepper.
+                            <div class="retailer">Available at: <a href="https://www.libertylondon.com/uk/frederic-malle-portrait-of-a-lady-100ml-2100283013.html" target="_blank">Liberty London</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/inspired-by-radical-rose-717-rose-revolution" target="_blank">717 ROSE REVOLUTION</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Radical Rose</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Key Notes:</span>Labdanum, patchouli, pepper, rose, saffron
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-6">6/10</div>
+                        </td>
+                        <td class="description">
+                            Features <span class="highlight">pepper and rose</span> combination similar to Ravaged Rose. The saffron adds spicy complexity. More oriental and resinous with labdanum and patchouli.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://soghaat.co.uk/rose-paris-100ml-edp-by-ard-al-zaafaran/" target="_blank">ARD AL ZAAFARAN ROSE PARIS</a></div>
+                            <div class="inspired-by">Original Creation</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Bergamot, orange, lemon
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Rose, freesia
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Sandalwood, musk
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-6">6/10</div>
+                        </td>
+                        <td class="description">
+                            Good citrus opening with <span class="highlight">bergamot like Ravaged Rose</span>, plus orange and lemon for brightness. The rose-musk combination provides similar floral intensity.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://www.thefragranceshop.co.uk/moschino/toy-boy/eau-de-parfum-spray/p/49615" target="_blank">MOSCHINO TOY BOY</a></div>
+                            <div class="inspired-by">Original Designer Creation</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Pink pepper, bergamot, pear, nutmeg, elemi
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Rose absolute, clove, magnolia, flax
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Vetiver, cashmeran, sandalwood, amber
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-5">5/10</div>
+                        </td>
+                        <td class="description">
+                            While it shares <span class="highlight">bergamot + pink pepper opening</span> on paper, Toy Boy performs very differently. <strong>Overly sweet opening</strong> dominates, with rose only emerging after 10-15 minutes.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://horace.com/en/product/oud-rose-eau-de-parfum" target="_blank">HORACE OUD ROSE</a></div>
+                            <div class="inspired-by">Original Creation - UK Store: Covent Garden</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Black currant, geranium, rosemary
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Damask rose, patchouli
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Oud, cypriol, sandalwood
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-3">3/10</div>
+                        </td>
+                        <td class="description">
+                            Features <span class="highlight">Damask rose</span> like Ravaged Rose but with aromatic herbs instead of citrus-spice opening. The oud-dominant base creates a completely different character.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/inspired-by-rose-prick-92-piercing-rose" target="_blank">92 PIERCING ROSE</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Rose Prick</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Bulgarian rose, May rose, Turkish rose
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Patchouli, tonka bean
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-3">3/10</div>
+                        </td>
+                        <td class="description">
+                            Pure rose focus with <span class="highlight">multiple rose varieties</span> like Ravaged Rose's damascena. However, lacks the citrus-spice opening and amber base.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/44-damascus-rose" target="_blank">44 DAMASCUS ROSE</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Oud Ispahan</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Top:</span>Labdanum
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Middle:</span>Indonesian patchouli
+                            </div>
+                            <div class="notes-section">
+                                <span class="notes-label">Base:</span>Laotian oud essence, sandalwood, Turkish rose
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-2">2/10</div>
+                        </td>
+                        <td class="description">
+                            Features <span class="highlight">Turkish rose</span> but in a heavily oriental composition. The labdanum and oud create a completely different character from Ravaged Rose's fresh, spicy opening.
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="fragrance-name"><a href="https://awscents.co.uk/products/inspired-by-velvet-rose-oud-591-rose-oud" target="_blank">591 ROSE OUD</a></div>
+                            <div class="inspired-by">AWScents - Inspired by Velvet Rose & Oud</div>
+                        </td>
+                        <td class="notes">
+                            <div class="notes-section">
+                                <span class="notes-label">Key Notes:</span>Agarwood, clove, Damask rose, praline
+                            </div>
+                        </td>
+                        <td>
+                            <div class="score score-2">2/10</div>
+                        </td>
+                        <td class="description">
+                            Contains <span class="highlight">Damask rose</span> like Ravaged Rose but in a heavily oud-dominated composition. The praline adds gourmand sweetness very different from Ravaged Rose's woody-amber drydown.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="update-note">
+            Table formatted to A4 width (793px) with all original entries and UK rose fragrances. Ordered by score descending with circular score indicators and black borders throughout.
+        </div>
+    </div>
+</body>
+</html>
