@@ -852,36 +852,6 @@
     max-height: none !important;
 }
 
-/* PRESERVE VISUAL FIDELITY: Ensure paginated pages inherit same CSS environment */
-.page {
-    /* Inherit the same background and font context as the original body */
-    background: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-}
-
-.page-content {
-    /* Ensure content has same positioning context as processed content */
-    position: relative;
-    /* Preserve any box-model properties that affect layout */
-    box-sizing: inherit;
-}
-
-/* Ensure tables in paginated content maintain their border-radius and styling */
-.page table {
-    border-collapse: inherit !important;
-    overflow: inherit !important;
-}
-
-.page .text-box {
-    /* Preserve text-box styling including fills and borders */
-    background: inherit !important;
-    border: inherit !important;
-    border-radius: inherit !important;
-}
-
 /* ========== END MINIMAL CLEANUP ========== */
             `;
             
@@ -1375,23 +1345,6 @@
             const content = document.createElement('div');
             content.className = 'page-content';
             
-            // PRESERVE CSS CONTEXT: Ensure paginated pages have same CSS environment as processed content
-            // Copy the body class and any data attributes that might affect CSS inheritance
-            const processedContent = document.getElementById('processedContent');
-            if (processedContent) {
-                const bodyElement = processedContent.closest('body') || document.body;
-                if (bodyElement.className) {
-                    page.classList.add(...bodyElement.className.split(' '));
-                }
-                
-                // Copy any data attributes that affect styling
-                Array.from(bodyElement.attributes).forEach(attr => {
-                    if (attr.name.startsWith('data-') && !page.hasAttribute(attr.name)) {
-                        page.setAttribute(attr.name, attr.value);
-                    }
-                });
-            }
-            
             // Add data attribute to help with CSS targeting
             content.setAttribute('data-preserve-spacing', 'true');
             
@@ -1718,10 +1671,25 @@
         function createPageFromElements(elements, pageNumber, container) {
             const { page, content } = createNewPage(pageNumber);
             
-            // Simple clone approach - trust the CSS cascade and inheritance
+            // Instead of cloning, MOVE elements while preserving their CSS context
+            // This maintains the exact same CSS environment as the processed version
             elements.forEach(element => {
-                const clonedElement = element.cloneNode(true);
-                content.appendChild(clonedElement);
+                // Create a wrapper that maintains the original CSS cascade
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'margin: 0; padding: 0; border: none; background: none;';
+                
+                // Move the original element (not clone) to preserve CSS context
+                const originalElement = element.cloneNode(true);
+                
+                // Copy ALL computed styles from the processed version to maintain fidelity
+                const computedStyles = window.getComputedStyle(element);
+                const cssText = Array.from(computedStyles).map(prop => 
+                    `${prop}: ${computedStyles.getPropertyValue(prop)}`
+                ).join('; ');
+                
+                originalElement.style.cssText = cssText;
+                wrapper.appendChild(originalElement);
+                content.appendChild(wrapper);
             });
             
             container.appendChild(page);
@@ -1806,15 +1774,43 @@
         function createTablePage(originalTable, thead, rows) {
             const tablePage = originalTable.cloneNode(false); // Clone table structure only
             
-            // Add header to each page (if exists)
+            // Copy ALL computed styles from original table to preserve visual fidelity
+            const originalStyles = window.getComputedStyle(originalTable);
+            const cssText = Array.from(originalStyles).map(prop => 
+                `${prop}: ${originalStyles.getPropertyValue(prop)}`
+            ).join('; ');
+            tablePage.style.cssText = cssText;
+            
+            // Add header to each page (if exists) with preserved styles
             if (thead) {
-                tablePage.appendChild(thead.cloneNode(true));
+                const clonedHeader = thead.cloneNode(true);
+                const headerStyles = window.getComputedStyle(thead);
+                const headerCssText = Array.from(headerStyles).map(prop => 
+                    `${prop}: ${headerStyles.getPropertyValue(prop)}`
+                ).join('; ');
+                clonedHeader.style.cssText = headerCssText;
+                tablePage.appendChild(clonedHeader);
             }
             
-            // Add tbody with the rows for this page
+            // Add tbody with the rows for this page with preserved styles
             const tbody = document.createElement('tbody');
+            const originalTbody = originalTable.querySelector('tbody');
+            if (originalTbody) {
+                const tbodyStyles = window.getComputedStyle(originalTbody);
+                const tbodyCssText = Array.from(tbodyStyles).map(prop => 
+                    `${prop}: ${tbodyStyles.getPropertyValue(prop)}`
+                ).join('; ');
+                tbody.style.cssText = tbodyCssText;
+            }
+            
             rows.forEach(row => {
-                tbody.appendChild(row.cloneNode(true));
+                const clonedRow = row.cloneNode(true);
+                const rowStyles = window.getComputedStyle(row);
+                const rowCssText = Array.from(rowStyles).map(prop => 
+                    `${prop}: ${rowStyles.getPropertyValue(prop)}`
+                ).join('; ');
+                clonedRow.style.cssText = rowCssText;
+                tbody.appendChild(clonedRow);
             });
             tablePage.appendChild(tbody);
             

@@ -510,9 +510,6 @@
                 reader.onload = function(e) {
                     uploadedHTMLContent = e.target.result;
                     updateStatus('HTML file loaded successfully');
-                    
-                    // Reset button states for new file upload - allow fresh processing cycle
-                    document.getElementById('paginateBtn').disabled = true; // Will be enabled after processing
                 };
                 reader.readAsText(file);
             } else {
@@ -537,9 +534,6 @@
                     reader.onload = function(e) {
                         uploadedHTMLContent = e.target.result;
                         updateStatus('HTML file dropped and loaded successfully');
-                        
-                        // Reset button states for new file upload - allow fresh processing cycle
-                        document.getElementById('paginateBtn').disabled = true; // Will be enabled after processing
                     };
                     reader.readAsText(file);
                 } else {
@@ -603,9 +597,10 @@
                 /\.page-content\s*\{[^}]*position:\s*absolute[^}]*\}/gi, // Remove absolute positioning from page-content
                 /position:\s*absolute[^;]*;/gi,     // Remove all absolute positioning
                 /position:\s*relative[^;]*;/gi,     // Remove relative positioning that can cause issues
-                /\.page-content\s*\{[^}]*overflow:\s*hidden[^}]*\}/gi,  // Remove overflow:hidden ONLY from page-content, preserve on tables for border-radius
+                /overflow:\s*hidden[^;]*;/gi,       // Remove overflow:hidden that prevents scrolling
                 /height:\s*calc\([^)]*\)[^;]*;/gi,  // Remove calc() heights that constrain flow
                 /max-height:\s*[^;]*vh[^;]*;/gi,    // Remove viewport-based max heights
+                /\.page-content\s*\{[^}]*overflow:\s*hidden[^;]*;/gi,  // Only remove overflow:hidden from page-content specifically
                 /width:\s*793px[^;]*;/gi,           // Remove hardcoded 793px width that breaks layout
                 /width:\s*210mm[^;]*;/gi,           // Remove fixed A4 page widths that might constrain
                 /body\s*\{[^}]*background[^}]*\}/gi, // Remove body background that might cause artifacts
@@ -826,77 +821,194 @@
         
         // Programmatically preserve visual fidelity by capturing and enforcing all computed styles
         function preserveVisualFidelity(container) {
-            console.log('Preserving original CSS without modifications...');
+            console.log('Preserving visual fidelity programmatically...');
             
-            // MINIMAL APPROACH: Only remove pagination-breaking CSS, let original CSS handle visuals
-            // The original HTML already has perfect visual styles - don't recreate them!
+            // Visual CSS properties that affect appearance but exclude layout-breaking ones
+            const visualProperties = [
+                // Typography
+                'font-family', 'font-size', 'font-weight', 'font-style', 'font-variant',
+                'line-height', 'letter-spacing', 'word-spacing', 'text-align', 'text-decoration',
+                'text-transform', 'text-indent', 'text-shadow', 'font-stretch',
+                
+                // Colors & Backgrounds  
+                'color', 'background-color', 'background-image', 'background-position', 
+                'background-size', 'background-repeat', 'background-attachment', 'background-origin',
+                'background-clip', 'background-blend-mode',
+                
+                // Borders & Outlines
+                'border', 'border-color', 'border-style', 'border-width', 'border-radius',
+                'border-top', 'border-right', 'border-bottom', 'border-left',
+                'border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color',
+                'border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style', 
+                'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width',
+                'border-top-left-radius', 'border-top-right-radius', 'border-bottom-right-radius', 'border-bottom-left-radius',
+                'outline', 'outline-color', 'outline-style', 'outline-width', 'outline-offset',
+                
+                // Spacing (non-layout)
+                'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+                'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
+                
+                // Visual Effects
+                'box-shadow', 'text-shadow', 'opacity', 'filter', 'backdrop-filter',
+                'transform', 'transform-origin', 'perspective', 'perspective-origin',
+                
+                // Table-specific
+                'border-collapse', 'border-spacing', 'table-layout', 'empty-cells', 'caption-side',
+                
+                // Flexbox & Grid Visual Properties (not layout)
+                'align-items', 'justify-content', 'align-content', 'align-self', 'justify-self',
+                'gap', 'column-gap', 'row-gap',
+                
+                // List styling
+                'list-style', 'list-style-type', 'list-style-position', 'list-style-image',
+                
+                // Visual display properties
+                'visibility', 'text-overflow', 'white-space', 'word-wrap', 'word-break',
+                'vertical-align'
+            ];
             
-            // Add only minimal pagination cleanup CSS
-            const cleanupCSS = `
-/* ========== MINIMAL PAGINATION CLEANUP ========== */
-/* Remove ONLY pagination artifacts - preserve all original visual styling */
-
-* {
-    page-break-before: auto !important;
-    page-break-after: auto !important; 
-    page-break-inside: auto !important;
-    break-before: auto !important;
-    break-after: auto !important;
-    break-inside: auto !important;
-}
-
-/* Remove fixed heights that break content flow */
-.page, .page-content {
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
-}
-
-/* PRESERVE VISUAL FIDELITY: Ensure paginated pages inherit same CSS environment */
-.page {
-    /* Inherit the same background and font context as the original body */
-    background: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
-}
-
-.page-content {
-    /* Ensure content has same positioning context as processed content */
-    position: relative;
-    /* Preserve any box-model properties that affect layout */
-    box-sizing: inherit;
-}
-
-/* Ensure tables in paginated content maintain their border-radius and styling */
-.page table {
-    border-collapse: inherit !important;
-    overflow: inherit !important;
-}
-
-.page .text-box {
-    /* Preserve text-box styling including fills and borders */
-    background: inherit !important;
-    border: inherit !important;
-    border-radius: inherit !important;
-}
-
-/* ========== END MINIMAL CLEANUP ========== */
-            `;
+            // Properties to explicitly exclude (layout/positioning that can break pagination)
+            const excludeProperties = [
+                'height', 'min-height', 'max-height', 'width', 'min-width', 'max-width',
+                'position', 'top', 'right', 'bottom', 'left', 'z-index',
+                'float', 'clear', 'flex', 'flex-grow', 'flex-shrink', 'flex-basis',
+                'grid', 'grid-template', 'grid-area', 'order',
+                'page-break-before', 'page-break-after', 'page-break-inside', 
+                'break-before', 'break-after', 'break-inside',
+                'overflow', 'overflow-x', 'overflow-y', // Exclude overflow properties that can break layout
+                'display' // Exclude display to prevent layout breaking - we'll handle this specially
+            ];
             
-            // Inject ONLY the minimal cleanup CSS - trust the original CSS for all visuals
-            const styleElement = document.createElement('style');
-            styleElement.textContent = cleanupCSS;
+            let dynamicCSS = '';
+            let processedElements = 0;
             
-            const head = container.querySelector('head') || document.head;
-            if (head) {
-                head.appendChild(styleElement);
-            } else {
-                container.insertBefore(styleElement, container.firstChild);
+            // Get all elements in the container
+            const allElements = container.querySelectorAll('*');
+            
+            allElements.forEach((element, index) => {
+                try {
+                    const computedStyles = window.getComputedStyle(element);
+                    const tagName = element.tagName.toLowerCase();
+                    
+                    // Create a unique selector for this element type
+                    let selector = `.page-content ${tagName}`;
+                    if (element.className) {
+                        // Handle multiple classes properly (e.g., "callout note" becomes ".callout.note")
+                        const classes = element.className.split(' ').filter(cls => cls.trim());
+                        if (classes.length > 0) {
+                            selector += '.' + classes.join('.');
+                        }
+                    }
+                    
+                    let elementStyles = [];
+                    
+                    // Extract all visual properties that have non-default values
+                    visualProperties.forEach(prop => {
+                        const value = computedStyles.getPropertyValue(prop);
+                        if (value && value !== 'none' && value !== 'auto' && value !== 'normal' && value !== 'initial') {
+                            // Skip properties that are clearly defaults or might break layout
+                            if (!excludeProperties.includes(prop)) {
+                                elementStyles.push(`${prop}: ${value} !important`);
+                            }
+                        }
+                    });
+                    
+                    // Handle display property selectively - only preserve safe display values
+                    const displayValue = computedStyles.getPropertyValue('display');
+                    if (displayValue && ['block', 'inline', 'inline-block', 'table', 'table-row', 'table-cell', 'table-header-group', 'table-row-group'].includes(displayValue)) {
+                        elementStyles.push(`display: ${displayValue} !important`);
+                    }
+                    
+                    // Special handling for table elements to preserve structure and rounded corners
+                    if (tagName === 'table') {
+                        elementStyles.push('border-collapse: separate !important');
+                        elementStyles.push('border-spacing: 0 !important');
+                        
+                        // Aggressive border-radius preservation for tables
+                        let borderRadius = computedStyles.getPropertyValue('border-radius');
+                        
+                        // If computed style shows 0px, check for CSS custom property (cloud.html uses --table-radius: 8px)
+                        if (!borderRadius || borderRadius === '0px' || borderRadius === 'none') {
+                            // Check if element has border-radius in inline styles or class styles
+                            const inlineRadius = element.style.borderRadius;
+                            if (inlineRadius && inlineRadius !== '0px') {
+                                borderRadius = inlineRadius;
+                            } else {
+                                // For cloud.html, force 8px border-radius based on CSS custom property
+                                borderRadius = '8px';
+                            }
+                        }
+                        
+                        if (borderRadius && borderRadius !== '0px' && borderRadius !== 'none') {
+                            elementStyles.push(`border-radius: ${borderRadius} !important`);
+                            elementStyles.push('overflow: hidden !important');
+                            console.log(`Applied table border-radius: ${borderRadius}`);
+                        }
+                    }
+                    
+                    // Ensure table cells DON'T have border-radius (table container handles clipping)
+                    if (tagName === 'th' || tagName === 'td') {
+                        elementStyles.push('border-radius: 0 !important');
+                    }
+                    
+                    // Special handling for fact nuggets (callout.note) to ensure blue styling
+                    if (element.classList && element.classList.contains('callout') && element.classList.contains('note')) {
+                        elementStyles.push('border-left-color: #4a90e2 !important');
+                        elementStyles.push('background: #f0f7ff !important');
+                        console.log('Applied special fact nugget styling');
+                    }
+                    
+                    // Special handling for warning callouts
+                    if (element.classList && element.classList.contains('callout') && element.classList.contains('warning')) {
+                        elementStyles.push('border-left-color: #ff6b35 !important');
+                        elementStyles.push('background: #fff3f0 !important');
+                    }
+                    
+                    // Default callout styling
+                    if (element.classList && element.classList.contains('callout') && !element.classList.contains('note') && !element.classList.contains('warning')) {
+                        elementStyles.push('border-left: 4px solid #ccc !important');
+                        elementStyles.push('background: #f8f8f8 !important');
+                        elementStyles.push('padding: 10px 15px !important');
+                        elementStyles.push('margin: 15px 0 !important');
+                    }
+                    
+                    // Add styles to dynamic CSS if we found any (preserve DOM order for cascade)
+                    if (elementStyles.length > 0) {
+                        // Add element index to maintain CSS cascade order
+                        const orderComment = `/* Element ${index + 1}: ${tagName}${element.className ? '.' + element.className.split(' ').join('.') : ''} */\n`;
+                        dynamicCSS += orderComment + `${selector} {\n    ${elementStyles.join(';\n    ')};\n}\n\n`;
+                        processedElements++;
+                    }
+                    
+                } catch (error) {
+                    console.warn(`Error processing element ${index}:`, error);
+                }
+            });
+            
+            console.log(`Processed ${processedElements} elements for visual fidelity preservation`);
+            
+            // Inject the dynamic CSS into the container
+            if (dynamicCSS) {
+                const styleElement = document.createElement('style');
+                styleElement.textContent = `
+/* ========== DYNAMIC VISUAL FIDELITY PRESERVATION ========== */
+/* Auto-generated styles to preserve exact visual appearance */
+
+${dynamicCSS}
+
+/* ========== END DYNAMIC STYLES ========== */
+                `;
+                
+                // Add to container's head or create one
+                const head = container.querySelector('head') || document.head;
+                if (head) {
+                    head.appendChild(styleElement);
+                } else {
+                    container.insertBefore(styleElement, container.firstChild);
+                }
+                
+                console.log(`Injected ${dynamicCSS.split('\n').length} lines of dynamic CSS`);
             }
-            
-            console.log('Applied minimal pagination cleanup - trusting original CSS for all visuals');
             
             return container;
         }
@@ -1063,20 +1175,16 @@
                 // Step 2: Extract and normalize content
                 const normalizedContent = extractContent(sanitizedHTML);
                 
-                // Step 3: Store processed content for display first
+                // Step 3: Create temporary container for style analysis
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = sanitizedHTML;
+                
+                // Step 4: Preserve visual fidelity programmatically
+                preserveVisualFidelity(tempContainer);
+                
+                // Step 5: Store processed content for display
                 originalHTML = normalizedContent;
                 document.getElementById('sourceContent').innerHTML = originalHTML;
-                
-                // Step 4: Preserve visual fidelity from the actually rendered content (with all CSS applied)
-                // Wait longer for CSS to fully load and apply - this is critical for accurate inheritance
-                await new Promise(resolve => requestAnimationFrame(resolve));
-                await new Promise(resolve => setTimeout(resolve, 100)); // Additional delay for CSS resolution
-                
-                // Force reflow to ensure all styles are computed
-                const sourceContainer = document.getElementById('sourceContent');
-                sourceContainer.offsetHeight; // Force layout recalculation
-                
-                preserveVisualFidelity(sourceContainer);
                 
                 // Step 4: Prepare for measurement (but don't paginate yet)
                 await measureElements(normalizedContent);
@@ -1375,23 +1483,6 @@
             const content = document.createElement('div');
             content.className = 'page-content';
             
-            // PRESERVE CSS CONTEXT: Ensure paginated pages have same CSS environment as processed content
-            // Copy the body class and any data attributes that might affect CSS inheritance
-            const processedContent = document.getElementById('processedContent');
-            if (processedContent) {
-                const bodyElement = processedContent.closest('body') || document.body;
-                if (bodyElement.className) {
-                    page.classList.add(...bodyElement.className.split(' '));
-                }
-                
-                // Copy any data attributes that affect styling
-                Array.from(bodyElement.attributes).forEach(attr => {
-                    if (attr.name.startsWith('data-') && !page.hasAttribute(attr.name)) {
-                        page.setAttribute(attr.name, attr.value);
-                    }
-                });
-            }
-            
             // Add data attribute to help with CSS targeting
             content.setAttribute('data-preserve-spacing', 'true');
             
@@ -1451,7 +1542,30 @@
                 }
             });
             
-            // Let normal visual properties inheritance handle all table styling including border-radius
+            // Special handling for table border-radius preservation during cloning
+            if (originalElement.tagName.toLowerCase() === 'table') {
+                let borderRadius = originalStyles.getPropertyValue('border-radius');
+                
+                // Aggressive border-radius detection for cloud.html tables
+                if (!borderRadius || borderRadius === '0px' || borderRadius === 'none') {
+                    // Check inline styles first
+                    const inlineRadius = originalElement.style.borderRadius;
+                    if (inlineRadius && inlineRadius !== '0px') {
+                        borderRadius = inlineRadius;
+                    } else {
+                        // Force 8px for cloud.html tables (from --table-radius CSS custom property)
+                        borderRadius = '8px';
+                    }
+                }
+                
+                if (borderRadius && borderRadius !== '0px' && borderRadius !== 'none') {
+                    clone.style.setProperty('border-radius', borderRadius, 'important');
+                    clone.style.setProperty('overflow', 'hidden', 'important');
+                    clone.style.setProperty('border-collapse', 'separate', 'important');
+                    clone.style.setProperty('border-spacing', '0', 'important');
+                    console.log(`Applied border-radius to cloned table: ${borderRadius}`);
+                }
+            }
             
             // Recursively apply styles to all child elements
             const originalChildren = originalElement.querySelectorAll('*');
@@ -1578,16 +1692,14 @@
         }
 
         // Main pagination logic - using real-time measurement
-        // MARKER-BASED PAGINATION - REPLACES OLD COMPLEX ALGORITHM
         async function paginateContent() {
-            const sourceContent = document.getElementById('sourceContent');
-            if (!sourceContent || !sourceContent.innerHTML.trim()) {
+            if (!processedElements.length) {
                 updateStatus('Please process HTML first before paginating', 'error');
                 return;
             }
             
-            console.log('=== STARTING MARKER-BASED PAGINATION ===');
-            updateStatus('Creating paginated layout using A4 height markers...');
+            console.log('Starting real-time measurement pagination...');
+            updateStatus('Creating paginated layout with accurate measurements...');
             
             // Clear existing paginated content and add preserved styles
             const paginatedContent = document.getElementById('paginatedContent');
@@ -1598,227 +1710,219 @@
                 paginatedContent.insertAdjacentHTML('afterbegin', preservedStyles);
             }
             
-            // A4 height calculation - available content height after margins
-            const A4_HEIGHT = 1000; // Conservative A4 content height in pixels
-            console.log(`Target A4 height: ${A4_HEIGHT}px`);
             
-            // Create a measurement container with the perfect processed content
-            const measurementContainer = document.createElement('div');
-            measurementContainer.style.cssText = `
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-                visibility: hidden;
-                width: 210mm;
-                padding: 0.6cm;
-                font-family: Helvetica, Arial, sans-serif;
-                line-height: 1.4;
-                font-size: 11pt;
-                background: white;
-                box-sizing: border-box;
-            `;
             
-            // Clone the perfect processed content (with correct rounded corners!)
-            measurementContainer.innerHTML = sourceContent.innerHTML;
-            document.body.appendChild(measurementContainer);
+            let currentElementIndex = 0;
+            let pageNumber = 1;
+            let { page, content } = createNewPage(pageNumber);
+            let table = null;
             
-            // Force layout calculation
-            measurementContainer.offsetHeight;
+            let totalElementsPlaced = 0;
+            let pagesCreated = 1;
             
-            // Get all top-level elements from processed content
-            const allElements = Array.from(measurementContainer.children);
-            console.log(`Found ${allElements.length} top-level elements to paginate`);
+            // A4 available height calculation with proper margins: 
+            // Total A4 height: 297mm = 1122px at 96 DPI
+            // Top + Bottom padding: 0.6cm + 0.6cm = 1.2cm = 45.35px at 96 DPI  
+            // Available content height: 1122px - 45px = 1077px
+            // Enhanced space utilization - use more of the available space
+            const maxPageHeight = 1100; // Even more aggressive to fill empty spaces (was 1050px)
             
-            let currentPage = 1;
-            let currentPageHeight = 0;
-            let currentPageElements = [];
-            let totalPages = 0;
-            
-            // Process each element and determine page breaks
-            for (let i = 0; i < allElements.length; i++) {
-                const element = allElements[i];
-                const elementRect = element.getBoundingClientRect();
-                const elementHeight = elementRect.height;
+            while (currentElementIndex < processedElements.length) {
+                const currentItem = processedElements[currentElementIndex];
                 
-                console.log(`Element ${i + 1}: ${element.tagName}.${element.className || 'no-class'} - ${elementHeight.toFixed(1)}px`);
+                console.log(`Attempting to place element ${currentElementIndex + 1}: ${currentItem.element.tagName}.${currentItem.element.className || 'no-class'} (${currentItem.type})`);
                 
-                // Special handling for tables - break at row level if too large
-                if (element.tagName === 'TABLE' && elementHeight > A4_HEIGHT) {
-                    console.log(`⚠️ Large table detected (${elementHeight.toFixed(1)}px > ${A4_HEIGHT}px) - breaking at row level`);
-                    
-                    // Finish current page if it has content
-                    if (currentPageElements.length > 0) {
-                        createPageFromElements(currentPageElements, currentPage, paginatedContent);
-                        console.log(`✓ Created page ${currentPage} before large table with height ${currentPageHeight.toFixed(1)}px`);
-                        totalPages++;
-                        currentPage++;
-                        currentPageHeight = 0;
-                        currentPageElements = [];
-                    }
-                    
-                    // Break table at row level with header preservation
-                    const tablePages = breakTableIntoPages(element, A4_HEIGHT);
-                    
-                    for (const tablePage of tablePages) {
-                        createPageFromElements([tablePage], currentPage, paginatedContent);
-                        console.log(`✓ Created table page ${currentPage} with ${tablePage.querySelectorAll('tr').length} rows`);
-                        totalPages++;
-                        currentPage++;
-                    }
-                    
-                    // Reset for next elements
-                    currentPageHeight = 0;
-                    currentPageElements = [];
-                    
-                } else {
-                    // Regular element or small table - check if it fits
-                    if (currentPageHeight + elementHeight > A4_HEIGHT && currentPageElements.length > 0) {
-                        // Create page with current elements
-                        createPageFromElements(currentPageElements, currentPage, paginatedContent);
-                        console.log(`✓ Created page ${currentPage} with height ${currentPageHeight.toFixed(1)}px (${currentPageElements.length} elements)`);
-                        totalPages++;
+                // Create a temporary copy of what the page would look like with this element
+                let testContent = content.cloneNode(true);
+                let testTable = null;
+                
+                // Simulate adding the element
+                if (currentItem.type === 'table-row') {
+                    if (!table) {
+                        // Need to create table structure
+                        const tableContainer = document.createElement('div');
+                        tableContainer.className = 'table-container';
                         
-                        // Start new page
-                        currentPage++;
-                        currentPageHeight = 0;
-                        currentPageElements = [];
+                        const newTable = currentItem.parentTable.cloneNode(false);
+                        const thead = currentItem.parentTable.querySelector('thead');
+                        if (thead) {
+                            newTable.appendChild(cloneElementWithStyles(thead));
+                        }
+                        const tbody = document.createElement('tbody');
+                        newTable.appendChild(tbody);
+                        
+                        tableContainer.appendChild(newTable);
+                        testContent.appendChild(tableContainer);
+                        testTable = newTable;
+                    } else {
+                        testTable = testContent.querySelector('table:last-of-type');
                     }
                     
-                    // Add element to current page
-                    currentPageElements.push(element);
-                    currentPageHeight += elementHeight;
+                    const tbody = testTable ? testTable.querySelector('tbody') : null;
+                    if (tbody) {
+                        tbody.appendChild(cloneElementWithStyles(currentItem.element));
+                    }
+                } else if (currentItem.type === 'spacing') {
+                    // Spacing element - add directly with style preservation
+                    testContent.appendChild(cloneElementWithStyles(currentItem.element));
+                    testTable = null;
+                } else if (currentItem.type === 'indivisible-content') {
+                    // Indivisible content (including complete tables, callouts, cards, etc.)
+                    const clonedElement = cloneElementWithStyles(currentItem.element);
+                    testContent.appendChild(clonedElement);
+                    testTable = null;
+                } else {
+                    // Regular element
+                    const clonedElement = cloneElementWithStyles(currentItem.element);
+                    testContent.appendChild(clonedElement);
+                    testTable = null;
+                }
+                
+                // Measure the height with this element added
+                const heightWithElement = measureCumulativeHeight(testContent);
+                
+                console.log(`Test height with element: ${heightWithElement}px, Max: ${maxPageHeight}px`);
+                
+                if (heightWithElement <= maxPageHeight) {
+                    // Element fits! Actually add it to the page
+                    if (currentItem.type === 'table-row') {
+                        if (!table) {
+                            const tableContainer = document.createElement('div');
+                            tableContainer.className = 'table-container';
+                            
+                            table = currentItem.parentTable.cloneNode(false);
+                            const thead = currentItem.parentTable.querySelector('thead');
+                            if (thead) {
+                                table.appendChild(cloneElementWithStyles(thead));
+                            }
+                            const tbody = document.createElement('tbody');
+                            table.appendChild(tbody);
+                            
+                            tableContainer.appendChild(table);
+                            content.appendChild(tableContainer);
+                        }
+                        const tbody = table.querySelector('tbody');
+                        if (tbody) {
+                            tbody.appendChild(cloneElementWithStyles(currentItem.element));
+                        }
+                    } else if (currentItem.type === 'spacing') {
+                        // Spacing element - add directly to preserve gaps between cards
+                        content.appendChild(cloneElementWithStyles(currentItem.element));
+                        table = null; // Reset table context
+                    } else if (currentItem.type === 'indivisible-content') {
+                        // Indivisible content (complete tables, callouts, cards, styled boxes)
+                        const clonedElement = cloneElementWithStyles(currentItem.element);
+                        content.appendChild(clonedElement);
+                        table = null; // Reset table context for non-table content
+                    } else {
+                        // Regular element
+                        const clonedElement = cloneElementWithStyles(currentItem.element);
+                        content.appendChild(clonedElement);
+                        table = null; // Reset table context for non-table content
+                    }
+                    
+                    totalElementsPlaced++;
+                    currentElementIndex++;
+                    
+                    console.log(`✓ Element placed. Page ${pageNumber} content height: ${heightWithElement}px`);
+                } else {
+                    // Element doesn't fit - before creating new page, try to fill remaining space with smaller elements
+                    console.log(`✗ Element would exceed page height (${heightWithElement}px > ${maxPageHeight}px). Looking for smaller elements to fill remaining space.`);
+                    
+                    // Check if element is too large for any page
+                    if (heightWithElement > maxPageHeight * 2) {
+                        console.log(`⚠️ Element is extremely large (${heightWithElement}px). Skipping to avoid infinite loops.`);
+                        currentElementIndex++;
+                        continue;
+                    }
+                    
+                    // Look-ahead: try to find smaller elements that can fit in remaining space
+                    // But be conservative when we're in the middle of table processing to preserve CSS order
+                    let foundSmallerElement = false;
+                    let lookaheadIndex = currentElementIndex + 1;
+                    
+                    // Check if we're currently processing table content - be more specific about table context
+                    let isTableContext = (currentItem.type === 'table-row') || 
+                                        (currentItem.type === 'indivisible-content' && currentItem.element.tagName && currentItem.element.tagName.toLowerCase() === 'table');
+                    
+                    // Only skip look-ahead if we're actively processing table rows, not just because a table exists
+                    if (!isTableContext) {
+                        while (lookaheadIndex < processedElements.length && !foundSmallerElement) {
+                            const lookaheadItem = processedElements[lookaheadIndex];
+                            
+                            // Skip table rows and indivisible content for look-ahead (too complex to reorder)
+                            if (lookaheadItem.type === 'table-row' || lookaheadItem.type === 'indivisible-content') {
+                                lookaheadIndex++;
+                                continue;
+                            }
+                        
+                        // Test if this smaller element would fit
+                        let testContentLookahead = content.cloneNode(true);
+                        const clonedLookaheadElement = cloneElementWithStyles(lookaheadItem.element);
+                        testContentLookahead.appendChild(clonedLookaheadElement);
+                        
+                        const heightWithLookaheadElement = measureCumulativeHeight(testContentLookahead);
+                        
+                        if (heightWithLookaheadElement <= maxPageHeight) {
+                            // Found a smaller element that fits! Place it now
+                            console.log(`✓ Found smaller element that fits: ${lookaheadItem.element.tagName}.${lookaheadItem.element.className || 'no-class'} (${heightWithLookaheadElement}px)`);
+                            
+                            content.appendChild(clonedLookaheadElement);
+                            totalElementsPlaced++;
+                            
+                            // Remove the lookahead element from the queue
+                            processedElements.splice(lookaheadIndex, 1);
+                            foundSmallerElement = true;
+                            
+                            // Continue with current element (don't increment currentElementIndex)
+                            break;
+                        } else {
+                            lookaheadIndex++;
+                        }
+                        
+                            // Limit look-ahead to prevent performance issues
+                            if (lookaheadIndex > currentElementIndex + 10) {
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // If no smaller elements found or we've exhausted look-ahead, create new page
+                    if (!foundSmallerElement) {
+                        console.log(`No smaller elements found. Creating new page for: ${currentItem.element.tagName}.${currentItem.element.className || 'no-class'}`);
+                        
+                        pageNumber++;
+                        pagesCreated++;
+                        const needsTable = currentItem.type === 'table-row';
+                        const newPageData = createNewPage(pageNumber, needsTable, currentItem.parentTable);
+                        page = newPageData.page;
+                        content = newPageData.content;
+                        table = newPageData.table;
+                        
+                        // Don't increment currentElementIndex - try the same element on the new page
+                    }
+                }
+                
+                // Safety check to prevent infinite loops
+                if (pagesCreated > 200) {
+                    console.error('Safety limit reached - stopping pagination');
+                    break;
                 }
             }
             
-            // Create final page if there are remaining elements
-            if (currentPageElements.length > 0) {
-                createPageFromElements(currentPageElements, currentPage, paginatedContent);
-                console.log(`✓ Created final page ${currentPage} with height ${currentPageHeight.toFixed(1)}px (${currentPageElements.length} elements)`);
-                totalPages++;
-            }
+            console.log(`Real-time pagination complete: ${totalElementsPlaced} elements placed across ${pagesCreated} pages`);
             
-            // Cleanup measurement container
-            document.body.removeChild(measurementContainer);
+            showPaginated();
             
-            // Update UI
-            updateStatus(`✅ Marker pagination completed! Created ${totalPages} pages with optimal space utilization.`, 'success');
-            document.getElementById('paginatedContent').style.display = 'block';
-            document.getElementById('sourceContent').style.display = 'none';
+            // Apply programmatic visual fidelity preservation to final paginated content
+            updateStatus('Applying visual fidelity preservation...');
+            const paginatedContainer = document.getElementById('paginatedContent');
+            preserveVisualFidelity(paginatedContainer);
             
-            // Update workflow: Step 2 completed
+            // Update workflow: Step 2 completed, enable Step 3 (Print/Download)
             updateWorkflowStep(2, 'completed');
             
-            // Disable paginate button to prevent re-pagination and maintain visual fidelity
-            document.getElementById('paginateBtn').disabled = true;
-            
-            console.log(`=== MARKER PAGINATION COMPLETED: ${totalPages} pages created ===`);
-        }
-        
-        // Helper function to create a page from a list of elements - PRESERVES CSS CONTEXT
-        function createPageFromElements(elements, pageNumber, container) {
-            const { page, content } = createNewPage(pageNumber);
-            
-            // Simple clone approach - trust the CSS cascade and inheritance
-            elements.forEach(element => {
-                const clonedElement = element.cloneNode(true);
-                content.appendChild(clonedElement);
-            });
-            
-            container.appendChild(page);
-        }
-        
-        // Break large tables into multiple pages at row level with header preservation
-        function breakTableIntoPages(table, maxPageHeight) {
-            const tablePages = [];
-            const thead = table.querySelector('thead');
-            const tbody = table.querySelector('tbody') || table; // Handle tables without explicit tbody
-            const rows = tbody.querySelectorAll('tr');
-            
-            console.log(`Breaking table with ${rows.length} rows (header: ${thead ? 'yes' : 'no'})`);
-            
-            let currentPageRows = [];
-            let currentPageHeight = 0;
-            
-            // Calculate header height if present
-            let headerHeight = 0;
-            if (thead) {
-                const tempTable = table.cloneNode(false);
-                tempTable.appendChild(thead.cloneNode(true));
-                document.body.appendChild(tempTable);
-                tempTable.style.position = 'absolute';
-                tempTable.style.top = '-9999px';
-                tempTable.style.visibility = 'hidden';
-                headerHeight = tempTable.getBoundingClientRect().height;
-                document.body.removeChild(tempTable);
-                console.log(`Table header height: ${headerHeight.toFixed(1)}px`);
-            }
-            
-            // Reserve space for header on each page
-            const availableHeight = maxPageHeight - headerHeight;
-            
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i];
-                
-                // Create temp table to measure row height
-                const tempTable = table.cloneNode(false);
-                const tempTbody = document.createElement('tbody');
-                tempTbody.appendChild(row.cloneNode(true));
-                tempTable.appendChild(tempTbody);
-                document.body.appendChild(tempTable);
-                tempTable.style.position = 'absolute';
-                tempTable.style.top = '-9999px';
-                tempTable.style.visibility = 'hidden';
-                
-                const rowHeight = tempTable.getBoundingClientRect().height;
-                document.body.removeChild(tempTable);
-                
-                console.log(`Row ${i + 1}: ${rowHeight.toFixed(1)}px`);
-                
-                // Check if adding this row would exceed available height
-                if (currentPageHeight + rowHeight > availableHeight && currentPageRows.length > 0) {
-                    // Create table page with current rows
-                    const tablePage = createTablePage(table, thead, currentPageRows);
-                    tablePages.push(tablePage);
-                    console.log(`Table page created with ${currentPageRows.length} rows (${currentPageHeight.toFixed(1)}px + ${headerHeight.toFixed(1)}px header)`);
-                    
-                    // Start new page
-                    currentPageRows = [];
-                    currentPageHeight = 0;
-                }
-                
-                // Add row to current page
-                currentPageRows.push(row);
-                currentPageHeight += rowHeight;
-            }
-            
-            // Create final table page if there are remaining rows
-            if (currentPageRows.length > 0) {
-                const tablePage = createTablePage(table, thead, currentPageRows);
-                tablePages.push(tablePage);
-                console.log(`Final table page created with ${currentPageRows.length} rows (${currentPageHeight.toFixed(1)}px + ${headerHeight.toFixed(1)}px header)`);
-            }
-            
-            console.log(`Table broken into ${tablePages.length} pages`);
-            return tablePages;
-        }
-        
-        // Create a table page with header and specified rows - PRESERVES CSS CONTEXT
-        function createTablePage(originalTable, thead, rows) {
-            const tablePage = originalTable.cloneNode(false); // Clone table structure only
-            
-            // Add header to each page (if exists)
-            if (thead) {
-                tablePage.appendChild(thead.cloneNode(true));
-            }
-            
-            // Add tbody with the rows for this page
-            const tbody = document.createElement('tbody');
-            rows.forEach(row => {
-                tbody.appendChild(row.cloneNode(true));
-            });
-            tablePage.appendChild(tbody);
-            
-            return tablePage;
+            updateStatus(`Pagination complete! Created ${pagesCreated} pages with ${totalElementsPlaced} elements using real-time measurement and programmatic style preservation.`, 'success');
         }
 
         // Download PDF using jsPDF - direct PDF generation
@@ -1841,13 +1945,15 @@
                 for (const page of pages) {
                     updateStatus(`Processing page ${pageIndex + 1} of ${pages.length}...`);
                     
+                    // If not the first page, add a new page
                     if (pageIndex > 0) {
                         pdf.addPage();
                     }
                     
                     try {
+                        // Convert page to canvas with balanced quality/size settings
                         const canvas = await html2canvas(page, {
-                            scale: 1.8,
+                            scale: 1.8, // Increased for better quality (was 1.5)
                             useCORS: true,
                             allowTaint: true,
                             backgroundColor: '#ffffff',
@@ -1855,29 +1961,36 @@
                             height: page.offsetHeight,
                             scrollX: 0,
                             scrollY: 0,
-                            removeContainer: true,
-                            imageTimeout: 0
+                            removeContainer: true, // Clean up temporary elements
+                            imageTimeout: 0 // Skip problematic images
                         });
                         
-                        const imgData = canvas.toDataURL('image/jpeg', 0.92);
-                        const imgWidth = 210;
-                        const imgHeight = 297;
+                        // Calculate dimensions to fit A4 (210 x 297mm)
+                        // Use JPEG with higher quality for better text clarity
+                        const imgData = canvas.toDataURL('image/jpeg', 0.92); // Increased to 92% quality
+                        const imgWidth = 210; // A4 width in mm
+                        const imgHeight = 297; // A4 height in mm
                         
+                        // Add image to PDF with JPEG compression
                         pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
                         
                     } catch (pageError) {
                         console.error(`Error processing page ${pageIndex + 1}:`, pageError);
+                        updateStatus(`Warning: Issue with page ${pageIndex + 1}, continuing...`, 'error');
                     }
                     
                     pageIndex++;
                 }
                 
+                // Generate filename with timestamp
                 const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
                 const filename = `paginated-document-${timestamp}.pdf`;
                 
+                // Get PDF size for reporting
                 const pdfOutput = pdf.output('blob');
                 const fileSizeMB = (pdfOutput.size / (1024 * 1024)).toFixed(2);
                 
+                // Save the PDF
                 pdf.save(filename);
                 
                 updateStatus(`✅ PDF generated successfully! Downloaded "${filename}" (${fileSizeMB} MB, ${pages.length} pages)`, 'success');

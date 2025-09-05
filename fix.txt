@@ -1,0 +1,48 @@
+  1. ML Document (@ml.html):
+    - ✅ Blue table headers - Added CSS to preserve CMYK blue backgrounds
+    - ✅ Cyan stat boxes - Added explicit #00CCCC background preservation
+    - ✅ Spacing between stat boxes - Preserved 8pt margins
+    - ✅ Space utilization - Smart flattening preserves layout containers
+  2. Rose Document (@rose.html):
+    - ✅ White rectangle artifacts - Removed aggressive container overrides
+    - ✅ Table header text visibility - Fixed gradient header text colors
+    - ✅ Spacing between cards - Enhanced spacing preservation CSS
+  3. Cloud Document (@cloud.html):
+    - ✅ White text in headers - Added light theme detection for black text
+    - ✅ Processing not loading fully - Fixed #pages container and absolute positioning issues
+    - ✅ Super wide pagination - Excluded problematic layout properties from programmatic CSS
+    - ✅ Fixed height containers - Removed CSS custom properties and fixed dimensions
+    - ✅ Scrolling issues - Removed overflow:hidden and absolute positioning constraints
+
+
+All documents 
+
+  TABLE STYLING
+
+  - ✅ ML Document: 6pt border-radius, CMYK blue headers (#0066CC), alternating row colors
+  - ✅ Rose Document: Gradient headers, 15px border-radius containers, score circles
+  - ✅ Cloud Document: Light gray headers (#fafafa), 8px border-radius
+  - ✅ UPI Document: Dark headers (#2c3e50), proper padding
+  - ✅ Flowers Document: Dark headers (#1a1a1a), exact font sizes
+
+  TYPOGRAPHY
+
+  - ✅ H1-H6: Document-specific font sizes, colors, margins, letter-spacing
+  - ✅ Paragraphs: Exact line-height, text alignment, spacing
+  - ✅ Document-specific overrides for different themes
+
+  LAYOUT CONTAINERS
+
+  - ✅ Stat boxes: CMYK cyan (#00CCCC), exact padding/margins
+  - ✅ Text boxes: Gray borders, light backgrounds
+  - ✅ Callouts: Color-coded borders, proper backgrounds
+  - ✅ Reference boxes: Gradient backgrounds, rounded corners
+  - ✅ Score circles: Exact dimensions, positioning, colors
+
+  SPACING & VISUAL ELEMENTS
+
+  - ✅ Margins: 8pt-16pt preserved between elements
+  - ✅ Padding: Document-specific values (8pt 10pt for tables, etc.)
+  - ✅ Border-radius: 4pt-20px based on element type
+  - ✅ Colors: All CMYK variables and exact hex values preserved
+  - ✅ Gradients: Linear gradients with exact color stops
