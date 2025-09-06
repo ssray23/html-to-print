@@ -440,6 +440,7 @@
             margin: 10px 0;
             font-size: 14px;
             color: #666;
+            display: none !important; /* Hide status messages from display */
         }
 
 
@@ -506,7 +507,7 @@
         </div>
     </div>
 
-    <div class="status" id="status">Ready - Upload HTML file or paste content above</div>
+    <div class="status" id="status" style="display: none !important; visibility: hidden !important;">Ready - Upload HTML file or paste content above</div>
     
 
     <!-- Hidden measurement container -->
@@ -690,7 +691,7 @@
             printBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;';
             document.body.appendChild(printBtn);
         }
-    </script>
+    <\/script>
 </body>
 </html>`;
         }
@@ -698,6 +699,15 @@
         // Initialize the application
         function init() {
             console.log('Universal HTML Paginator v2 initialized');
+            
+            // Force hide status element to prevent console output display
+            const statusElement = document.getElementById('status');
+            if (statusElement) {
+                statusElement.style.display = 'none';
+                statusElement.style.visibility = 'hidden';
+                statusElement.style.position = 'absolute';
+                statusElement.style.top = '-9999px';
+            }
             
             // Initialize workflow states - only step 1 is active, others disabled
             document.getElementById('step1').className = 'workflow-step active';
@@ -779,8 +789,14 @@
         // Update status message
         function updateStatus(message, type = 'info') {
             const status = document.getElementById('status');
-            status.textContent = message;
-            status.style.color = type === 'error' ? '#d32f2f' : type === 'success' ? '#388e3c' : '#666';
+            if (status) {
+                status.textContent = message;
+                status.style.color = type === 'error' ? '#d32f2f' : type === 'success' ? '#388e3c' : '#666';
+                status.style.display = 'none'; // Force hide status messages
+                status.style.visibility = 'hidden'; // Double ensure it's hidden
+            }
+            // For debugging, log to console instead of showing on page
+            console.log(`[Status] ${message}`);
         }
 
 
@@ -2157,7 +2173,7 @@
                 return;
             }
             
-            updateStatus('Generating PDF directly from your perfect layout... This may take a moment.');
+            updateStatus('Generating high-quality PDF from your perfect layout... This may take a moment.');
             
             try {
                 const { jsPDF } = window.jspdf;
@@ -2165,6 +2181,10 @@
                 
                 const pages = Array.from(paginatedContent.querySelectorAll('.page'));
                 let pageIndex = 0;
+                
+                // A4 dimensions in mm
+                const A4_WIDTH_MM = 210;
+                const A4_HEIGHT_MM = 297;
                 
                 for (const page of pages) {
                     updateStatus(`Processing page ${pageIndex + 1} of ${pages.length}...`);
@@ -2174,46 +2194,88 @@
                     }
                     
                     try {
+                        // Calculate optimal scale based on page content dimensions
+                        const pageRect = page.getBoundingClientRect();
+                        const pageStyles = window.getComputedStyle(page);
+                        const padding = parseFloat(pageStyles.paddingTop) + parseFloat(pageStyles.paddingBottom);
+                        
+                        // Use dynamic scale based on content density and display resolution
+                        const devicePixelRatio = window.devicePixelRatio || 1;
+                        const baseScale = Math.min(2.5, Math.max(1.5, devicePixelRatio * 1.2));
+                        
                         const canvas = await html2canvas(page, {
-                            scale: 1.8,
+                            scale: baseScale,
                             useCORS: true,
                             allowTaint: true,
                             backgroundColor: '#ffffff',
-                            width: page.offsetWidth,
-                            height: page.offsetHeight,
+                            width: pageRect.width,
+                            height: pageRect.height,
                             scrollX: 0,
                             scrollY: 0,
                             removeContainer: true,
-                            imageTimeout: 0
+                            imageTimeout: 5000,
+                            logging: false,
+                            letterRendering: true,
+                            foreignObjectRendering: true
                         });
                         
-                        const imgData = canvas.toDataURL('image/jpeg', 0.92);
-                        const imgWidth = 210;
-                        const imgHeight = 297;
+                        // Use PNG for better quality (lossless compression)
+                        const imgData = canvas.toDataURL('image/png', 1.0);
                         
-                        pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                        // Calculate proper dimensions to maintain aspect ratio
+                        const canvasAspectRatio = canvas.width / canvas.height;
+                        const pageAspectRatio = A4_WIDTH_MM / A4_HEIGHT_MM;
+                        
+                        let imgWidth, imgHeight, offsetX = 0, offsetY = 0;
+                        
+                        if (canvasAspectRatio > pageAspectRatio) {
+                            // Canvas is wider than A4 ratio - fit to width
+                            imgWidth = A4_WIDTH_MM;
+                            imgHeight = A4_WIDTH_MM / canvasAspectRatio;
+                            offsetY = (A4_HEIGHT_MM - imgHeight) / 2;
+                        } else {
+                            // Canvas is taller than A4 ratio - fit to height  
+                            imgHeight = A4_HEIGHT_MM;
+                            imgWidth = A4_HEIGHT_MM * canvasAspectRatio;
+                            offsetX = (A4_WIDTH_MM - imgWidth) / 2;
+                        }
+                        
+                        // Ensure we don't exceed A4 boundaries
+                        if (imgHeight > A4_HEIGHT_MM) {
+                            const scale = A4_HEIGHT_MM / imgHeight;
+                            imgHeight = A4_HEIGHT_MM;
+                            imgWidth *= scale;
+                            offsetX = (A4_WIDTH_MM - imgWidth) / 2;
+                            offsetY = 0;
+                        }
+                        
+                        pdf.addImage(imgData, 'PNG', offsetX, offsetY, imgWidth, imgHeight);
                         
                     } catch (pageError) {
                         console.error(`Error processing page ${pageIndex + 1}:`, pageError);
+                        updateStatus(`Warning: Page ${pageIndex + 1} had rendering issues but continuing...`);
                     }
                     
                     pageIndex++;
                 }
                 
                 const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-                const filename = `paginated-document-${timestamp}.pdf`;
+                const filename = `high-quality-paginated-${timestamp}.pdf`;
                 
                 const pdfOutput = pdf.output('blob');
                 const fileSizeMB = (pdfOutput.size / (1024 * 1024)).toFixed(2);
                 
                 pdf.save(filename);
                 
-                updateStatus(`✅ PDF generated successfully! Downloaded "${filename}" (${fileSizeMB} MB, ${pages.length} pages)`, 'success');
+                updateStatus(`✅ High-quality PDF generated successfully! Downloaded "${filename}" (${fileSizeMB} MB, ${pages.length} pages)`, 'success');
                 
             } catch (error) {
-                console.error('Direct PDF generation error:', error);
-                updateStatus('Error generating PDF directly. Please try the regular Print button.', 'error');
+                console.error('High-quality PDF generation error:', error);
+                updateStatus('Error generating high-quality PDF. Please try the regular Print button or HTML downloads.', 'error');
             }
+            
+            // Close dropdown
+            document.getElementById('downloadMenu').classList.remove('show');
         }
 
         // Initialize when page loads
