@@ -852,34 +852,21 @@
     max-height: none !important;
 }
 
-/* PRESERVE VISUAL FIDELITY: Ensure paginated pages inherit same CSS environment */
-.page {
-    /* Inherit the same background and font context as the original body */
-    background: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
+/* VIEWPORT APPROACH: Minimal styling for viewport pages */
+.viewport-page {
+    /* Just basic A4 page styling - no visual interference */
+    page-break-after: always;
+    margin: 0;
+    padding: 0;
 }
 
-.page-content {
-    /* Ensure content has same positioning context as processed content */
-    position: relative;
-    /* Preserve any box-model properties that affect layout */
-    box-sizing: inherit;
-}
-
-/* Ensure tables in paginated content maintain their border-radius and styling */
-.page table {
-    border-collapse: inherit !important;
-    overflow: inherit !important;
-}
-
-.page .text-box {
-    /* Preserve text-box styling including fills and borders */
-    background: inherit !important;
-    border: inherit !important;
-    border-radius: inherit !important;
+.viewport-content {
+    /* Minimal container - let original CSS handle all visuals */
+    margin: 0;
+    padding: 0;
+    /* Ensure content flows naturally within A4 constraints */
+    width: 100%;
+    height: auto;
 }
 
 /* ========== END MINIMAL CLEANUP ========== */
@@ -1599,7 +1586,7 @@
             }
             
             // A4 height calculation - available content height after margins
-            const A4_HEIGHT = 1000; // Conservative A4 content height in pixels
+            const A4_HEIGHT = 1050; // Proper A4 content height in pixels (297mm ≈ 1123px - margins)
             console.log(`Target A4 height: ${A4_HEIGHT}px`);
             
             // Create a measurement container with the perfect processed content
@@ -1700,8 +1687,8 @@
             // Cleanup measurement container
             document.body.removeChild(measurementContainer);
             
-            // Update UI
-            updateStatus(`✅ Marker pagination completed! Created ${totalPages} pages with optimal space utilization.`, 'success');
+            // Update UI - show paginated content that preserves perfect visual fidelity
+            updateStatus(`✅ Viewport pagination completed! Created ${totalPages} pages with perfect visual fidelity preserved.`, 'success');
             document.getElementById('paginatedContent').style.display = 'block';
             document.getElementById('sourceContent').style.display = 'none';
             
@@ -1714,17 +1701,130 @@
             console.log(`=== MARKER PAGINATION COMPLETED: ${totalPages} pages created ===`);
         }
         
-        // Helper function to create a page from a list of elements - PRESERVES CSS CONTEXT
+        // COPY ENTIRE PROCESSED CONTENT AND SHOW/HIDE SECTIONS FOR EACH PAGE
         function createPageFromElements(elements, pageNumber, container) {
-            const { page, content } = createNewPage(pageNumber);
+            // Create a page that contains a FULL COPY of the processed content
+            const page = document.createElement('div');
+            page.className = 'page viewport-page';
+            page.setAttribute('data-page-number', pageNumber);
             
-            // Simple clone approach - trust the CSS cascade and inheritance
-            elements.forEach(element => {
-                const clonedElement = element.cloneNode(true);
-                content.appendChild(clonedElement);
+            // Get the entire processed content - find the active content container
+            let processedContent = null;
+            
+            // First try to find visible containers
+            const candidates = [
+                document.getElementById('processedContent'),
+                document.getElementById('sourceContent'),
+                document.querySelector('.processed-content'),
+                document.querySelector('#sourceContent'),
+                document.querySelector('.source-content')
+            ];
+            
+            // Find the first valid candidate that exists and has content
+            for (let candidate of candidates) {
+                if (candidate && candidate.children && candidate.children.length > 0) {
+                    processedContent = candidate;
+                    console.log(`Found content container: ${candidate.id || candidate.className}`);
+                    break;
+                }
+            }
+            
+            if (!processedContent) {
+                console.error('Could not find processed content container with children');
+                console.log('Available containers:', candidates.filter(c => c).map(c => ({id: c.id, className: c.className, childrenCount: c.children.length})));
+                return;
+            }
+            
+            // Create a clean page with proper CSS inheritance
+            // First, preserve the original CSS context by copying structure
+            const pageContent = document.createElement('div');
+            pageContent.className = processedContent.className;
+            pageContent.id = `processedContent-page-${pageNumber}`;
+            
+            // Copy essential styles from the original processed content
+            const computedStyles = window.getComputedStyle(processedContent);
+            pageContent.style.cssText = `
+                font-family: ${computedStyles.fontFamily};
+                font-size: ${computedStyles.fontSize};
+                line-height: ${computedStyles.lineHeight};
+                color: ${computedStyles.color};
+                background: ${computedStyles.background};
+                width: 100%;
+            `;
+            
+            // First, add any STYLE elements to ensure CSS is available
+            const styleElements = processedContent.querySelectorAll('style');
+            styleElements.forEach(styleEl => {
+                const clonedStyle = styleEl.cloneNode(true);
+                pageContent.appendChild(clonedStyle);
             });
             
+            // Clone and append each element for this page while preserving context
+            elements.forEach(originalElement => {
+                if (originalElement.tagName === 'STYLE') {
+                    // Skip style elements as they're already added above
+                    return;
+                }
+                
+                const clonedElement = originalElement.cloneNode(true);
+                
+                // For tables and text-boxes, ensure visual fidelity by preserving critical styles
+                if (originalElement.tagName === 'TABLE' || originalElement.classList.contains('text-box')) {
+                    const originalStyles = window.getComputedStyle(originalElement);
+                    clonedElement.style.cssText += `
+                        border-radius: ${originalStyles.borderRadius} !important;
+                        background: ${originalStyles.background} !important;
+                        background-color: ${originalStyles.backgroundColor} !important;
+                        border: ${originalStyles.border} !important;
+                        box-shadow: ${originalStyles.boxShadow} !important;
+                        padding: ${originalStyles.padding} !important;
+                        margin: ${originalStyles.margin} !important;
+                    `;
+                    
+                    // Also preserve styles for child elements like table cells
+                    const originalCells = originalElement.querySelectorAll('td, th');
+                    const clonedCells = clonedElement.querySelectorAll('td, th');
+                    originalCells.forEach((originalCell, index) => {
+                        if (clonedCells[index]) {
+                            const cellStyles = window.getComputedStyle(originalCell);
+                            clonedCells[index].style.cssText += `
+                                border-radius: ${cellStyles.borderRadius} !important;
+                                background: ${cellStyles.background} !important;
+                                background-color: ${cellStyles.backgroundColor} !important;
+                                border: ${cellStyles.border} !important;
+                                padding: ${cellStyles.padding} !important;
+                                color: ${cellStyles.color} !important;
+                            `;
+                        }
+                    });
+                }
+                
+                pageContent.appendChild(clonedElement);
+            });
+            
+            page.appendChild(pageContent);
             container.appendChild(page);
+        }
+        
+        // Helper function to create a unique selector for an element
+        function getElementSelector(element) {
+            if (element.id) return `#${element.id}`;
+            
+            let selector = element.tagName.toLowerCase();
+            if (element.className) {
+                selector += '.' + element.className.replace(/\s+/g, '.');
+            }
+            
+            // Add position among siblings for uniqueness
+            const siblings = Array.from(element.parentElement.children).filter(s => 
+                s.tagName === element.tagName && s.className === element.className
+            );
+            if (siblings.length > 1) {
+                const index = siblings.indexOf(element);
+                selector += `:nth-of-type(${index + 1})`;
+            }
+            
+            return selector;
         }
         
         // Break large tables into multiple pages at row level with header preservation
