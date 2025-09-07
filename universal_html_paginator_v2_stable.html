@@ -159,6 +159,7 @@
             padding: 20px;
             line-height: 1.4;
             width: 100%;
+            height: auto; /* Allow dynamic height expansion */
             min-height: 100vh;
         }
         
@@ -166,6 +167,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            height: auto; /* Allow dynamic height expansion */
             background: white;
         }
 
@@ -413,12 +415,112 @@
             display: block;
             width: 800px;
             max-width: 100%;
+            height: auto; /* Allow full height expansion */
+            min-height: auto; /* Remove height constraints */
             margin: 0 auto 20px auto;
             background: white;
             padding: 0.6cm;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border: 1px solid #ccc;
             box-sizing: border-box;
+            overflow: visible; /* Ensure content is not clipped */
+        }
+
+        /* Styling for extracted page content */
+        .source-content .extracted-page-content {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            line-height: 1.45;
+            color: #111;
+        }
+        
+        .source-content .extracted-page-content > * {
+            margin-bottom: 12px;
+        }
+        
+        .source-content .extracted-page-content table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            margin: 15px 0;
+        }
+        
+        .source-content .extracted-page-content thead {
+            display: table-header-group;
+        }
+        
+        .source-content .extracted-page-content thead th {
+            background: #fafafa;
+            font-weight: bold;
+        }
+        
+        .source-content .extracted-page-content tbody {
+            display: table-row-group;
+        }
+        
+        .source-content .extracted-page-content th,
+        .source-content .extracted-page-content td {
+            padding: 8px 10px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            vertical-align: top;
+            text-align: left;
+        }
+        
+        .source-content .extracted-page-content th:last-child,
+        .source-content .extracted-page-content td:last-child {
+            border-right: none;
+        }
+        
+        .source-content .extracted-page-content tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .source-content .extracted-page-content tbody tr:nth-child(even) td {
+            background: #f5f5f5;
+        }
+        
+        .source-content .extracted-page-content .callout {
+            border-left: 4px solid #ccc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            background: #f8f8f8;
+        }
+        
+        .source-content .extracted-page-content .callout.warning {
+            border-left-color: #ff6b35;
+            background: #fff3f0;
+        }
+        
+        .source-content .extracted-page-content .callout.note {
+            border-left-color: #4a90e2;
+            background: #f0f7ff;
+        }
+        
+        .source-content .extracted-page-content .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .source-content .extracted-page-content h1,
+        .source-content .extracted-page-content h2,
+        .source-content .extracted-page-content h3,
+        .source-content .extracted-page-content h4,
+        .source-content .extracted-page-content h5,
+        .source-content .extracted-page-content h6 {
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+        
+        .source-content .extracted-page-content p,
+        .source-content .extracted-page-content ul,
+        .source-content .extracted-page-content ol {
+            margin: 0 0 12px 0;
         }
         
         /* Paginated content container */
@@ -493,7 +595,7 @@
                         📖 Download Paginated HTML
                         <small>All pages as single HTML file</small>
                     </div>
-                    <div class="dropdown-item" onclick="downloadPDF()">
+                    <div class="dropdown-item" onclick="console.log('PDF dropdown clicked'); downloadPDF();">
                         📄 Download High-Quality PDF
                         <small>Faithful reproduction of pages</small>
                     </div>
@@ -531,6 +633,8 @@
         let elementHeights = [];
         let preservedStyles = ''; // Store extracted styles globally
         let uploadedHTMLContent = ''; // Store uploaded HTML content
+        let originalFileName = ''; // Store original filename for downloads
+        let isPDFGenerating = false; // Prevent concurrent PDF downloads
 
         // Download dropdown toggle function
         function toggleDownloadMenu() {
@@ -554,7 +658,7 @@
         // Download Processed HTML as exact rendered version
         async function downloadProcessedHTML() {
             const sourceContent = document.getElementById('sourceContent');
-            if (!sourceContent || sourceContent.style.display === 'none') {
+            if (!sourceContent || !sourceContent.innerHTML.trim()) {
                 alert('Please process HTML content first before downloading.');
                 return;
             }
@@ -562,17 +666,24 @@
             updateStatus('Preparing processed HTML for download...');
 
             try {
+                // Temporarily show the source content to ensure proper extraction
+                const originalDisplay = sourceContent.style.display;
+                sourceContent.style.display = 'block';
+                
                 // Create complete HTML document
                 const htmlContent = createCompleteHTMLDocument(sourceContent, 'Processed Document');
+                
+                // Restore original display state
+                sourceContent.style.display = originalDisplay;
                 
                 // Create download
                 const blob = new Blob([htmlContent], { type: 'text/html' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 
-                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const baseFileName = originalFileName || 'document';
                 a.href = url;
-                a.download = `processed-document-${timestamp}.html`;
+                a.download = `${baseFileName}_processed.html`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -608,10 +719,10 @@
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 
-                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                const baseFileName = originalFileName || 'document';
                 const pageCount = paginatedContent.children.length;
                 a.href = url;
-                a.download = `paginated-document-${pageCount}pages-${timestamp}.html`;
+                a.download = `${baseFileName}_paginated.html`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -652,28 +763,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${title}</title>
     ${stylesheets}
-    <style>
-        /* Print-specific styles */
-        @media print {
-            body { margin: 0; }
-            .page { 
-                page-break-after: always; 
-                margin: 0; 
-                box-shadow: none !important; 
-                border: none !important; 
-            }
-            .page:last-child { page-break-after: auto; }
-        }
-        
-        /* Screen-specific styles */
-        @media screen {
-            body { 
-                background: #f5f5f5; 
-                padding: 20px; 
-                font-family: Arial, sans-serif; 
-            }
-        }
-    </style>
 </head>
 <body>
     ${contentHTML}
@@ -681,15 +770,6 @@
         // Simple script to handle print functionality if needed
         function printDocument() {
             window.print();
-        }
-        
-        // Add print button for convenience
-        if (window.location.protocol === 'file:') {
-            const printBtn = document.createElement('button');
-            printBtn.innerHTML = '🖨️ Print';
-            printBtn.onclick = printDocument;
-            printBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;';
-            document.body.appendChild(printBtn);
         }
     <\/script>
 </body>
@@ -744,6 +824,9 @@
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file && (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm'))) {
+                // Store original filename (without extension) for downloads
+                originalFileName = file.name.replace(/\.(html|htm)$/i, '');
+                
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     uploadedHTMLContent = e.target.result;
@@ -771,6 +854,9 @@
             if (files.length > 0) {
                 const file = files[0];
                 if (file.type === 'text/html' || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+                    // Store original filename (without extension) for downloads
+                    originalFileName = file.name.replace(/\.(html|htm)$/i, '');
+                    
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         uploadedHTMLContent = e.target.result;
@@ -830,31 +916,21 @@
         function sanitizeCSS(htmlContent) {
             console.log('Starting CSS sanitization...');
             
-            // Remove CSS rules that break pagination flow, but preserve spacing and visual styling
+            // MINIMAL sanitization - preserve 100% visual fidelity
+            // Only remove CSS rules that actually break pagination flow
             const problematicRules = [
                 /page-break-[^;]*;/gi,
                 /break-[^;]*;/gi,
                 /@page[^}]*}/gi,
-                /height:\s*100vh[^;]*;/gi,          // Remove viewport heights
+                /height:\s*100vh[^;]*;/gi,          // Remove viewport heights  
                 /min-height:\s*100vh[^;]*;/gi,
                 /height:\s*100%[^;]*;/gi,           // Remove 100% heights that cause issues
                 /min-height:\s*100%[^;]*;/gi,
-                /height:\s*297mm[^;]*;/gi,          // Remove fixed A4 page heights
-                /min-height:\s*297mm[^;]*;/gi,      // Remove fixed A4 min-heights
-                /height:\s*var\(--page-height\)[^;]*;/gi,  // Remove CSS custom property heights
-                /width:\s*var\(--page-width\)[^;]*;/gi,   // Remove CSS custom property widths
-                /#pages\s*\{[^}]*\}/gi,             // Remove #pages container styling that causes layout issues
-                /\.page-content\s*\{[^}]*position:\s*absolute[^}]*\}/gi, // Remove absolute positioning from page-content
-                /position:\s*absolute[^;]*;/gi,     // Remove all absolute positioning
-                /position:\s*relative[^;]*;/gi,     // Remove relative positioning that can cause issues
-                /\.page-content\s*\{[^}]*overflow:\s*hidden[^}]*\}/gi,  // Remove overflow:hidden ONLY from page-content, preserve on tables for border-radius
+                /\.page-content\s*\{[^}]*overflow:\s*hidden[^}]*\}/gi,  // Remove overflow:hidden ONLY from page-content
                 /height:\s*calc\([^)]*\)[^;]*;/gi,  // Remove calc() heights that constrain flow
                 /max-height:\s*[^;]*vh[^;]*;/gi,    // Remove viewport-based max heights
                 /width:\s*793px[^;]*;/gi,           // Remove hardcoded 793px width that breaks layout
-                /width:\s*210mm[^;]*;/gi,           // Remove fixed A4 page widths that might constrain
-                /body\s*\{[^}]*background[^}]*\}/gi, // Remove body background that might cause artifacts
-                /\.page\s*\{[^}]*height:[^}]*\}/gi,  // Remove .page class height constraints
-                /\.page\s*\{[^}]*min-height:[^}]*\}/gi // Remove .page class min-height constraints
+                /body\s*\{[^}]*background[^}]*\}/gi // Remove body background that might cause artifacts
             ];
             
             let sanitized = htmlContent;
@@ -872,13 +948,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -1006,6 +1092,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
             `;
             
@@ -1213,10 +1378,25 @@
                         }
                         // For other divs, check if they contain meaningful content
                         else if (child.tagName === 'DIV' && child.textContent.trim()) {
-                            // If it's a simple content div, preserve it
-                            flattenedContent.appendChild(child.cloneNode(true));
-                            processedElements.add(childKey);
-                            console.log(`Added content div: ${child.className || 'no-class'} from page ${pageIndex + 1}`);
+                            // Special handling for .page-content divs - extract their children but preserve context
+                            if (child.classList.contains('page-content')) {
+                                // Create a wrapper div to maintain styling context
+                                const wrapper = document.createElement('div');
+                                wrapper.className = 'extracted-page-content';
+                                
+                                Array.from(child.children).forEach(innerChild => {
+                                    wrapper.appendChild(innerChild.cloneNode(true));
+                                    console.log(`Added content from .page-content: ${innerChild.tagName}.${innerChild.className || 'no-class'} from page ${pageIndex + 1}`);
+                                });
+                                
+                                flattenedContent.appendChild(wrapper);
+                                processedElements.add(childKey);
+                            } else {
+                                // If it's a simple content div, preserve it
+                                flattenedContent.appendChild(child.cloneNode(true));
+                                processedElements.add(childKey);
+                                console.log(`Added content div: ${child.className || 'no-class'} from page ${pageIndex + 1}`);
+                            }
                         }
                     });
                 });
@@ -1309,7 +1489,31 @@
                 
                 preserveVisualFidelity(sourceContainer);
                 
-                // Step 4: Prepare for measurement (but don't paginate yet)
+                // Show processed content first to ensure elements are visible for measurement
+                const sourceContent = document.getElementById('sourceContent');
+                const paginatedContent = document.getElementById('paginatedContent');
+                
+                sourceContent.style.display = 'block';
+                sourceContent.style.height = 'auto';
+                sourceContent.style.minHeight = '100vh';
+                sourceContent.style.maxHeight = 'none';
+                sourceContent.style.overflow = 'visible';
+                sourceContent.style.visibility = 'visible';
+                sourceContent.style.position = 'static';
+                paginatedContent.style.display = 'none';
+                
+                // Ensure all children are visible and have proper layout BEFORE measurement
+                const allElements = sourceContent.querySelectorAll('*');
+                allElements.forEach(elem => {
+                    if (elem.style.display === 'none') elem.style.display = '';
+                    if (elem.style.visibility === 'hidden') elem.style.visibility = 'visible';
+                    if (elem.style.height === '0px') elem.style.height = 'auto';
+                });
+                
+                // Force reflow before measurement
+                sourceContent.offsetHeight;
+                
+                // Step 4: Prepare for measurement (but don't paginate yet) - NOW elements are visible
                 await measureElements(normalizedContent);
                 
                 // Update workflow: Step 1 completed, enable Step 2
@@ -1317,11 +1521,17 @@
                 updateWorkflowStep(2, 'active');
                 document.getElementById('paginateBtn').disabled = false;
                 
-                // Show processed content
-                const sourceContent = document.getElementById('sourceContent');
-                const paginatedContent = document.getElementById('paginatedContent');
-                sourceContent.style.display = 'block';
-                paginatedContent.style.display = 'none';
+                // Force multiple reflows to ensure proper rendering
+                setTimeout(() => {
+                    sourceContent.style.minHeight = 'auto';
+                    sourceContent.offsetHeight; // Trigger reflow
+                    setTimeout(() => {
+                        // Final height adjustment
+                        const computedHeight = sourceContent.scrollHeight;
+                        sourceContent.style.minHeight = Math.max(computedHeight, window.innerHeight) + 'px';
+                    }, 100);
+                }, 50);
+                
                 updateStatus('HTML processed and cleaned! Ready for pagination.', 'success');
                 
             } catch (error) {
@@ -1459,27 +1669,61 @@
 
         // Enhanced measurement function with better accuracy and spacing preservation
         function getAccurateElementHeight(element) {
-            // Create a temporary container that exactly matches our page styling
+            // Instead of cloning to a hidden container, measure the element directly in place
+            // This ensures all CSS styles are properly applied
+            const elementStyle = window.getComputedStyle(element);
+            
+            // If element is currently visible, use its actual dimensions
+            if (element.offsetHeight > 0) {
+                const marginTop = parseFloat(elementStyle.marginTop) || 0;
+                const marginBottom = parseFloat(elementStyle.marginBottom) || 0;
+                const actualHeight = element.offsetHeight + marginTop + marginBottom;
+                
+                const buffer = (element.tagName === 'TABLE' || 
+                               element.classList.contains('two-column') ||
+                               element.classList.contains('text-box') ||
+                               element.classList.contains('stat-box')) ? 8 : 4;
+                
+                // Element measurement: ${element.tagName}.${element.className || 'no-class'} - ${actualHeight + buffer}px
+                return Math.ceil(actualHeight) + buffer;
+            }
+            
+            // For elements with 0 height, create a better measurement container
             const tempContainer = document.createElement('div');
             tempContainer.style.cssText = `
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
                 visibility: hidden;
-                width: 210mm;
+                width: 800px;
+                max-width: 100%;
                 padding: 0.6cm;
                 font-family: Helvetica, Arial, sans-serif;
                 line-height: 1.4;
                 font-size: 11pt;
                 box-sizing: border-box;
+                background: white;
             `;
             
-            // Clone the element to avoid affecting the original
+            // Copy all stylesheets to ensure proper styling
+            const allStyles = document.querySelectorAll('style, link[rel="stylesheet"]');
+            allStyles.forEach(style => {
+                if (style.tagName === 'STYLE') {
+                    const newStyle = document.createElement('style');
+                    newStyle.textContent = style.textContent;
+                    tempContainer.appendChild(newStyle);
+                }
+            });
+            
+            // Clone the element and ensure it's visible
             const clonedElement = element.cloneNode(true);
+            clonedElement.style.display = '';
+            clonedElement.style.visibility = 'visible';
+            clonedElement.style.height = 'auto';
             tempContainer.appendChild(clonedElement);
             document.body.appendChild(tempContainer);
             
-            // Force layout calculation and wait for any images/fonts
+            // Force layout calculation
             tempContainer.offsetHeight;
             
             // Get the accurate height including margins and borders
@@ -1501,7 +1745,7 @@
                            clonedElement.classList.contains('text-box') ||
                            clonedElement.classList.contains('stat-box')) ? 8 : 4; // Reduced buffer for better space usage
             
-            console.log(`Element ${element.tagName}.${element.className || 'no-class'}: height=${clonedElement.offsetHeight}px, marginTop=${marginTop}px, marginBottom=${marginBottom}px, total=${actualHeight + buffer}px`);
+            // Element measured: ${element.tagName}.${element.className || 'no-class'} - ${actualHeight + buffer}px
             
             return Math.ceil(actualHeight) + buffer;
         }
@@ -1545,7 +1789,7 @@
             elementHeights = [];
             
             console.log(`Total elements found: ${elements.length}`);
-            console.log('Elements detected:', elements.map(el => `${el.tagName}.${el.className || 'no-class'}`));
+            // Elements detected for processing
             
             elements.forEach((element, index) => {
                 const processedItems = processContentByType(element);
@@ -1558,7 +1802,7 @@
                     processedElements.push(item);
                     elementHeights.push(accurateHeight);
                     
-                    console.log(`Enhanced measurement - Element ${index + 1}.${itemIndex + 1}: ${item.element.tagName}.${item.element.className || 'no-class'} - ${accurateHeight}px (Type: ${item.type})`);
+                    // Enhanced measurement - Element ${index + 1}.${itemIndex + 1}: ${item.element.tagName}.${item.element.className || 'no-class'} - ${accurateHeight}px
                 });
                 
                 // Add explicit spacing between elements (except after the last one)
@@ -1589,7 +1833,7 @@
                         processedElements.push(spacingItem);
                         elementHeights.push(spacing);
                         
-                        console.log(`Added spacing element: ${spacing}px between element ${index + 1} and ${index + 2}`);
+                        // Added spacing element: ${spacing}px between elements
                     }
                 }
             });
@@ -2167,10 +2411,39 @@
 
         // Download PDF using jsPDF - direct PDF generation
         async function downloadPDF() {
+            console.log('downloadPDF function called');
+            
+            // Prevent concurrent PDF generation
+            if (isPDFGenerating) {
+                console.log('PDF generation already in progress, ignoring request');
+                return;
+            }
+            
             const paginatedContent = document.getElementById('paginatedContent');
             if (!paginatedContent.children.length) {
                 alert('Please paginate the content first before downloading PDF.');
                 return;
+            }
+            
+            // Check if required libraries are loaded
+            if (typeof html2canvas === 'undefined') {
+                updateStatus('Error: html2canvas library not loaded. Please check your internet connection.', 'error');
+                alert('PDF generation requires internet connection to load html2canvas library.\n\nPlease:\n1. Check your internet connection\n2. Refresh the page\n3. Try again');
+                return;
+            }
+            
+            if (!window.jspdf) {
+                updateStatus('Error: jsPDF library not loaded. Please check your internet connection.', 'error');
+                alert('PDF generation requires internet connection to load jsPDF library.\n\nPlease:\n1. Check your internet connection\n2. Refresh the page\n3. Try again');
+                return;
+            }
+            
+            // Set flag and disable download button
+            isPDFGenerating = true;
+            const downloadButton = document.querySelector('[onclick="downloadPDF()"]');
+            if (downloadButton) {
+                downloadButton.disabled = true;
+                downloadButton.textContent = 'Generating PDF...';
             }
             
             updateStatus('Generating high-quality PDF from your perfect layout... This may take a moment.');
@@ -2199,9 +2472,15 @@
                         const pageStyles = window.getComputedStyle(page);
                         const padding = parseFloat(pageStyles.paddingTop) + parseFloat(pageStyles.paddingBottom);
                         
-                        // Use dynamic scale based on content density and display resolution
-                        const devicePixelRatio = window.devicePixelRatio || 1;
-                        const baseScale = Math.min(2.5, Math.max(1.5, devicePixelRatio * 1.2));
+                        // Use optimized scale for smaller file size while maintaining quality
+                        const baseScale = 1.5; // Reduced from dynamic scaling to fixed 1.5x
+                        
+                        // Force page visibility for html2canvas
+                        page.style.display = 'block';
+                        page.style.visibility = 'visible';
+                        page.style.position = 'static';
+                        
+                        console.log(`Page ${pageIndex + 1} dimensions: ${pageRect.width}x${pageRect.height}`);
                         
                         const canvas = await html2canvas(page, {
                             scale: baseScale,
@@ -2212,15 +2491,21 @@
                             height: pageRect.height,
                             scrollX: 0,
                             scrollY: 0,
-                            removeContainer: true,
-                            imageTimeout: 5000,
-                            logging: false,
+                            removeContainer: false,
+                            imageTimeout: 15000,
+                            logging: true,
                             letterRendering: true,
-                            foreignObjectRendering: true
+                            foreignObjectRendering: true,
+                            ignoreElements: (element) => {
+                                // Skip hidden elements that might interfere
+                                return element.style.display === 'none' || element.style.visibility === 'hidden';
+                            }
                         });
                         
-                        // Use PNG for better quality (lossless compression)
-                        const imgData = canvas.toDataURL('image/png', 1.0);
+                        console.log(`Canvas ${pageIndex + 1} created: ${canvas.width}x${canvas.height}`);
+                        
+                        // Use JPEG with 85% quality for much smaller file size
+                        const imgData = canvas.toDataURL('image/jpeg', 0.85);
                         
                         // Calculate proper dimensions to maintain aspect ratio
                         const canvasAspectRatio = canvas.width / canvas.height;
@@ -2249,7 +2534,7 @@
                             offsetY = 0;
                         }
                         
-                        pdf.addImage(imgData, 'PNG', offsetX, offsetY, imgWidth, imgHeight);
+                        pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgWidth, imgHeight);
                         
                     } catch (pageError) {
                         console.error(`Error processing page ${pageIndex + 1}:`, pageError);
@@ -2260,7 +2545,8 @@
                 }
                 
                 const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
-                const filename = `high-quality-paginated-${timestamp}.pdf`;
+                const baseFileName = originalFileName || 'document';
+                const filename = `${baseFileName}_paginated.pdf`;
                 
                 const pdfOutput = pdf.output('blob');
                 const fileSizeMB = (pdfOutput.size / (1024 * 1024)).toFixed(2);
@@ -2272,6 +2558,14 @@
             } catch (error) {
                 console.error('High-quality PDF generation error:', error);
                 updateStatus('Error generating high-quality PDF. Please try the regular Print button or HTML downloads.', 'error');
+            } finally {
+                // Reset flag and re-enable download button
+                isPDFGenerating = false;
+                const downloadButton = document.querySelector('[onclick="downloadPDF()"]');
+                if (downloadButton) {
+                    downloadButton.disabled = false;
+                    downloadButton.textContent = 'High Quality PDF';
+                }
             }
             
             // Close dropdown

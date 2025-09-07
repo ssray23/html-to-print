@@ -1,502 +1,556 @@
-universal_html_paginator_v2_stable.html:587 Starting CSS sanitization...
-universal_html_paginator_v2_stable.html:893 Extracting and normalizing content...
-universal_html_paginator_v2_stable.html:913 Found pre-paginated structure with 8 pages - flattening while preserving layout...
-universal_html_paginator_v2_stable.html:920 Processing page 1 of 8
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.report-header from page 1
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.two-column from page 1
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 1
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 1
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 1
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 1
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 1
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 1
-universal_html_paginator_v2_stable.html:920 Processing page 2 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 2
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 2
-universal_html_paginator_v2_stable.html:920 Processing page 3 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 3
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 3
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 3
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.two-column from page 3
-universal_html_paginator_v2_stable.html:920 Processing page 4 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 4
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 4
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 4
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 4
-universal_html_paginator_v2_stable.html:920 Processing page 5 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 5
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.two-column from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 5
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 5
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 5
-universal_html_paginator_v2_stable.html:920 Processing page 6 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 6
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 6
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 6
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 6
-universal_html_paginator_v2_stable.html:920 Processing page 7 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 7
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 7
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 7
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.two-column from page 7
-universal_html_paginator_v2_stable.html:920 Processing page 8 of 8
-universal_html_paginator_v2_stable.html:968 Added content element: H2.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: TABLE.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.two-column from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:956 Preserved complete layout container: DIV.text-box from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: H3.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:968 Added content element: P.no-class from page 8
-universal_html_paginator_v2_stable.html:981 Smart flattening complete - extracted 90 elements while preserving layout hierarchy
+ Universal HTML Paginator v2 initialized
+ [Status] HTML file loaded successfully
+ [Status] Processing and cleaning HTML...
+ Starting CSS sanitization...
+ Extracting and normalizing content...
+ Found pre-paginated structure with 8 pages - flattening while preserving layout...
+ Processing page 1 of 8
+ Added content from .page-content: H1.no-class from page 1
+ Added content from .page-content: P.meta from page 1
+ Added content from .page-content: P.no-class from page 1
+ Added content from .page-content: H2.no-class from page 1
+ Added content from .page-content: P.no-class from page 1
+ Added content from .page-content: P.no-class from page 1
+ Added content from .page-content: P.no-class from page 1
+ Added content from .page-content: DIV.callout note from page 1
+ Processing page 2 of 8
+ Added content from .page-content: H2.no-class from page 2
+ Added content from .page-content: P.no-class from page 2
+ Added content from .page-content: P.no-class from page 2
+ Added content from .page-content: UL.no-class from page 2
+ Added content from .page-content: P.no-class from page 2
+ Added content from .page-content: H2.no-class from page 2
+ Added content from .page-content: P.no-class from page 2
+ Processing page 3 of 8
+ Added content from .page-content: TABLE.no-class from page 3
+ Processing page 4 of 8
+ Added content from .page-content: TABLE.no-class from page 4
+ Added content from .page-content: H2.no-class from page 4
+ Added content from .page-content: P.no-class from page 4
+ Processing page 5 of 8
+ Added content from .page-content: P.no-class from page 5
+ Added content from .page-content: DIV.callout from page 5
+ Added content from .page-content: H2.no-class from page 5
+ Added content from .page-content: P.no-class from page 5
+ Added content from .page-content: P.no-class from page 5
+ Added content from .page-content: P.no-class from page 5
+ Added content from .page-content: P.no-class from page 5
+ Added content from .page-content: H2.no-class from page 5
+ Added content from .page-content: P.no-class from page 5
+ Processing page 6 of 8
+ Added content from .page-content: P.no-class from page 6
+ Added content from .page-content: H2.no-class from page 6
+ Added content from .page-content: DIV.callout warning from page 6
+ Added content from .page-content: H2.no-class from page 6
+ Added content from .page-content: UL.no-class from page 6
+ Processing page 7 of 8
+ Added content from .page-content: H2.no-class from page 7
+ Added content from .page-content: TABLE.no-class from page 7
+ Added content from .page-content: H2.no-class from page 7
+ Added content from .page-content: UL.no-class from page 7
+ Processing page 8 of 8
+ Added content from .page-content: H2.no-class from page 8
+ Added content from .page-content: DIV.callout from page 8
+ Added content from .page-content: H2.no-class from page 8
+ Added content from .page-content: UL.no-class from page 8
+ Added content from .page-content: P.meta from page 8
+ Smart flattening complete - extracted 8 elements while preserving layout hierarchy
+ Preserving original CSS without modifications...
+ Applied minimal pagination cleanup - trusting original CSS for all visuals
+ Starting enhanced element measurement...
+ Total elements found: 10
+ Total elements measured (including spacing): 44
+ Height distribution: Array(10) (top 10 largest)
+ [Status] HTML processed and cleaned! Ready for pagination.
+ === STARTING MARKER-BASED PAGINATION ===
+ [Status] Creating paginated layout using A4 height markers...
+ Target A4 height: 1050px
+ Found 10 top-level elements to paginate
+ Element 1: STYLE.no-class - 0.0px
+ Element 2: STYLE.no-class - 0.0px
+ Element 3: DIV.extracted-page-content - 661.1px
+ Element 4: DIV.extracted-page-content - 421.1px
+ Found content container: sourceContent
+ ✓ Created page 1 with height 661.1px (3 elements)
+ Element 5: DIV.extracted-page-content - 486.1px
+ Element 6: DIV.extracted-page-content - 605.5px
+ Found content container: sourceContent
+ ✓ Created page 2 with height 907.2px (2 elements)
+ Element 7: DIV.extracted-page-content - 524.2px
+ Found content container: sourceContent
+ ✓ Created page 3 with height 605.5px (1 elements)
+ Element 8: DIV.extracted-page-content - 517.3px
+ Element 9: DIV.extracted-page-content - 494.9px
+ Found content container: sourceContent
+ ✓ Created page 4 with height 1041.4px (2 elements)
+ Element 10: DIV.extracted-page-content - 522.7px
+ Found content container: sourceContent
+ ✓ Created final page 5 with height 1017.6px (2 elements)
+ [Status] ✅ Viewport pagination completed! Created 5 pages with perfect visual fidelity preserved.
+ === MARKER PAGINATION COMPLETED: 5 pages created ===
+ [Status] HTML file loaded successfully
+ [Status] Processing and cleaning HTML...
+ Starting CSS sanitization...
+ Extracting and normalizing content...
+ Found pre-paginated structure with 8 pages - flattening while preserving layout...
+ Processing page 1 of 8
+ Preserved complete layout container: DIV.report-header from page 1
+ Preserved complete layout container: DIV.two-column from page 1
+ Added content element: H2.no-class from page 1
+ Added content element: P.no-class from page 1
+ Added content element: P.no-class from page 1
+ Preserved complete layout container: DIV.text-box from page 1
+ Added content element: H2.no-class from page 1
+ Added content element: P.no-class from page 1
+ Processing page 2 of 8
+ Added content element: H2.no-class from page 2
+ Added content element: H3.no-class from page 2
+ Added content element: TABLE.no-class from page 2
+ Added content element: H3.no-class from page 2
+ Added content element: P.no-class from page 2
+ Added content element: TABLE.no-class from page 2
+ Added content element: H3.no-class from page 2
+ Added content element: TABLE.no-class from page 2
+ Processing page 3 of 8
+ Added content element: H2.no-class from page 3
+ Added content element: H3.no-class from page 3
+ Added content element: P.no-class from page 3
+ Preserved complete layout container: DIV.text-box from page 3
+ Added content element: H3.no-class from page 3
+ Added content element: TABLE.no-class from page 3
+ Added content element: H3.no-class from page 3
+ Added content element: P.no-class from page 3
+ Added content element: TABLE.no-class from page 3
+ Added content element: H3.no-class from page 3
+ Preserved complete layout container: DIV.two-column from page 3
+ Processing page 4 of 8
+ Added content element: H2.no-class from page 4
+ Added content element: H3.no-class from page 4
+ Preserved complete layout container: DIV.text-box from page 4
+ Added content element: TABLE.no-class from page 4
+ Added content element: H3.no-class from page 4
+ Added content element: P.no-class from page 4
+ Added content element: TABLE.no-class from page 4
+ Added content element: H3.no-class from page 4
+ Preserved complete layout container: DIV.text-box from page 4
+ Added content element: H3.no-class from page 4
+ Added content element: TABLE.no-class from page 4
+ Processing page 5 of 8
+ Added content element: H2.no-class from page 5
+ Added content element: H3.no-class from page 5
+ Added content element: P.no-class from page 5
+ Added content element: TABLE.no-class from page 5
+ Added content element: H3.no-class from page 5
+ Preserved complete layout container: DIV.two-column from page 5
+ Added content element: H3.no-class from page 5
+ Added content element: TABLE.no-class from page 5
+ Added content element: H3.no-class from page 5
+ Preserved complete layout container: DIV.text-box from page 5
+ Processing page 6 of 8
+ Added content element: H2.no-class from page 6
+ Added content element: H3.no-class from page 6
+ Added content element: P.no-class from page 6
+ Added content element: TABLE.no-class from page 6
+ Added content element: H3.no-class from page 6
+ Preserved complete layout container: DIV.text-box from page 6
+ Preserved complete layout container: DIV.text-box from page 6
+ Added content element: H3.no-class from page 6
+ Added content element: TABLE.no-class from page 6
+ Added content element: H3.no-class from page 6
+ Added content element: P.no-class from page 6
+ Added content element: TABLE.no-class from page 6
+ Processing page 7 of 8
+ Added content element: H2.no-class from page 7
+ Added content element: H3.no-class from page 7
+ Added content element: P.no-class from page 7
+ Added content element: TABLE.no-class from page 7
+ Added content element: H3.no-class from page 7
+ Preserved complete layout container: DIV.text-box from page 7
+ Added content element: H3.no-class from page 7
+ Added content element: TABLE.no-class from page 7
+ Added content element: H3.no-class from page 7
+ Added content element: TABLE.no-class from page 7
+ Added content element: H3.no-class from page 7
+ Preserved complete layout container: DIV.two-column from page 7
+ Processing page 8 of 8
+ Added content element: H2.no-class from page 8
+ Added content element: H3.no-class from page 8
+ Added content element: P.no-class from page 8
+ Preserved complete layout container: DIV.text-box from page 8
+ Added content element: H3.no-class from page 8
+ Added content element: TABLE.no-class from page 8
+ Added content element: H3.no-class from page 8
+ Preserved complete layout container: DIV.two-column from page 8
+ Added content element: H3.no-class from page 8
+ Added content element: P.no-class from page 8
+ Added content element: H3.no-class from page 8
+ Added content element: P.no-class from page 8
+ Preserved complete layout container: DIV.text-box from page 8
+ Added content element: H3.no-class from page 8
+ Added content element: P.no-class from page 8
+ Added content element: P.no-class from page 8
+ Added content element: P.no-class from page 8
+ Added content element: P.no-class from page 8
+ Smart flattening complete - extracted 90 elements while preserving layout hierarchy
  Preserving original CSS without modifications...
  Applied minimal pagination cleanup - trusting original CSS for all visuals
  Starting enhanced element measurement...
  Total elements found: 92
- Elements detected: (92) ['STYLE.no-class', 'STYLE.no-class', 'DIV.report-header', 'DIV.two-column', 'H2.no-class', 'P.no-class', 'P.no-class', 'DIV.text-box', 'H2.no-class', 'P.no-class', 'H2.no-class', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'TABLE.no-class', 'H2.no-class', 'H3.no-class', 'P.no-class', 'DIV.text-box', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.two-column', 'H2.no-class', 'H3.no-class', 'DIV.text-box', 'TABLE.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.text-box', 'H3.no-class', 'TABLE.no-class', 'H2.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.two-column', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.text-box', 'H2.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.text-box', 'DIV.text-box', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H2.no-class', 'H3.no-class', 'P.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.text-box', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.two-column', 'H2.no-class', 'H3.no-class', 'P.no-class', 'DIV.text-box', 'H3.no-class', 'TABLE.no-class', 'H3.no-class', 'DIV.two-column', 'H3.no-class', 'P.no-class', 'H3.no-class', 'P.no-class', 'DIV.text-box', 'H3.no-class', 'P.no-class', 'P.no-class', 'P.no-class', 'P.no-class']
- Element STYLE.no-class: height=0px, marginTop=0px, marginBottom=0px, total=4px
- Enhanced measurement - Element 1.1: STYLE.no-class - 4px (Type: content)
- Element STYLE.no-class: height=0px, marginTop=0px, marginBottom=0px, total=4px
- Enhanced measurement - Element 2.1: STYLE.no-class - 4px (Type: content)
- Element DIV.report-header: height=0px, marginTop=0px, marginBottom=21.3333px, total=143.3333px
- Enhanced measurement - Element 3.1: DIV.report-header - 144px (Type: indivisible-content)
- Added spacing element: 21.3333px between element 3 and 4
- Element DIV.two-column: height=0px, marginTop=0px, marginBottom=0px, total=235px
- Enhanced measurement - Element 4.1: DIV.two-column - 235px (Type: indivisible-content)
- Added spacing element: 21.3333px between element 4 and 5
- Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
- Enhanced measurement - Element 5.1: H2.no-class - 73px (Type: content)
- Added spacing element: 13.3333px between element 5 and 6
- Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=97.6667px
- Enhanced measurement - Element 6.1: P.no-class - 98px (Type: content)
- Added spacing element: 10.6667px between element 6 and 7
- Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
- Enhanced measurement - Element 7.1: P.no-class - 77px (Type: content)
- Added spacing element: 16px between element 7 and 8
- Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=314px
- Enhanced measurement - Element 8.1: DIV.text-box - 314px (Type: indivisible-content)
- Added spacing element: 21.3333px between element 8 and 9
- Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
- Enhanced measurement - Element 9.1: H2.no-class - 73px (Type: content)
- Added spacing element: 13.3333px between element 9 and 10
- Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=96.6667px
- Enhanced measurement - Element 10.1: P.no-class - 97px (Type: content)
- Added spacing element: 21.3333px between element 10 and 11
- Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
- Enhanced measurement - Element 11.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 11 and 12
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 12.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 12 and 13
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=327px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 13.1: TABLE.no-class - 327px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 13 and 14
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 14.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 14 and 15
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 15.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 15 and 16
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=204px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 16.1: TABLE.no-class - 204px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 16 and 17
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 17.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 17 and 18
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=364px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 18.1: TABLE.no-class - 364px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 21.3333px between element 18 and 19
-universal_html_paginator_v2_stable.html:1260 Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 19.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 19 and 20
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 20.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 20 and 21
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 21.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 21 and 22
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=207px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 22.1: DIV.text-box - 207px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 22 and 23
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 23.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 23 and 24
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=286px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 24.1: TABLE.no-class - 286px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 24 and 25
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 25.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 25 and 26
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=55.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 26.1: P.no-class - 56px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 26 and 27
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=286px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 27.1: TABLE.no-class - 286px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 27 and 28
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 28.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 28 and 29
-universal_html_paginator_v2_stable.html:1260 Element DIV.two-column: height=0px, marginTop=0px, marginBottom=0px, total=273px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 29.1: DIV.two-column - 273px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 21.3333px between element 29 and 30
-universal_html_paginator_v2_stable.html:1260 Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 30.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 30 and 31
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 31.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 31 and 32
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=147px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 32.1: DIV.text-box - 147px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 32 and 33
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=245px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 33.1: TABLE.no-class - 245px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 33 and 34
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 34.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 34 and 35
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 35.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 35 and 36
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=282px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 36.1: TABLE.no-class - 282px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 36 and 37
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 37.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 37 and 38
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=147px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 38.1: DIV.text-box - 147px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 38 and 39
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 39.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 39 and 40
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=327px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 40.1: TABLE.no-class - 327px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 21.3333px between element 40 and 41
-universal_html_paginator_v2_stable.html:1260 Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 41.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 41 and 42
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 42.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 42 and 43
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 43.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 43 and 44
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=286px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 44.1: TABLE.no-class - 286px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 44 and 45
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 45.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 45 and 46
-universal_html_paginator_v2_stable.html:1260 Element DIV.two-column: height=0px, marginTop=0px, marginBottom=0px, total=235px
- Enhanced measurement - Element 46.1: DIV.two-column - 235px (Type: indivisible-content)
- Added spacing element: 16px between element 46 and 47
- Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
- Enhanced measurement - Element 47.1: H3.no-class - 53px (Type: content)
- Added spacing element: 16px between element 47 and 48
- Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=342px
- Enhanced measurement - Element 48.1: TABLE.no-class - 342px (Type: indivisible-content)
- Added spacing element: 16px between element 48 and 49
- Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
- Enhanced measurement - Element 49.1: H3.no-class - 53px (Type: content)
- Added spacing element: 16px between element 49 and 50
- Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=260px
- Enhanced measurement - Element 50.1: DIV.text-box - 260px (Type: indivisible-content)
- Added spacing element: 21.3333px between element 50 and 51
- Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
- Enhanced measurement - Element 51.1: H2.no-class - 73px (Type: content)
- Added spacing element: 16px between element 51 and 52
- Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
- Enhanced measurement - Element 52.1: H3.no-class - 53px (Type: content)
- Added spacing element: 10.6667px between element 52 and 53
- Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=55.6667px
- Enhanced measurement - Element 53.1: P.no-class - 56px (Type: content)
- Added spacing element: 16px between element 53 and 54
- Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=327px
- Enhanced measurement - Element 54.1: TABLE.no-class - 327px (Type: indivisible-content)
- Added spacing element: 16px between element 54 and 55
- Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
- Enhanced measurement - Element 55.1: H3.no-class - 53px (Type: content)
- Added spacing element: 16px between element 55 and 56
- Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=195px
- Enhanced measurement - Element 56.1: DIV.text-box - 195px (Type: indivisible-content)
- Added spacing element: 16px between element 56 and 57
- Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=195px
- Enhanced measurement - Element 57.1: DIV.text-box - 195px (Type: indivisible-content)
- Added spacing element: 16px between element 57 and 58
- Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
- Enhanced measurement - Element 58.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 58 and 59
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=204px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 59.1: TABLE.no-class - 204px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 59 and 60
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 60.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 60 and 61
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=55.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 61.1: P.no-class - 56px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 61 and 62
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=245px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 62.1: TABLE.no-class - 245px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 21.3333px between element 62 and 63
-universal_html_paginator_v2_stable.html:1260 Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 63.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 63 and 64
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 64.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 64 and 65
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=55.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 65.1: P.no-class - 56px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 65 and 66
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=245px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 66.1: TABLE.no-class - 245px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 66 and 67
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 67.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 67 and 68
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=234px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 68.1: DIV.text-box - 234px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 68 and 69
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 69.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 69 and 70
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=297px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 70.1: TABLE.no-class - 297px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 70 and 71
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 71.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 71 and 72
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=286px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 72.1: TABLE.no-class - 286px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 72 and 73
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 73.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 73 and 74
-universal_html_paginator_v2_stable.html:1260 Element DIV.two-column: height=0px, marginTop=0px, marginBottom=0px, total=258px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 74.1: DIV.two-column - 258px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 21.3333px between element 74 and 75
-universal_html_paginator_v2_stable.html:1260 Element H2.no-class: height=0px, marginTop=21.3333px, marginBottom=13.3333px, total=72.6666px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 75.1: H2.no-class - 73px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 75 and 76
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 76.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 76 and 77
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 77.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 77 and 78
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=254px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 78.1: DIV.text-box - 254px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 78 and 79
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 79.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 79 and 80
-universal_html_paginator_v2_stable.html:1260 Element TABLE.no-class: height=0px, marginTop=16px, marginBottom=16px, total=260px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 80.1: TABLE.no-class - 260px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 80 and 81
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 81.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 81 and 82
-universal_html_paginator_v2_stable.html:1260 Element DIV.two-column: height=0px, marginTop=0px, marginBottom=0px, total=166px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 82.1: DIV.two-column - 166px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 82 and 83
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 83.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 83 and 84
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 84.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 84 and 85
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 85.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 85 and 86
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=76.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 86.1: P.no-class - 77px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 86 and 87
-universal_html_paginator_v2_stable.html:1260 Element DIV.text-box: height=0px, marginTop=16px, marginBottom=16px, total=216px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 87.1: DIV.text-box - 216px (Type: indivisible-content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 16px between element 87 and 88
-universal_html_paginator_v2_stable.html:1260 Element H3.no-class: height=0px, marginTop=16px, marginBottom=10.6667px, total=52.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 88.1: H3.no-class - 53px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 88 and 89
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=56.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 89.1: P.no-class - 57px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 89 and 90
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=35.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 90.1: P.no-class - 36px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 90 and 91
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=35.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 91.1: P.no-class - 36px (Type: content)
-universal_html_paginator_v2_stable.html:1348 Added spacing element: 10.6667px between element 91 and 92
-universal_html_paginator_v2_stable.html:1260 Element P.no-class: height=0px, marginTop=0px, marginBottom=10.6667px, total=35.6667px
-universal_html_paginator_v2_stable.html:1317 Enhanced measurement - Element 92.1: P.no-class - 36px (Type: content)
-universal_html_paginator_v2_stable.html:1353 Total elements measured (including spacing): 181
-universal_html_paginator_v2_stable.html:1354 Height distribution: (10) [364, 342, 327, 327, 327, 314, 297, 286, 286, 286] (top 10 largest)
-universal_html_paginator_v2_stable.html:1576 === STARTING MARKER-BASED PAGINATION ===
-universal_html_paginator_v2_stable.html:1590 Target A4 height: 1000px
-universal_html_paginator_v2_stable.html:1617 Found 92 top-level elements to paginate
-universal_html_paginator_v2_stable.html:1630 Element 1: STYLE.no-class - 0.0px
-universal_html_paginator_v2_stable.html:1630 Element 2: STYLE.no-class - 0.0px
-universal_html_paginator_v2_stable.html:1630 Element 3: DIV.report-header - 118.2px
-universal_html_paginator_v2_stable.html:1630 Element 4: DIV.two-column - 226.6px
-universal_html_paginator_v2_stable.html:1630 Element 5: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 6: P.no-class - 82.6px
-universal_html_paginator_v2_stable.html:1630 Element 7: P.no-class - 61.6px
-universal_html_paginator_v2_stable.html:1630 Element 8: DIV.text-box - 273.9px
-universal_html_paginator_v2_stable.html:1630 Element 9: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 10: P.no-class - 82.1px
-universal_html_paginator_v2_stable.html:1630 Element 11: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 12: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 13: TABLE.no-class - 286.9px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 1 with height 969.2px (12 elements)
-universal_html_paginator_v2_stable.html:1630 Element 14: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 15: P.no-class - 62.1px
-universal_html_paginator_v2_stable.html:1630 Element 16: TABLE.no-class - 164.0px
-universal_html_paginator_v2_stable.html:1630 Element 17: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 18: TABLE.no-class - 324.3px
-universal_html_paginator_v2_stable.html:1630 Element 19: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 20: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 21: P.no-class - 62.1px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 2 with height 938.4px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 22: DIV.text-box - 167.5px
-universal_html_paginator_v2_stable.html:1630 Element 23: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 24: TABLE.no-class - 246.0px
-universal_html_paginator_v2_stable.html:1630 Element 25: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 26: P.no-class - 41.0px
-universal_html_paginator_v2_stable.html:1630 Element 27: TABLE.no-class - 246.0px
-universal_html_paginator_v2_stable.html:1630 Element 28: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 29: DIV.two-column - 265.4px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 3 with height 829.7px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 30: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 31: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 32: DIV.text-box - 106.7px
-universal_html_paginator_v2_stable.html:1630 Element 33: TABLE.no-class - 205.0px
-universal_html_paginator_v2_stable.html:1630 Element 34: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 35: P.no-class - 61.6px
-universal_html_paginator_v2_stable.html:1630 Element 36: TABLE.no-class - 242.3px
-universal_html_paginator_v2_stable.html:1630 Element 37: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 38: DIV.text-box - 106.7px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 4 with height 982.1px (9 elements)
-universal_html_paginator_v2_stable.html:1630 Element 39: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 40: TABLE.no-class - 286.9px
-universal_html_paginator_v2_stable.html:1630 Element 41: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 42: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 43: P.no-class - 62.1px
-universal_html_paginator_v2_stable.html:1630 Element 44: TABLE.no-class - 246.0px
-universal_html_paginator_v2_stable.html:1630 Element 45: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 46: DIV.two-column - 226.6px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 5 with height 802.9px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 47: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 48: TABLE.no-class - 301.9px
-universal_html_paginator_v2_stable.html:1630 Element 49: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 50: DIV.text-box - 220.2px
-universal_html_paginator_v2_stable.html:1630 Element 51: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 52: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 53: P.no-class - 41.0px
-universal_html_paginator_v2_stable.html:1630 Element 54: TABLE.no-class - 286.9px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 6 with height 890.9px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 55: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 56: DIV.text-box - 155.3px
-universal_html_paginator_v2_stable.html:1630 Element 57: DIV.text-box - 155.3px
-universal_html_paginator_v2_stable.html:1630 Element 58: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 59: TABLE.no-class - 164.0px
-universal_html_paginator_v2_stable.html:1630 Element 60: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 61: P.no-class - 41.0px
-universal_html_paginator_v2_stable.html:1630 Element 62: TABLE.no-class - 205.0px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 7 with height 869.8px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 63: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 64: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 65: P.no-class - 41.0px
-universal_html_paginator_v2_stable.html:1630 Element 66: TABLE.no-class - 205.0px
-universal_html_paginator_v2_stable.html:1630 Element 67: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 68: DIV.text-box - 193.8px
-universal_html_paginator_v2_stable.html:1630 Element 69: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 70: TABLE.no-class - 257.3px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 8 with height 745.9px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 71: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 72: TABLE.no-class - 246.0px
-universal_html_paginator_v2_stable.html:1630 Element 73: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 74: DIV.two-column - 249.7px
-universal_html_paginator_v2_stable.html:1630 Element 75: H2.no-class - 34.0px
-universal_html_paginator_v2_stable.html:1630 Element 76: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 77: P.no-class - 61.6px
-universal_html_paginator_v2_stable.html:1630 Element 78: DIV.text-box - 214.3px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 9 with height 915.6px (8 elements)
-universal_html_paginator_v2_stable.html:1630 Element 79: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 80: TABLE.no-class - 220.0px
-universal_html_paginator_v2_stable.html:1630 Element 81: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 82: DIV.two-column - 157.8px
-universal_html_paginator_v2_stable.html:1630 Element 83: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 84: P.no-class - 61.6px
-universal_html_paginator_v2_stable.html:1630 Element 85: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1630 Element 86: P.no-class - 61.6px
-universal_html_paginator_v2_stable.html:1630 Element 87: DIV.text-box - 175.8px
-universal_html_paginator_v2_stable.html:1630 Element 88: H3.no-class - 22.4px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1665 ✓ Created page 10 with height 980.6px (10 elements)
-universal_html_paginator_v2_stable.html:1630 Element 89: P.no-class - 41.5px
-universal_html_paginator_v2_stable.html:1630 Element 90: P.no-class - 21.0px
-universal_html_paginator_v2_stable.html:1630 Element 91: P.no-class - 21.0px
-universal_html_paginator_v2_stable.html:1630 Element 92: P.no-class - 21.0px
-universal_html_paginator_v2_stable.html:1727 Found content container: sourceContent
-universal_html_paginator_v2_stable.html:1683 ✓ Created final page 11 with height 127.0px (5 elements)
-universal_html_paginator_v2_stable.html:1701 === MARKER PAGINATION COMPLETED: 11 pages created ===
-universal_html_paginator_v2_stable.html:426 [Violation] 'click' handler took 242ms
-[Violation] Forced reflow while executing JavaScript took 192ms
+ Total elements measured (including spacing): 176
+ Height distribution: Array(10) (top 10 largest)
+ [Status] HTML processed and cleaned! Ready for pagination.
+ === STARTING MARKER-BASED PAGINATION ===
+ [Status] Creating paginated layout using A4 height markers...
+ Target A4 height: 1050px
+ Found 92 top-level elements to paginate
+ Element 1: STYLE.no-class - 0.0px
+ Element 2: STYLE.no-class - 0.0px
+ Element 3: DIV.report-header - 117.9px
+ Element 4: DIV.two-column - 226.6px
+ Element 5: H2.no-class - 33.7px
+ Element 6: P.no-class - 82.2px
+ Element 7: P.no-class - 61.6px
+ Element 8: DIV.text-box - 274.2px
+ Element 9: H2.no-class - 33.7px
+ Element 10: P.no-class - 82.2px
+ Element 11: H2.no-class - 33.7px
+ Element 12: H3.no-class - 22.4px
+ Element 13: TABLE.no-class - 287.7px
+ Found content container: sourceContent
+ ✓ Created page 1 with height 968.2px (12 elements)
+ Element 14: H3.no-class - 22.4px
+ Element 15: P.no-class - 61.6px
+ Element 16: TABLE.no-class - 164.4px
+ Element 17: H3.no-class - 22.4px
+ Element 18: TABLE.no-class - 325.0px
+ Element 19: H2.no-class - 33.7px
+ Element 20: H3.no-class - 22.4px
+ Element 21: P.no-class - 61.6px
+ Element 22: DIV.text-box - 166.2px
+ Found content container: sourceContent
+ ✓ Created page 2 with height 1001.1px (9 elements)
+ Element 23: H3.no-class - 22.4px
+ Element 24: TABLE.no-class - 246.6px
+ Element 25: H3.no-class - 22.4px
+ Element 26: P.no-class - 41.1px
+ Element 27: TABLE.no-class - 246.6px
+ Element 28: H3.no-class - 22.4px
+ Element 29: DIV.two-column - 265.1px
+ Element 30: H2.no-class - 33.7px
+ Found content container: sourceContent
+ ✓ Created page 3 with height 1032.7px (8 elements)
+ Element 31: H3.no-class - 22.4px
+ Element 32: DIV.text-box - 106.5px
+ Element 33: TABLE.no-class - 205.5px
+ Element 34: H3.no-class - 22.4px
+ Element 35: P.no-class - 61.6px
+ Element 36: TABLE.no-class - 242.8px
+ Element 37: H3.no-class - 22.4px
+ Element 38: DIV.text-box - 106.5px
+ Element 39: H3.no-class - 22.4px
+ Element 40: TABLE.no-class - 287.7px
+ Found content container: sourceContent
+ ✓ Created page 4 with height 846.1px (10 elements)
+ Element 41: H2.no-class - 33.7px
+ Element 42: H3.no-class - 22.4px
+ Element 43: P.no-class - 61.6px
+ Element 44: TABLE.no-class - 246.6px
+ Element 45: H3.no-class - 22.4px
+ Element 46: DIV.two-column - 226.6px
+ Element 47: H3.no-class - 22.4px
+ Element 48: TABLE.no-class - 302.6px
+ Found content container: sourceContent
+ ✓ Created page 5 with height 923.3px (8 elements)
+ Element 49: H3.no-class - 22.4px
+ Element 50: DIV.text-box - 217.9px
+ Element 51: H2.no-class - 33.7px
+ Element 52: H3.no-class - 22.4px
+ Element 53: P.no-class - 41.1px
+ Element 54: TABLE.no-class - 287.7px
+ Element 55: H3.no-class - 22.4px
+ Element 56: DIV.text-box - 155.5px
+ Found content container: sourceContent
+ ✓ Created page 6 with height 950.1px (8 elements)
+ Element 57: DIV.text-box - 155.5px
+ Element 58: H3.no-class - 22.4px
+ Element 59: TABLE.no-class - 164.4px
+ Element 60: H3.no-class - 22.4px
+ Element 61: P.no-class - 41.1px
+ Element 62: TABLE.no-class - 205.5px
+ Element 63: H2.no-class - 33.7px
+ Element 64: H3.no-class - 22.4px
+ Element 65: P.no-class - 41.1px
+ Element 66: TABLE.no-class - 205.5px
+ Found content container: sourceContent
+ ✓ Created page 7 with height 864.0px (10 elements)
+ Element 67: H3.no-class - 22.4px
+ Element 68: DIV.text-box - 192.1px
+ Element 69: H3.no-class - 22.4px
+ Element 70: TABLE.no-class - 257.7px
+ Element 71: H3.no-class - 22.4px
+ Element 72: TABLE.no-class - 246.6px
+ Element 73: H3.no-class - 22.4px
+ Element 74: DIV.two-column - 249.9px
+ Found content container: sourceContent
+ ✓ Created page 8 with height 991.4px (8 elements)
+ Element 75: H2.no-class - 33.7px
+ Element 76: H3.no-class - 22.4px
+ Element 77: P.no-class - 61.6px
+ Element 78: DIV.text-box - 212.6px
+ Element 79: H3.no-class - 22.4px
+ Element 80: TABLE.no-class - 220.4px
+ Element 81: H3.no-class - 22.4px
+ Element 82: DIV.two-column - 157.9px
+ Element 83: H3.no-class - 22.4px
+ Element 84: P.no-class - 61.6px
+ Found content container: sourceContent
+ ✓ Created page 9 with height 1025.7px (10 elements)
+ Element 85: H3.no-class - 22.4px
+ Element 86: P.no-class - 61.6px
+ Element 87: DIV.text-box - 176.1px
+ Element 88: H3.no-class - 22.4px
+ Element 89: P.no-class - 41.1px
+ Element 90: P.no-class - 20.5px
+ Element 91: P.no-class - 20.5px
+ Element 92: P.no-class - 20.5px
+ Found content container: sourceContent
+ ✓ Created final page 10 with height 446.8px (9 elements)
+ [Status] ✅ Viewport pagination completed! Created 10 pages with perfect visual fidelity preserved.
+ === MARKER PAGINATION COMPLETED: 10 pages created ===
+ [Status] Preparing processed HTML for download...
+ [Status] ✅ Processed HTML downloaded successfully!
+ [Status] Preparing paginated HTML for download...
+ [Status] ✅ Paginated HTML downloaded successfully! (12 pages)
+ PDF dropdown clicked
+ downloadPDF function called
+ [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
+ [Status] Processing page 1 of 10...
+ Page 1 dimensions: 793.6979370117188x1241.68408203125
+ #1 1ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #1 527ms Document cloned, using foreign object rendering
+ #1 529ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
+ #1 577ms Finished rendering
+ Canvas 1 created: 1190x1862
+ [Status] Processing page 2 of 10...
+ Page 2 dimensions: 793.6979370117188x1364.4532470703125
+ #2 1ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #2 532ms Document cloned, using foreign object rendering
+ #2 532ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
+ #2 602ms Finished rendering
+ Canvas 2 created: 1190x2046
+ [Status] Processing page 3 of 10...
+ Page 3 dimensions: 793.6979370117188x1392.0487060546875
+ #3 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #3 502ms Document cloned, using foreign object rendering
+ #3 503ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
+ #3 559ms Finished rendering
+ Canvas 3 created: 1190x2088
+ [Status] Processing page 4 of 10...
+ Page 4 dimensions: 793.6979370117188x1339.7830810546875
+ #4 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #4 491ms Document cloned, using foreign object rendering
+ #4 491ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
+ #4 552ms Finished rendering
+ Canvas 4 created: 1190x2009
+ [Status] Processing page 5 of 10...
+ Page 5 dimensions: 793.6979370117188x1178.8369140625
+ #5 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #5 481ms Document cloned, using foreign object rendering
+ #5 481ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 661.467041015625,6007.37890625) with scale 1.5
+ #5 574ms Finished rendering
+ Canvas 5 created: 1190x1768
+ [Status] Processing page 6 of 10...
+ Page 6 dimensions: 793.6979370117188x1356.8924560546875
+ #6 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+ PDF dropdown clicked
+ downloadPDF function called
+ [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
+ [Status] Processing page 1 of 10...
+ Page 1 dimensions: 793.6979370117188x1241.68408203125
+ #7 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+ #6 1037ms Document cloned, using foreign object rendering
+ #6 1037ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 661.467041015625,7216.2158203125) with scale 1.5
+ #7 591ms Document cloned, using foreign object rendering
+ #7 592ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
+html2canvas.min.js:20 #6 1147ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
+html2canvas.min.js:20 #8 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+universal_html_paginator_v2_stable.html:598 PDF dropdown clicked
+universal_html_paginator_v2_stable.html:2413 downloadPDF function called
+universal_html_paginator_v2_stable.html:884 [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 1 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 1 dimensions: 793.6979370117188x1241.68408203125
+html2canvas.min.js:20 #9 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #7 1604ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 1 created: 1190x1862
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 2 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 2 dimensions: 793.6979370117188x1364.4532470703125
+html2canvas.min.js:20 #10 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #8 1513ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #8 1513ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 661.467041015625,8603.099609375) with scale 1.5
+html2canvas.min.js:20 #9 1143ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #9 1144ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
+html2canvas.min.js:20 #10 685ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #10 686ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
+html2canvas.min.js:20 #8 1702ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
+html2canvas.min.js:20 #11 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #9 1730ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 1 created: 1190x1862
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 2 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 2 dimensions: 793.6979370117188x1364.4532470703125
+html2canvas.min.js:20 #12 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #10 1736ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 2 created: 1190x2046
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 3 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 3 dimensions: 793.6979370117188x1392.0487060546875
+html2canvas.min.js:20 #13 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #11 1554ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #11 1554ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 661.467041015625,9931.2333984375) with scale 1.5
+html2canvas.min.js:20 #12 1116ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #12 1117ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
+html2canvas.min.js:20 #13 687ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #13 687ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
+html2canvas.min.js:20 #11 1760ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
+html2canvas.min.js:20 #14 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #12 1760ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 2 created: 1190x2046
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 3 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 3 dimensions: 793.6979370117188x1392.0487060546875
+html2canvas.min.js:20 #15 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #13 1805ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 3 created: 1190x2088
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 4 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 4 dimensions: 793.6979370117188x1339.7830810546875
+html2canvas.min.js:20 #16 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #14 1553ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #14 1554ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 661.467041015625,11371.3896484375) with scale 1.5
+html2canvas.min.js:20 #15 1110ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #15 1112ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
+html2canvas.min.js:20 #16 678ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #16 680ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
+html2canvas.min.js:20 #14 1781ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
+html2canvas.min.js:20 #17 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #15 1926ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 3 created: 1190x2088
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 4 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 4 dimensions: 793.6979370117188x1339.7830810546875
+html2canvas.min.js:20 #18 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #16 1905ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 4 created: 1190x2009
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 5 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 5 dimensions: 793.6979370117188x1178.8369140625
+html2canvas.min.js:20 #19 0ms Starting document clone with size 2133x1012 scrolled to 0,0
+html2canvas.min.js:20 #17 1812ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #17 1813ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 661.467041015625,12785.798828125) with scale 1.5
+html2canvas.min.js:20 #18 1158ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #18 1159ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
+html2canvas.min.js:20 #19 726ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #19 727ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 661.467041015625,6007.37890625) with scale 1.5
+html2canvas.min.js:20 #17 1975ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
+universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)
+html2canvas.min.js:20 #18 1339ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 4 created: 1190x2009
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 5 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 5 dimensions: 793.6979370117188x1178.8369140625
+html2canvas.min.js:20 #20 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+[Violation] Avoid using document.write(). <URL>
+html2canvas.min.js:20 #19 1373ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 5 created: 1190x1768
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 6 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 6 dimensions: 793.6979370117188x1356.8924560546875
+html2canvas.min.js:20 #21 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #20 1040ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #20 1043ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 457.5781555175781,6007.37890625) with scale 1.5
+html2canvas.min.js:20 #20 1111ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 5 created: 1190x1768
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 6 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 6 dimensions: 793.6979370117188x1356.8924560546875
+html2canvas.min.js:20 #22 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #21 1129ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #21 1129ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 457.5781555175781,7216.2158203125) with scale 1.5
+html2canvas.min.js:20 #21 1186ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
+html2canvas.min.js:20 #23 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #22 1057ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #22 1057ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 457.5781555175781,7216.2158203125) with scale 1.5
+html2canvas.min.js:20 #22 1082ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
+html2canvas.min.js:20 #24 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #23 1149ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #23 1149ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 457.5781555175781,8603.099609375) with scale 1.5
+html2canvas.min.js:20 #23 1225ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
+html2canvas.min.js:20 #25 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #24 1286ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #24 1287ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 457.5781555175781,8603.099609375) with scale 1.5
+html2canvas.min.js:20 #24 1307ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
+html2canvas.min.js:20 #26 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #25 1236ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #25 1236ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 457.5781555175781,9931.2333984375) with scale 1.5
+html2canvas.min.js:20 #25 1350ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
+html2canvas.min.js:20 #27 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #26 1232ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #26 1233ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 457.5781555175781,9931.2333984375) with scale 1.5
+html2canvas.min.js:20 #26 1274ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
+html2canvas.min.js:20 #28 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #27 1056ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #27 1056ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 457.5781555175781,11371.3896484375) with scale 1.5
+html2canvas.min.js:20 #27 1145ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
+html2canvas.min.js:20 #29 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #28 1101ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #28 1101ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 457.5781555175781,11371.3896484375) with scale 1.5
+html2canvas.min.js:20 #28 1119ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
+universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
+universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
+html2canvas.min.js:20 #30 0ms Starting document clone with size 1725x1012 scrolled to 0,0
+html2canvas.min.js:20 #29 1084ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #29 1084ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 457.5781555175781,12785.798828125) with scale 1.5
+html2canvas.min.js:20 #29 1129ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
+universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)
+html2canvas.min.js:20 #30 655ms Document cloned, using foreign object rendering
+html2canvas.min.js:20 #30 657ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 457.5781555175781,12785.798828125) with scale 1.5
+html2canvas.min.js:20 #30 764ms Finished rendering
+universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
+universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)

@@ -156,6 +156,7 @@
             padding: 20px;
             line-height: 1.4;
             width: 100%;
+            height: auto; /* Allow dynamic height expansion */
             min-height: 100vh;
         }
         
@@ -163,6 +164,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            height: auto; /* Allow dynamic height expansion */
             background: white;
         }
 
@@ -410,12 +412,112 @@
             display: block;
             width: 800px;
             max-width: 100%;
+            height: auto; /* Allow full height expansion */
+            min-height: auto; /* Remove height constraints */
             margin: 0 auto 20px auto;
             background: white;
             padding: 0.6cm;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border: 1px solid #ccc;
             box-sizing: border-box;
+            overflow: visible; /* Ensure content is not clipped */
+        }
+
+        /* Styling for extracted page content */
+        .source-content .extracted-page-content {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            line-height: 1.45;
+            color: #111;
+        }
+        
+        .source-content .extracted-page-content > * {
+            margin-bottom: 12px;
+        }
+        
+        .source-content .extracted-page-content table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid #000;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            margin: 15px 0;
+        }
+        
+        .source-content .extracted-page-content thead {
+            display: table-header-group;
+        }
+        
+        .source-content .extracted-page-content thead th {
+            background: #fafafa;
+            font-weight: bold;
+        }
+        
+        .source-content .extracted-page-content tbody {
+            display: table-row-group;
+        }
+        
+        .source-content .extracted-page-content th,
+        .source-content .extracted-page-content td {
+            padding: 8px 10px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+            vertical-align: top;
+            text-align: left;
+        }
+        
+        .source-content .extracted-page-content th:last-child,
+        .source-content .extracted-page-content td:last-child {
+            border-right: none;
+        }
+        
+        .source-content .extracted-page-content tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .source-content .extracted-page-content tbody tr:nth-child(even) td {
+            background: #f5f5f5;
+        }
+        
+        .source-content .extracted-page-content .callout {
+            border-left: 4px solid #ccc;
+            padding: 10px 15px;
+            margin: 15px 0;
+            background: #f8f8f8;
+        }
+        
+        .source-content .extracted-page-content .callout.warning {
+            border-left-color: #ff6b35;
+            background: #fff3f0;
+        }
+        
+        .source-content .extracted-page-content .callout.note {
+            border-left-color: #4a90e2;
+            background: #f0f7ff;
+        }
+        
+        .source-content .extracted-page-content .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .source-content .extracted-page-content h1,
+        .source-content .extracted-page-content h2,
+        .source-content .extracted-page-content h3,
+        .source-content .extracted-page-content h4,
+        .source-content .extracted-page-content h5,
+        .source-content .extracted-page-content h6 {
+            font-weight: bold;
+            margin: 0 0 12px 0;
+        }
+        
+        .source-content .extracted-page-content p,
+        .source-content .extracted-page-content ul,
+        .source-content .extracted-page-content ol {
+            margin: 0 0 12px 0;
         }
         
         /* Paginated content container */
@@ -491,6 +593,45 @@
 /* ========== END MINIMAL CLEANUP ========== */
             </style>
         <style>
+/* ========== MINIMAL PAGINATION CLEANUP ========== */
+/* Remove ONLY pagination artifacts - preserve all original visual styling */
+
+* {
+    page-break-before: auto !important;
+    page-break-after: auto !important; 
+    page-break-inside: auto !important;
+    break-before: auto !important;
+    break-after: auto !important;
+    break-inside: auto !important;
+}
+
+/* Remove fixed heights that break content flow */
+.page, .page-content {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+}
+
+/* VIEWPORT APPROACH: Minimal styling for viewport pages */
+.viewport-page {
+    /* Just basic A4 page styling - no visual interference */
+    page-break-after: always;
+    margin: 0;
+    padding: 0;
+}
+
+.viewport-content {
+    /* Minimal container - let original CSS handle all visuals */
+    margin: 0;
+    padding: 0;
+    /* Ensure content flows naturally within A4 constraints */
+    width: 100%;
+    height: auto;
+}
+
+/* ========== END MINIMAL CLEANUP ========== */
+            </style>
+        <style>
         /* Page Setup for A4 with 0.6cm margins */
         
         
@@ -509,8 +650,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -518,7 +659,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -528,7 +669,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -553,7 +694,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -694,7 +840,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -739,13 +885,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -873,6 +1029,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -893,8 +1128,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -902,7 +1137,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -912,7 +1147,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -937,7 +1172,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -1078,7 +1318,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -1123,13 +1363,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -1257,6 +1507,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -1277,8 +1606,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -1286,7 +1615,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -1296,7 +1625,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -1321,7 +1650,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -1462,7 +1796,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -1507,13 +1841,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -1641,6 +1985,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -1661,8 +2084,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -1670,7 +2093,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -1680,7 +2103,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -1705,7 +2128,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -1846,7 +2274,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -1891,13 +2319,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -2025,6 +2463,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -2045,8 +2562,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -2054,7 +2571,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -2064,7 +2581,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -2089,7 +2606,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -2230,7 +2752,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -2275,13 +2797,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -2409,6 +2941,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -2429,8 +3040,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -2438,7 +3049,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -2448,7 +3059,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -2473,7 +3084,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -2614,7 +3230,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -2659,13 +3275,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -2793,6 +3419,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -2813,8 +3518,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -2822,7 +3527,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -2832,7 +3537,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -2857,7 +3562,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -2998,7 +3708,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -3043,13 +3753,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -3177,6 +3897,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -3197,8 +3996,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -3206,7 +4005,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -3216,7 +4015,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -3241,7 +4040,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -3382,7 +4186,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -3427,13 +4231,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -3561,6 +4375,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -3581,8 +4474,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -3590,7 +4483,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -3600,7 +4493,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -3625,7 +4518,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -3766,7 +4664,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -3811,13 +4709,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -3945,6 +4853,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -3965,8 +4952,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -3974,7 +4961,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -3984,7 +4971,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -4009,7 +4996,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -4150,7 +5142,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -4195,13 +5187,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -4329,6 +5331,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -4349,8 +5430,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -4358,7 +5439,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -4368,7 +5449,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -4393,7 +5474,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -4534,7 +5620,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -4579,13 +5665,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -4713,6 +5809,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -4733,8 +5908,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -4742,7 +5917,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -4752,7 +5927,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -4777,7 +5952,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -4918,7 +6098,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -4963,13 +6143,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -5097,6 +6287,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
         <style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -5117,8 +6386,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -5126,7 +6395,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -5136,7 +6405,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -5161,7 +6430,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -5302,7 +6576,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -5347,13 +6621,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -5481,29 +6765,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style>
-    <style>
-        /* Print-specific styles */
-        @media print {
-            body { margin: 0; }
-            .page { 
-                page-break-after: always; 
-                margin: 0; 
-                box-shadow: none !important; 
-                border: none !important; 
-            }
-            .page:last-child { page-break-after: auto; }
-        }
-        
-        /* Screen-specific styles */
-        @media screen {
-            body { 
-                background: #f5f5f5; 
-                padding: 20px; 
-                font-family: Arial, sans-serif; 
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="paginated-content" id="paginatedContent" style="display: block;"><style>
@@ -5525,8 +6866,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -5534,7 +6875,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -5544,7 +6885,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -5569,7 +6910,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -5710,7 +7056,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -5755,13 +7101,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -5889,6 +7245,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style><div class="page viewport-page" data-page-number="1"><div class="source-content" id="processedContent-page-1" style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 22.4px; color: rgb(0, 0, 0); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); width: 100%;"><style>
         /* Page Setup for A4 with 0.6cm margins */
         
@@ -5908,8 +7343,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -5917,7 +7352,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -5927,7 +7362,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -5952,7 +7387,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -6093,7 +7533,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -6137,13 +7577,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -6271,6 +7721,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style><div class="report-header">
             <h1>Machine Learning Usage in UK Retail Sector</h1>
             <p style="font-size: 12pt; color: var(--cmyk-medium-gray); margin-top: 8pt;">
@@ -6298,7 +7827,7 @@
                     <span class="stat-label">Plan to Adopt ML in 12-24 Months</span>
                 </div>
             </div>
-        </div><h2>Executive Summary</h2><p>Machine Learning (ML) adoption in the UK retail sector is experiencing unprecedented growth, driven by the need for enhanced customer experiences, operational efficiency, and competitive advantage. The UK artificial intelligence in retail market is projected to reach <span class="highlight">£1.68 billion by 2030</span>, representing a remarkable compound annual growth rate (CAGR) of 16.7% from 2025 to 2030.</p><p>Current data reveals that only 27% of UK retailers are actively using ML technologies for inventory and order processes, despite 69% planning implementation within the next 12-24 months. This gap indicates significant untapped potential and highlights the urgency for strategic ML adoption.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </div><h2>Executive Summary</h2><p>Machine Learning (ML) adoption in the UK retail sector is experiencing unprecedented growth, driven by the need for enhanced customer experiences, operational efficiency, and competitive advantage. The UK artificial intelligence in retail market is projected to reach <span class="highlight">£1.68 billion by 2030</span>, representing a remarkable compound annual growth rate (CAGR) of 16.7% from 2025 to 2030.</p><p>Current data reveals that only 27% of UK retailers are actively using ML technologies for inventory and order processes, despite 69% planning implementation within the next 12-24 months. This gap indicates significant untapped potential and highlights the urgency for strategic ML adoption.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Key Findings</h3>
             <ul>
                 <li>UK retailers using AI/ML technologies show 8% annual profit growth, outperforming non-AI competitors</li>
@@ -6325,8 +7854,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -6334,7 +7863,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -6344,7 +7873,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -6369,7 +7898,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -6510,7 +8044,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -6554,13 +8088,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -6688,7 +8232,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Year</th>
@@ -6735,7 +8358,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">7.2</td>
                 </tr>
             </tbody>
-        </table><h3>UK Machine Learning Market Context</h3><p>The broader UK machine learning market is expected to reach <span class="highlight">£15.3 billion by 2030</span>, with a CAGR of 23.4% from 2025 to 2030. The retail sector represents approximately 11% of this total market, indicating substantial specialization and investment focus.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>UK Machine Learning Market Context</h3><p>The broader UK machine learning market is expected to reach <span class="highlight">£15.3 billion by 2030</span>, with a CAGR of 23.4% from 2025 to 2030. The retail sector represents approximately 11% of this total market, indicating substantial specialization and investment focus.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Metric</th>
@@ -6764,7 +8387,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">-</td>
                 </tr>
             </tbody>
-        </table><h3>Adoption Rates by Business Function</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>Adoption Rates by Business Function</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Business Function</th>
@@ -6830,8 +8453,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -6839,7 +8462,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -6849,7 +8472,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -6874,7 +8497,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -7015,7 +8643,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -7059,13 +8687,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -7193,14 +8831,93 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Adoption by Company Size</h3>
             <ul>
                 <li><strong>Large Companies (500+ employees):</strong> 68% use at least one AI technology</li>
                 <li><strong>Medium Companies (50-500 employees):</strong> 32% adoption rate</li>
                 <li><strong>Small Companies (&lt;50 employees):</strong> 15% adoption rate</li>
             </ul>
-        </div><h3>Regional Distribution of AI Adoption</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><h3>Regional Distribution of AI Adoption</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Region</th>
@@ -7241,7 +8958,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Medium</td>
                 </tr>
             </tbody>
-        </table><h3>Technology Component Breakdown</h3><p>The UK AI retail market is segmented by technology components, with machine learning dominating current implementations:</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>Technology Component Breakdown</h3><p>The UK AI retail market is segmented by technology components, with machine learning dominating current implementations:</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Technology Component</th>
@@ -7324,8 +9041,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -7333,7 +9050,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -7343,7 +9060,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -7368,7 +9085,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -7509,7 +9231,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -7553,13 +9275,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -7687,9 +9419,88 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><h2>Case Studies &amp; Applications</h2><h3>Tesco: Comprehensive AI Integration</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><h2>Case Studies &amp; Applications</h2><h3>Tesco: Comprehensive AI Integration</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <p><strong>Supply Chain Optimization:</strong> Tesco uses AI-powered Roambee platform for supply chain visibility across 3,000 locations, achieving reduced dwell times and enhanced stock accuracy. The system processes data from multiple sources including historical sales, seasonal patterns, and weather conditions.</p>
-        </div><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Application Area</th>
@@ -7724,7 +9535,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Very High</td>
                 </tr>
             </tbody>
-        </table><h3>Sainsbury's: Cloud-Powered Analytics</h3><p>Sainsbury's partnership with Google Cloud demonstrates advanced ML implementation for customer insights and operational optimization. The collaboration focuses on building ML solutions that provide real-time insights into customer behavior and market trends.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>Sainsbury's: Cloud-Powered Analytics</h3><p>Sainsbury's partnership with Google Cloud demonstrates advanced ML implementation for customer insights and operational optimization. The collaboration focuses on building ML solutions that provide real-time insights into customer behavior and market trends.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Initiative</th>
@@ -7759,7 +9570,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Legacy system consolidation</td>
                 </tr>
             </tbody>
-        </table><h3>ASDA: Loyalty Program Innovation</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </table><h3>ASDA: Loyalty Program Innovation</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <p><strong>ASDA Rewards Program:</strong> The loyalty scheme boasts 6 million active members with 49% of sales attributed to the program. AI-driven personalization has resulted in a 179% increase in email engagement rates through customized non-offer content.</p>
         </div><h3>Sector-Wide Application Areas</h3></div></div><div class="page viewport-page" data-page-number="5"><div class="source-content" id="processedContent-page-5" style="font-family: Helvetica, Arial, sans-serif; font-size: 16px; line-height: 22.4px; color: rgb(0, 0, 0); background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255); width: 100%;"><style>
         /* Page Setup for A4 with 0.6cm margins */
@@ -7780,8 +9591,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -7789,7 +9600,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -7799,7 +9610,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -7824,7 +9635,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -7965,7 +9781,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -8009,13 +9825,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -8143,7 +9969,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Application Category</th>
@@ -8190,7 +10095,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">4-9 months</td>
                 </tr>
             </tbody>
-        </table><h2>Benefits &amp; ROI Analysis</h2><h3>Financial Performance Impact</h3><p>Retailers implementing AI and machine learning technologies demonstrate superior financial performance compared to non-adopters. <span class="highlight">Companies using AI/ML show 8% annual profit growth</span>, significantly outperforming competitors without AI implementation.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h2>Benefits &amp; ROI Analysis</h2><h3>Financial Performance Impact</h3><p>Retailers implementing AI and machine learning technologies demonstrate superior financial performance compared to non-adopters. <span class="highlight">Companies using AI/ML show 8% annual profit growth</span>, significantly outperforming competitors without AI implementation.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Performance Metric</th>
@@ -8271,8 +10176,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -8280,7 +10185,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -8290,7 +10195,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -8315,7 +10220,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -8456,7 +10366,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -8500,13 +10410,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -8634,7 +10554,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">ML Application</th>
@@ -8681,7 +10680,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Low-Medium</td>
                 </tr>
             </tbody>
-        </table><h3>Operational Benefits Quantification</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </table><h3>Operational Benefits Quantification</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Key Performance Improvements</h3>
             <ul>
                 <li><strong>Inventory Management:</strong> 30% reduction in out-of-stock situations (Sainsbury's case study)</li>
@@ -8690,7 +10689,7 @@
                 <li><strong>Customer Service:</strong> 66% reduction in support volume through AI assistants</li>
                 <li><strong>Personalization:</strong> 35% of sales driven by AI recommendations (Amazon benchmark)</li>
             </ul>
-        </div><h2>Challenges &amp; Barriers to ML Adoption</h2><h3>Primary Implementation Barriers</h3><p>Despite the clear benefits, UK retailers face significant challenges in implementing machine learning technologies. Research identifies several key barriers preventing widespread adoption across the sector.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><h2>Challenges &amp; Barriers to ML Adoption</h2><h3>Primary Implementation Barriers</h3><p>Despite the clear benefits, UK retailers face significant challenges in implementing machine learning technologies. Research identifies several key barriers preventing widespread adoption across the sector.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Barrier Category</th>
@@ -8756,8 +10755,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -8765,7 +10764,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -8775,7 +10774,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -8800,7 +10799,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -8941,7 +10945,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -8985,13 +10989,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -9119,13 +11133,92 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Data Preparation Complexity (43% of retailers)</h3>
             <p>Retail data is often fragmented across multiple systems not initially designed for AI training. This creates significant challenges in data cleaning, standardization, and preparation for ML models. Retailers report spending 60-80% of their AI project time on data preparation activities.</p>
-        </div><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </div><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Skills Gap Challenge (41% of retailers)</h3>
             <p>The rapid pace of AI advancement requires consistent learning and adaptation. Even with increasing availability of courses and open-source models, retailers struggle to find qualified data scientists and ML engineers. Average salaries for ML engineers range from £60,000 to £120,000 annually.</p>
-        </div><h3>Financial Barriers by Company Size</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><h3>Financial Barriers by Company Size</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Company Size</th>
@@ -9154,7 +11247,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Cost Justification</td>
                 </tr>
             </tbody>
-        </table><h3>Regulatory and Compliance Challenges</h3><p>UK retailers must navigate complex regulatory requirements while implementing ML solutions, particularly regarding data protection and privacy.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>Regulatory and Compliance Challenges</h3><p>UK retailers must navigate complex regulatory requirements while implementing ML solutions, particularly regarding data protection and privacy.</p><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Regulatory Area</th>
@@ -9208,8 +11301,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -9217,7 +11310,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -9227,7 +11320,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -9252,7 +11345,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -9393,7 +11491,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -9437,13 +11535,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -9571,7 +11679,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Growth Driver</th>
@@ -9606,7 +11793,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Medium-High</td>
                 </tr>
             </tbody>
-        </table><h3>Technology Evolution Forecast</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </table><h3>Technology Evolution Forecast</h3><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Emerging Technologies (2025-2027)</h3>
             <ul>
                 <li><strong>Foundation Models:</strong> Large language models for customer service and content generation</li>
@@ -9614,7 +11801,7 @@
                 <li><strong>Edge AI:</strong> Real-time processing at store locations for instant decision-making</li>
                 <li><strong>Federated Learning:</strong> Privacy-preserving ML across multiple locations</li>
             </ul>
-        </div><h3>Strategic Recommendations by Company Size</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><h3>Strategic Recommendations by Company Size</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Company Size</th>
@@ -9643,7 +11830,7 @@
                     <td style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 0px none rgb(0, 0, 0) !important; padding: 10.6667px 13.3333px !important; color: rgb(0, 0, 0) !important;">Leverage AI for differentiated customer experiences</td>
                 </tr>
             </tbody>
-        </table><h3>Investment Priority Matrix</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </table><h3>Investment Priority Matrix</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Priority Level</th>
@@ -9709,8 +11896,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -9718,7 +11905,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -9728,7 +11915,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -9753,7 +11940,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -9894,7 +12086,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -9938,13 +12130,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -10072,6 +12274,85 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
             </style><div class="two-column">
             <div class="column">
                 <div class="text-box">
@@ -10097,7 +12378,7 @@
                     </ul>
                 </div>
             </div>
-        </div><h2>Conclusion</h2><h3>Key Market Insights</h3><p>The analysis reveals a UK retail sector at a critical inflection point in machine learning adoption. With the market projected to reach £1.68 billion by 2030 (CAGR 16.7%), retailers face both unprecedented opportunities and significant implementation challenges.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+        </div><h2>Conclusion</h2><h3>Key Market Insights</h3><p>The analysis reveals a UK retail sector at a critical inflection point in machine learning adoption. With the market projected to reach £1.68 billion by 2030 (CAGR 16.7%), retailers face both unprecedented opportunities and significant implementation challenges.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Critical Success Drivers</h3>
             <ul>
                 <li><strong>Financial Performance:</strong> AI/ML adopters show 8% annual profit growth vs. non-adopters</li>
@@ -10105,7 +12386,7 @@
                 <li><strong>Technology Maturation:</strong> Cloud-based ML platforms reducing barriers to entry</li>
                 <li><strong>Customer Expectations:</strong> Increasing demand for personalized, efficient shopping experiences</li>
             </ul>
-        </div><h3>Implementation Roadmap</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
+        </div><h3>Implementation Roadmap</h3><table style="border-radius: 8px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgba(0, 0, 0, 0) !important; border: 1.11111px solid rgb(0, 0, 0) !important; box-shadow: none !important; padding: 0px !important; margin: 16px 0px !important;">
             <thead>
                 <tr>
                     <th style="border-radius: 0px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(0, 102, 204) !important; padding: 10.6667px 13.3333px !important; color: rgb(255, 255, 255) !important;">Phase</th>
@@ -10172,8 +12453,8 @@
         
         /* Individual page styling */
         .page {
-            
-            
+            width: 210mm;
+            height: 297mm;
             background: white;
             margin: 0 auto 40px auto;
             padding: 0.6cm;
@@ -10181,7 +12462,7 @@
                 0 10px 25px rgba(0,0,0,0.15),
                 0 5px 10px rgba(0,0,0,0.05);
             border: 1px solid #ddd;
-            
+            position: relative;
             overflow: hidden;
             
         }
@@ -10191,7 +12472,7 @@
         }
         
         .page-number {
-            
+            position: absolute;
             bottom: -30px;
             left: 50%;
             transform: translateX(-50%);
@@ -10216,7 +12497,12 @@
         }
         
         /* Typography */
-        
+        .page {
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #000000;
+            text-align: left;
+        }
         
         h1 {
             font-size: 18pt;
@@ -10357,7 +12643,7 @@
         }
         
         .report-footer {
-            
+            position: absolute;
             bottom: 0.6cm;
             left: 0.6cm;
             right: 0.6cm;
@@ -10401,13 +12687,23 @@
             
             /* ========== SPACING PRESERVATION ========== */
             /* Preserve spacing and styling for specific content elements */
-            .page-content .stat-box {
+            .page-content .stat-box,
+            .source-content .stat-box {
                 margin: 8pt 0 !important;
                 background-color: #00CCCC !important; /* Ensure cyan background is preserved */
                 color: white !important;
                 padding: 10pt !important;
                 border-radius: 4pt !important;
                 text-align: center !important;
+                font-weight: bold !important;
+            }
+            
+            /* CRITICAL: Preserve table header colors from original HTML */
+            .page-content th,
+            .source-content th {
+                /* Let original CSS variables and styling take precedence */
+                background-color: var(--cmyk-blue, #0066CC) !important;
+                color: white !important;
                 font-weight: bold !important;
             }
             .page-content .text-box {
@@ -10535,7 +12831,86 @@
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
-            </style><p>Successful ML implementation requires proactive risk management addressing data privacy (32% of retailers concerned), integration complexity (29%), and skills gaps (41%). Organizations should establish governance frameworks, invest in training, and maintain compliance with evolving regulations.</p><h3>Future Market Outlook</h3><p>The convergence of several trends - generative AI adoption (from 17% to 45% of use cases by 2030), third-party solution maturation, and autonomous decision-making capabilities - positions the UK retail sector for transformation. Early adopters will capture disproportionate value, while laggards risk competitive disadvantage.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
+            
+            /* ========== SOURCE CONTENT SCROLLABILITY FIXES ========== */
+            /* TARGETED fix for scrollability - preserve 100% visual fidelity */
+            /* Only override constraints that prevent scrolling in source view */
+            
+            .source-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                /* SURGICAL FIX: Ensure perfect centering for both cloud.html and ml.html */
+                display: block !important;
+                margin: 0 auto 20px auto !important;
+                width: 800px !important;
+                max-width: 100% !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+            
+            /* Allow fixed-height documents to scroll in source view while preserving visuals */
+            .source-content .page {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* Allow absolute-positioned content to flow naturally in source view */
+            .source-content .page-content {
+                height: auto !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            /* ========== PAGINATED CONTENT PAGE SEPARATION ========== */
+            /* CLEAN fix: Subtle page separation without background overlay */
+            .paginated-content {
+                padding: 20px 0 !important; /* Vertical padding for spacing */
+                min-height: 100vh !important; /* Full viewport height */
+            }
+            
+            .paginated-content .page {
+                margin-bottom: 30px !important; /* Increased gap for cleaner separation */
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important; /* Subtle shadow */
+                border: 1px solid #ddd !important; /* Very subtle border */
+                margin-left: auto !important; /* Ensure centering */
+                margin-right: auto !important; /* Ensure centering */
+                display: block !important; /* Ensure block display */
+                border-radius: 4px !important; /* Minimal rounded corners */
+            }
+            
+            /* ========== CONTENT DISPLAY TOGGLE ========== */
+            /* Ensure proper switching between processed and paginated content */
+            .source-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .paginated-content[style*="display: block"] {
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            .paginated-content[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            /* ========== PRESERVE 100% VISUAL FIDELITY ========== */
+            /* Remove any overrides that interfere with original styling */
+            /* Let the original CSS handle all colors, backgrounds, fonts */
+            </style><p>Successful ML implementation requires proactive risk management addressing data privacy (32% of retailers concerned), integration complexity (29%), and skills gaps (41%). Organizations should establish governance frameworks, invest in training, and maintain compliance with evolving regulations.</p><h3>Future Market Outlook</h3><p>The convergence of several trends - generative AI adoption (from 17% to 45% of use cases by 2030), third-party solution maturation, and autonomous decision-making capabilities - positions the UK retail sector for transformation. Early adopters will capture disproportionate value, while laggards risk competitive disadvantage.</p><div class="text-box" style="border-radius: 5.33333px !important; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245) !important; border: 1.11111px solid rgb(102, 102, 102) !important; box-shadow: none !important; padding: 16px !important; margin: 16px 0px !important;">
             <h3>Final Assessment</h3>
             <p>Machine learning is transitioning from competitive advantage to competitive necessity in UK retail. The data demonstrates clear financial benefits, mature technology solutions, and accelerating adoption rates. Retailers must act decisively to capture the £1.68 billion market opportunity while addressing implementation challenges through strategic planning, partnerships, and phased deployment approaches.</p>
         </div><h3>Data Sources &amp; Methodology</h3><p><strong>Primary Sources:</strong> ONS Management and Expectations Survey 2024, Fluent Commerce UK Retail AI Study, Bank of England AI Financial Services Report 2024</p><p><strong>Market Research:</strong> Grand View Research, Credence Research, Markets and Markets, Statista</p><p><strong>Case Studies:</strong> Tesco, Sainsbury's, ASDA, Amazon, Microsoft, Google Cloud</p><p><strong>Analysis Period:</strong> 2023-2025 actuals, 2025-2030 projections</p></div></div></div>
@@ -10543,15 +12918,6 @@
         // Simple script to handle print functionality if needed
         function printDocument() {
             window.print();
-        }
-        
-        // Add print button for convenience
-        if (window.location.protocol === 'file:') {
-            const printBtn = document.createElement('button');
-            printBtn.innerHTML = '🖨️ Print';
-            printBtn.onclick = printDocument;
-            printBtn.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;';
-            document.body.appendChild(printBtn);
         }
     </script>
 </body>
