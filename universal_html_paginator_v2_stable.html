@@ -959,13 +959,11 @@
                 font-weight: bold !important;
             }
             
-            /* CRITICAL: Preserve table header colors from original HTML */
+            /* PRESERVE ORIGINAL TABLE STYLING - NO HARDCODED OVERRIDES */
             .page-content th,
             .source-content th {
-                /* Let original CSS variables and styling take precedence */
-                background-color: var(--cmyk-blue, #0066CC) !important;
-                color: white !important;
-                font-weight: bold !important;
+                /* Let original CSS handle all table header styling completely */
+                /* NO hardcoded colors - preserve whatever the original CSS specified */
             }
             .page-content .text-box {
                 margin: 12pt 0 !important;
@@ -1235,17 +1233,26 @@
         
         // Programmatically preserve visual fidelity by capturing and enforcing all computed styles
         function preserveVisualFidelity(container) {
-            console.log('Preserving original CSS without modifications...');
+            console.log('Preserving visual fidelity with enhanced CSS preservation...');
             
-            // MINIMAL APPROACH: Only remove pagination-breaking CSS, let original CSS handle visuals
-            // The original HTML already has perfect visual styles - don't recreate them!
+            // ENHANCED APPROACH: Ensure original CSS is preserved AND augment with pagination fixes
             
-            // Add only minimal pagination cleanup CSS
-            const cleanupCSS = `
-/* ========== MINIMAL PAGINATION CLEANUP ========== */
-/* Remove ONLY pagination artifacts - preserve all original visual styling */
+            // First, make sure all original styles are preserved in the head
+            if (preservedStyles && !document.head.querySelector('style[data-preserved="true"]')) {
+                const preservedStyleElement = document.createElement('style');
+                preservedStyleElement.setAttribute('data-preserved', 'true');
+                preservedStyleElement.textContent = preservedStyles.replace(/<\/?style[^>]*>/g, '');
+                document.head.appendChild(preservedStyleElement);
+            }
+            
+            // Add enhanced pagination cleanup CSS that works with existing styles
+            const enhancedCleanupCSS = `
+/* ========== ENHANCED VISUAL FIDELITY PRESERVATION ========== */
+/* Preserve all original styling while enabling pagination */
 
-* {
+/* Force original styles to take precedence over any defaults */
+.source-content *, .paginated-content * {
+    /* Reset pagination breaks but preserve all visual styling */
     page-break-before: auto !important;
     page-break-after: auto !important; 
     page-break-inside: auto !important;
@@ -1254,36 +1261,52 @@
     break-inside: auto !important;
 }
 
-/* Remove fixed heights that break content flow */
+/* Ensure containers don't interfere with original styling */
+.source-content, .paginated-content {
+    /* Completely neutral container - NO style interference */
+    all: unset;
+    display: block;
+    /* Let original CSS handle ALL styling completely */
+}
+
+/* Remove any fixed dimensions that could break layouts */
 .page, .page-content {
     height: auto !important;
     min-height: auto !important;
     max-height: none !important;
 }
 
-/* VIEWPORT APPROACH: Minimal styling for viewport pages */
+/* Viewport page styling that doesn't interfere with content */
 .viewport-page {
-    /* Just basic A4 page styling - no visual interference */
     page-break-after: always;
     margin: 0;
     padding: 0;
+    /* Ensure we don't override any styling from original CSS */
+    background: inherit;
+    color: inherit;
+    font-family: inherit;
 }
 
 .viewport-content {
-    /* Minimal container - let original CSS handle all visuals */
+    /* Minimal container that inherits all original styling */
     margin: 0;
     padding: 0;
-    /* Ensure content flows naturally within A4 constraints */
     width: 100%;
     height: auto;
+    /* Preserve all inherited styles */
+    background: inherit;
+    color: inherit;
+    font-family: inherit;
+    line-height: inherit;
 }
 
-/* ========== END MINIMAL CLEANUP ========== */
+/* ========== END ENHANCED PRESERVATION ========== */
             `;
             
-            // Inject ONLY the minimal cleanup CSS - trust the original CSS for all visuals
+            // Inject the enhanced cleanup CSS
             const styleElement = document.createElement('style');
-            styleElement.textContent = cleanupCSS;
+            styleElement.setAttribute('data-enhanced', 'true');
+            styleElement.textContent = enhancedCleanupCSS;
             
             const head = container.querySelector('head') || document.head;
             if (head) {
