@@ -1,556 +1,90 @@
- Universal HTML Paginator v2 initialized
- [Status] HTML file loaded successfully
- [Status] Processing and cleaning HTML...
- Starting CSS sanitization...
- Extracting and normalizing content...
- Found pre-paginated structure with 8 pages - flattening while preserving layout...
- Processing page 1 of 8
- Added content from .page-content: H1.no-class from page 1
- Added content from .page-content: P.meta from page 1
- Added content from .page-content: P.no-class from page 1
- Added content from .page-content: H2.no-class from page 1
- Added content from .page-content: P.no-class from page 1
- Added content from .page-content: P.no-class from page 1
- Added content from .page-content: P.no-class from page 1
- Added content from .page-content: DIV.callout note from page 1
- Processing page 2 of 8
- Added content from .page-content: H2.no-class from page 2
- Added content from .page-content: P.no-class from page 2
- Added content from .page-content: P.no-class from page 2
- Added content from .page-content: UL.no-class from page 2
- Added content from .page-content: P.no-class from page 2
- Added content from .page-content: H2.no-class from page 2
- Added content from .page-content: P.no-class from page 2
- Processing page 3 of 8
- Added content from .page-content: TABLE.no-class from page 3
- Processing page 4 of 8
- Added content from .page-content: TABLE.no-class from page 4
- Added content from .page-content: H2.no-class from page 4
- Added content from .page-content: P.no-class from page 4
- Processing page 5 of 8
- Added content from .page-content: P.no-class from page 5
- Added content from .page-content: DIV.callout from page 5
- Added content from .page-content: H2.no-class from page 5
- Added content from .page-content: P.no-class from page 5
- Added content from .page-content: P.no-class from page 5
- Added content from .page-content: P.no-class from page 5
- Added content from .page-content: P.no-class from page 5
- Added content from .page-content: H2.no-class from page 5
- Added content from .page-content: P.no-class from page 5
- Processing page 6 of 8
- Added content from .page-content: P.no-class from page 6
- Added content from .page-content: H2.no-class from page 6
- Added content from .page-content: DIV.callout warning from page 6
- Added content from .page-content: H2.no-class from page 6
- Added content from .page-content: UL.no-class from page 6
- Processing page 7 of 8
- Added content from .page-content: H2.no-class from page 7
- Added content from .page-content: TABLE.no-class from page 7
- Added content from .page-content: H2.no-class from page 7
- Added content from .page-content: UL.no-class from page 7
- Processing page 8 of 8
- Added content from .page-content: H2.no-class from page 8
- Added content from .page-content: DIV.callout from page 8
- Added content from .page-content: H2.no-class from page 8
- Added content from .page-content: UL.no-class from page 8
- Added content from .page-content: P.meta from page 8
- Smart flattening complete - extracted 8 elements while preserving layout hierarchy
- Preserving original CSS without modifications...
- Applied minimal pagination cleanup - trusting original CSS for all visuals
- Starting enhanced element measurement...
- Total elements found: 10
- Total elements measured (including spacing): 44
- Height distribution: Array(10) (top 10 largest)
- [Status] HTML processed and cleaned! Ready for pagination.
- === STARTING MARKER-BASED PAGINATION ===
- [Status] Creating paginated layout using A4 height markers...
- Target A4 height: 1050px
- Found 10 top-level elements to paginate
- Element 1: STYLE.no-class - 0.0px
- Element 2: STYLE.no-class - 0.0px
- Element 3: DIV.extracted-page-content - 661.1px
- Element 4: DIV.extracted-page-content - 421.1px
- Found content container: sourceContent
- ✓ Created page 1 with height 661.1px (3 elements)
- Element 5: DIV.extracted-page-content - 486.1px
- Element 6: DIV.extracted-page-content - 605.5px
- Found content container: sourceContent
- ✓ Created page 2 with height 907.2px (2 elements)
- Element 7: DIV.extracted-page-content - 524.2px
- Found content container: sourceContent
- ✓ Created page 3 with height 605.5px (1 elements)
- Element 8: DIV.extracted-page-content - 517.3px
- Element 9: DIV.extracted-page-content - 494.9px
- Found content container: sourceContent
- ✓ Created page 4 with height 1041.4px (2 elements)
- Element 10: DIV.extracted-page-content - 522.7px
- Found content container: sourceContent
- ✓ Created final page 5 with height 1017.6px (2 elements)
- [Status] ✅ Viewport pagination completed! Created 5 pages with perfect visual fidelity preserved.
- === MARKER PAGINATION COMPLETED: 5 pages created ===
- [Status] HTML file loaded successfully
- [Status] Processing and cleaning HTML...
- Starting CSS sanitization...
- Extracting and normalizing content...
- Found pre-paginated structure with 8 pages - flattening while preserving layout...
- Processing page 1 of 8
- Preserved complete layout container: DIV.report-header from page 1
- Preserved complete layout container: DIV.two-column from page 1
- Added content element: H2.no-class from page 1
- Added content element: P.no-class from page 1
- Added content element: P.no-class from page 1
- Preserved complete layout container: DIV.text-box from page 1
- Added content element: H2.no-class from page 1
- Added content element: P.no-class from page 1
- Processing page 2 of 8
- Added content element: H2.no-class from page 2
- Added content element: H3.no-class from page 2
- Added content element: TABLE.no-class from page 2
- Added content element: H3.no-class from page 2
- Added content element: P.no-class from page 2
- Added content element: TABLE.no-class from page 2
- Added content element: H3.no-class from page 2
- Added content element: TABLE.no-class from page 2
- Processing page 3 of 8
- Added content element: H2.no-class from page 3
- Added content element: H3.no-class from page 3
- Added content element: P.no-class from page 3
- Preserved complete layout container: DIV.text-box from page 3
- Added content element: H3.no-class from page 3
- Added content element: TABLE.no-class from page 3
- Added content element: H3.no-class from page 3
- Added content element: P.no-class from page 3
- Added content element: TABLE.no-class from page 3
- Added content element: H3.no-class from page 3
- Preserved complete layout container: DIV.two-column from page 3
- Processing page 4 of 8
- Added content element: H2.no-class from page 4
- Added content element: H3.no-class from page 4
- Preserved complete layout container: DIV.text-box from page 4
- Added content element: TABLE.no-class from page 4
- Added content element: H3.no-class from page 4
- Added content element: P.no-class from page 4
- Added content element: TABLE.no-class from page 4
- Added content element: H3.no-class from page 4
- Preserved complete layout container: DIV.text-box from page 4
- Added content element: H3.no-class from page 4
- Added content element: TABLE.no-class from page 4
- Processing page 5 of 8
- Added content element: H2.no-class from page 5
- Added content element: H3.no-class from page 5
- Added content element: P.no-class from page 5
- Added content element: TABLE.no-class from page 5
- Added content element: H3.no-class from page 5
- Preserved complete layout container: DIV.two-column from page 5
- Added content element: H3.no-class from page 5
- Added content element: TABLE.no-class from page 5
- Added content element: H3.no-class from page 5
- Preserved complete layout container: DIV.text-box from page 5
- Processing page 6 of 8
- Added content element: H2.no-class from page 6
- Added content element: H3.no-class from page 6
- Added content element: P.no-class from page 6
- Added content element: TABLE.no-class from page 6
- Added content element: H3.no-class from page 6
- Preserved complete layout container: DIV.text-box from page 6
- Preserved complete layout container: DIV.text-box from page 6
- Added content element: H3.no-class from page 6
- Added content element: TABLE.no-class from page 6
- Added content element: H3.no-class from page 6
- Added content element: P.no-class from page 6
- Added content element: TABLE.no-class from page 6
- Processing page 7 of 8
- Added content element: H2.no-class from page 7
- Added content element: H3.no-class from page 7
- Added content element: P.no-class from page 7
- Added content element: TABLE.no-class from page 7
- Added content element: H3.no-class from page 7
- Preserved complete layout container: DIV.text-box from page 7
- Added content element: H3.no-class from page 7
- Added content element: TABLE.no-class from page 7
- Added content element: H3.no-class from page 7
- Added content element: TABLE.no-class from page 7
- Added content element: H3.no-class from page 7
- Preserved complete layout container: DIV.two-column from page 7
- Processing page 8 of 8
- Added content element: H2.no-class from page 8
- Added content element: H3.no-class from page 8
- Added content element: P.no-class from page 8
- Preserved complete layout container: DIV.text-box from page 8
- Added content element: H3.no-class from page 8
- Added content element: TABLE.no-class from page 8
- Added content element: H3.no-class from page 8
- Preserved complete layout container: DIV.two-column from page 8
- Added content element: H3.no-class from page 8
- Added content element: P.no-class from page 8
- Added content element: H3.no-class from page 8
- Added content element: P.no-class from page 8
- Preserved complete layout container: DIV.text-box from page 8
- Added content element: H3.no-class from page 8
- Added content element: P.no-class from page 8
- Added content element: P.no-class from page 8
- Added content element: P.no-class from page 8
- Added content element: P.no-class from page 8
- Smart flattening complete - extracted 90 elements while preserving layout hierarchy
- Preserving original CSS without modifications...
- Applied minimal pagination cleanup - trusting original CSS for all visuals
- Starting enhanced element measurement...
- Total elements found: 92
- Total elements measured (including spacing): 176
- Height distribution: Array(10) (top 10 largest)
- [Status] HTML processed and cleaned! Ready for pagination.
- === STARTING MARKER-BASED PAGINATION ===
- [Status] Creating paginated layout using A4 height markers...
- Target A4 height: 1050px
- Found 92 top-level elements to paginate
- Element 1: STYLE.no-class - 0.0px
- Element 2: STYLE.no-class - 0.0px
- Element 3: DIV.report-header - 117.9px
- Element 4: DIV.two-column - 226.6px
- Element 5: H2.no-class - 33.7px
- Element 6: P.no-class - 82.2px
- Element 7: P.no-class - 61.6px
- Element 8: DIV.text-box - 274.2px
- Element 9: H2.no-class - 33.7px
- Element 10: P.no-class - 82.2px
- Element 11: H2.no-class - 33.7px
- Element 12: H3.no-class - 22.4px
- Element 13: TABLE.no-class - 287.7px
- Found content container: sourceContent
- ✓ Created page 1 with height 968.2px (12 elements)
- Element 14: H3.no-class - 22.4px
- Element 15: P.no-class - 61.6px
- Element 16: TABLE.no-class - 164.4px
- Element 17: H3.no-class - 22.4px
- Element 18: TABLE.no-class - 325.0px
- Element 19: H2.no-class - 33.7px
- Element 20: H3.no-class - 22.4px
- Element 21: P.no-class - 61.6px
- Element 22: DIV.text-box - 166.2px
- Found content container: sourceContent
- ✓ Created page 2 with height 1001.1px (9 elements)
- Element 23: H3.no-class - 22.4px
- Element 24: TABLE.no-class - 246.6px
- Element 25: H3.no-class - 22.4px
- Element 26: P.no-class - 41.1px
- Element 27: TABLE.no-class - 246.6px
- Element 28: H3.no-class - 22.4px
- Element 29: DIV.two-column - 265.1px
- Element 30: H2.no-class - 33.7px
- Found content container: sourceContent
- ✓ Created page 3 with height 1032.7px (8 elements)
- Element 31: H3.no-class - 22.4px
- Element 32: DIV.text-box - 106.5px
- Element 33: TABLE.no-class - 205.5px
- Element 34: H3.no-class - 22.4px
- Element 35: P.no-class - 61.6px
- Element 36: TABLE.no-class - 242.8px
- Element 37: H3.no-class - 22.4px
- Element 38: DIV.text-box - 106.5px
- Element 39: H3.no-class - 22.4px
- Element 40: TABLE.no-class - 287.7px
- Found content container: sourceContent
- ✓ Created page 4 with height 846.1px (10 elements)
- Element 41: H2.no-class - 33.7px
- Element 42: H3.no-class - 22.4px
- Element 43: P.no-class - 61.6px
- Element 44: TABLE.no-class - 246.6px
- Element 45: H3.no-class - 22.4px
- Element 46: DIV.two-column - 226.6px
- Element 47: H3.no-class - 22.4px
- Element 48: TABLE.no-class - 302.6px
- Found content container: sourceContent
- ✓ Created page 5 with height 923.3px (8 elements)
- Element 49: H3.no-class - 22.4px
- Element 50: DIV.text-box - 217.9px
- Element 51: H2.no-class - 33.7px
- Element 52: H3.no-class - 22.4px
- Element 53: P.no-class - 41.1px
- Element 54: TABLE.no-class - 287.7px
- Element 55: H3.no-class - 22.4px
- Element 56: DIV.text-box - 155.5px
- Found content container: sourceContent
- ✓ Created page 6 with height 950.1px (8 elements)
- Element 57: DIV.text-box - 155.5px
- Element 58: H3.no-class - 22.4px
- Element 59: TABLE.no-class - 164.4px
- Element 60: H3.no-class - 22.4px
- Element 61: P.no-class - 41.1px
- Element 62: TABLE.no-class - 205.5px
- Element 63: H2.no-class - 33.7px
- Element 64: H3.no-class - 22.4px
- Element 65: P.no-class - 41.1px
- Element 66: TABLE.no-class - 205.5px
- Found content container: sourceContent
- ✓ Created page 7 with height 864.0px (10 elements)
- Element 67: H3.no-class - 22.4px
- Element 68: DIV.text-box - 192.1px
- Element 69: H3.no-class - 22.4px
- Element 70: TABLE.no-class - 257.7px
- Element 71: H3.no-class - 22.4px
- Element 72: TABLE.no-class - 246.6px
- Element 73: H3.no-class - 22.4px
- Element 74: DIV.two-column - 249.9px
- Found content container: sourceContent
- ✓ Created page 8 with height 991.4px (8 elements)
- Element 75: H2.no-class - 33.7px
- Element 76: H3.no-class - 22.4px
- Element 77: P.no-class - 61.6px
- Element 78: DIV.text-box - 212.6px
- Element 79: H3.no-class - 22.4px
- Element 80: TABLE.no-class - 220.4px
- Element 81: H3.no-class - 22.4px
- Element 82: DIV.two-column - 157.9px
- Element 83: H3.no-class - 22.4px
- Element 84: P.no-class - 61.6px
- Found content container: sourceContent
- ✓ Created page 9 with height 1025.7px (10 elements)
- Element 85: H3.no-class - 22.4px
- Element 86: P.no-class - 61.6px
- Element 87: DIV.text-box - 176.1px
- Element 88: H3.no-class - 22.4px
- Element 89: P.no-class - 41.1px
- Element 90: P.no-class - 20.5px
- Element 91: P.no-class - 20.5px
- Element 92: P.no-class - 20.5px
- Found content container: sourceContent
- ✓ Created final page 10 with height 446.8px (9 elements)
- [Status] ✅ Viewport pagination completed! Created 10 pages with perfect visual fidelity preserved.
- === MARKER PAGINATION COMPLETED: 10 pages created ===
- [Status] Preparing processed HTML for download...
- [Status] ✅ Processed HTML downloaded successfully!
- [Status] Preparing paginated HTML for download...
- [Status] ✅ Paginated HTML downloaded successfully! (12 pages)
- PDF dropdown clicked
- downloadPDF function called
- [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
- [Status] Processing page 1 of 10...
- Page 1 dimensions: 793.6979370117188x1241.68408203125
- #1 1ms Starting document clone with size 2133x1012 scrolled to 0,0
- #1 527ms Document cloned, using foreign object rendering
- #1 529ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
- #1 577ms Finished rendering
- Canvas 1 created: 1190x1862
- [Status] Processing page 2 of 10...
- Page 2 dimensions: 793.6979370117188x1364.4532470703125
- #2 1ms Starting document clone with size 2133x1012 scrolled to 0,0
- #2 532ms Document cloned, using foreign object rendering
- #2 532ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
- #2 602ms Finished rendering
- Canvas 2 created: 1190x2046
- [Status] Processing page 3 of 10...
- Page 3 dimensions: 793.6979370117188x1392.0487060546875
- #3 0ms Starting document clone with size 2133x1012 scrolled to 0,0
- #3 502ms Document cloned, using foreign object rendering
- #3 503ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
- #3 559ms Finished rendering
- Canvas 3 created: 1190x2088
- [Status] Processing page 4 of 10...
- Page 4 dimensions: 793.6979370117188x1339.7830810546875
- #4 0ms Starting document clone with size 2133x1012 scrolled to 0,0
- #4 491ms Document cloned, using foreign object rendering
- #4 491ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
- #4 552ms Finished rendering
- Canvas 4 created: 1190x2009
- [Status] Processing page 5 of 10...
- Page 5 dimensions: 793.6979370117188x1178.8369140625
- #5 0ms Starting document clone with size 2133x1012 scrolled to 0,0
- #5 481ms Document cloned, using foreign object rendering
- #5 481ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 661.467041015625,6007.37890625) with scale 1.5
- #5 574ms Finished rendering
- Canvas 5 created: 1190x1768
- [Status] Processing page 6 of 10...
- Page 6 dimensions: 793.6979370117188x1356.8924560546875
- #6 0ms Starting document clone with size 2133x1012 scrolled to 0,0
- PDF dropdown clicked
- downloadPDF function called
- [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
- [Status] Processing page 1 of 10...
- Page 1 dimensions: 793.6979370117188x1241.68408203125
- #7 0ms Starting document clone with size 2133x1012 scrolled to 0,0
- #6 1037ms Document cloned, using foreign object rendering
- #6 1037ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 661.467041015625,7216.2158203125) with scale 1.5
- #7 591ms Document cloned, using foreign object rendering
- #7 592ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
-html2canvas.min.js:20 #6 1147ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
-html2canvas.min.js:20 #8 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-universal_html_paginator_v2_stable.html:598 PDF dropdown clicked
-universal_html_paginator_v2_stable.html:2413 downloadPDF function called
-universal_html_paginator_v2_stable.html:884 [Status] Generating high-quality PDF from your perfect layout... This may take a moment.
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 1 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 1 dimensions: 793.6979370117188x1241.68408203125
-html2canvas.min.js:20 #9 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #7 1604ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 1 created: 1190x1862
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 2 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 2 dimensions: 793.6979370117188x1364.4532470703125
-html2canvas.min.js:20 #10 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #8 1513ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #8 1513ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 661.467041015625,8603.099609375) with scale 1.5
-html2canvas.min.js:20 #9 1143ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #9 1144ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1241.68408203125 at 661.467041015625,549.435791015625) with scale 1.5
-html2canvas.min.js:20 #10 685ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #10 686ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
-html2canvas.min.js:20 #8 1702ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
-html2canvas.min.js:20 #11 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #9 1730ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 1 created: 1190x1862
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 2 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 2 dimensions: 793.6979370117188x1364.4532470703125
-html2canvas.min.js:20 #12 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #10 1736ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 2 created: 1190x2046
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 3 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 3 dimensions: 793.6979370117188x1392.0487060546875
-html2canvas.min.js:20 #13 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #11 1554ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #11 1554ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 661.467041015625,9931.2333984375) with scale 1.5
-html2canvas.min.js:20 #12 1116ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #12 1117ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1364.4532470703125 at 661.467041015625,1821.1112060546875) with scale 1.5
-html2canvas.min.js:20 #13 687ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #13 687ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
-html2canvas.min.js:20 #11 1760ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
-html2canvas.min.js:20 #14 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #12 1760ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 2 created: 1190x2046
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 3 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 3 dimensions: 793.6979370117188x1392.0487060546875
-html2canvas.min.js:20 #15 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #13 1805ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 3 created: 1190x2088
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 4 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 4 dimensions: 793.6979370117188x1339.7830810546875
-html2canvas.min.js:20 #16 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #14 1553ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #14 1554ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 661.467041015625,11371.3896484375) with scale 1.5
-html2canvas.min.js:20 #15 1110ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #15 1112ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1392.0487060546875 at 661.467041015625,3215.5556640625) with scale 1.5
-html2canvas.min.js:20 #16 678ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #16 680ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
-html2canvas.min.js:20 #14 1781ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
-html2canvas.min.js:20 #17 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #15 1926ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 3 created: 1190x2088
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 4 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 4 dimensions: 793.6979370117188x1339.7830810546875
-html2canvas.min.js:20 #18 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #16 1905ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 4 created: 1190x2009
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 5 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 5 dimensions: 793.6979370117188x1178.8369140625
-html2canvas.min.js:20 #19 0ms Starting document clone with size 2133x1012 scrolled to 0,0
-html2canvas.min.js:20 #17 1812ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #17 1813ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 661.467041015625,12785.798828125) with scale 1.5
-html2canvas.min.js:20 #18 1158ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #18 1159ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1339.7830810546875 at 661.467041015625,4637.6044921875) with scale 1.5
-html2canvas.min.js:20 #19 726ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #19 727ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 661.467041015625,6007.37890625) with scale 1.5
-html2canvas.min.js:20 #17 1975ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
-universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)
-html2canvas.min.js:20 #18 1339ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 4 created: 1190x2009
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 5 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 5 dimensions: 793.6979370117188x1178.8369140625
-html2canvas.min.js:20 #20 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-[Violation] Avoid using document.write(). <URL>
-html2canvas.min.js:20 #19 1373ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 5 created: 1190x1768
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 6 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 6 dimensions: 793.6979370117188x1356.8924560546875
-html2canvas.min.js:20 #21 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #20 1040ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #20 1043ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1178.8369140625 at 457.5781555175781,6007.37890625) with scale 1.5
-html2canvas.min.js:20 #20 1111ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 5 created: 1190x1768
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 6 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 6 dimensions: 793.6979370117188x1356.8924560546875
-html2canvas.min.js:20 #22 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #21 1129ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #21 1129ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 457.5781555175781,7216.2158203125) with scale 1.5
-html2canvas.min.js:20 #21 1186ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
-html2canvas.min.js:20 #23 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #22 1057ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #22 1057ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1356.8924560546875 at 457.5781555175781,7216.2158203125) with scale 1.5
-html2canvas.min.js:20 #22 1082ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 6 created: 1190x2035
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 7 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 7 dimensions: 793.6979370117188x1298.1424560546875
-html2canvas.min.js:20 #24 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #23 1149ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #23 1149ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 457.5781555175781,8603.099609375) with scale 1.5
-html2canvas.min.js:20 #23 1225ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
-html2canvas.min.js:20 #25 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #24 1286ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #24 1287ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1298.1424560546875 at 457.5781555175781,8603.099609375) with scale 1.5
-html2canvas.min.js:20 #24 1307ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 7 created: 1190x1947
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 8 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 8 dimensions: 793.6979370117188x1410.1650390625
-html2canvas.min.js:20 #26 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #25 1236ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #25 1236ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 457.5781555175781,9931.2333984375) with scale 1.5
-html2canvas.min.js:20 #25 1350ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
-html2canvas.min.js:20 #27 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #26 1232ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #26 1233ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1410.1650390625 at 457.5781555175781,9931.2333984375) with scale 1.5
-html2canvas.min.js:20 #26 1274ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 8 created: 1190x2115
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 9 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 9 dimensions: 793.6979370117188x1384.4097900390625
-html2canvas.min.js:20 #28 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #27 1056ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #27 1056ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 457.5781555175781,11371.3896484375) with scale 1.5
-html2canvas.min.js:20 #27 1145ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
-html2canvas.min.js:20 #29 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #28 1101ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #28 1101ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x1384.4097900390625 at 457.5781555175781,11371.3896484375) with scale 1.5
-html2canvas.min.js:20 #28 1119ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 9 created: 1190x2076
-universal_html_paginator_v2_stable.html:884 [Status] Processing page 10 of 10...
-universal_html_paginator_v2_stable.html:2468 Page 10 dimensions: 793.6979370117188x765.607666015625
-html2canvas.min.js:20 #30 0ms Starting document clone with size 1725x1012 scrolled to 0,0
-html2canvas.min.js:20 #29 1084ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #29 1084ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 457.5781555175781,12785.798828125) with scale 1.5
-html2canvas.min.js:20 #29 1129ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
-universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)
-html2canvas.min.js:20 #30 655ms Document cloned, using foreign object rendering
-html2canvas.min.js:20 #30 657ms EXPERIMENTAL ForeignObject renderer initialized (793.6979370117188x765.607666015625 at 457.5781555175781,12785.798828125) with scale 1.5
-html2canvas.min.js:20 #30 764ms Finished rendering
-universal_html_paginator_v2_stable.html:2490 Canvas 10 created: 1190x1148
-universal_html_paginator_v2_stable.html:884 [Status] ✅ High-quality PDF generated successfully! Downloaded "ml_paginated.pdf" (0.15 MB, 10 pages)
+universal_html_paginator_v2_stable.html:2429 === STARTING CSS-BASED NATURAL FLOW PAGINATION ===
+universal_html_paginator_v2_stable.html:912 [Status] Creating natural flow pagination with CSS page breaks...
+universal_html_paginator_v2_stable.html:2445 Detected pre-paginated document with 8 pages - applying strict page constraints
+universal_html_paginator_v2_stable.html:2463 Injected preserved styles at document level for complete CSS inheritance
+universal_html_paginator_v2_stable.html:2643 === INTELLIGENT PAGINATION WITH LOOKAHEAD OPTIMIZATION ===
+universal_html_paginator_v2_stable.html:2660 📊 Processing 42 content elements...
+universal_html_paginator_v2_stable.html:2753 🔍 Performing accurate DOM-based measurements...
+universal_html_paginator_v2_stable.html:2760 📏 Element 1: H1.no-class - 98px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 2: P.meta - 34px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 3: P.no-class - 119px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 4: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 5: P.no-class - 78px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 6: P.no-class - 78px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 7: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 8: DIV.callout note - 210px (priority: high, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 9: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 10: P.no-class - 58px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 11: P.no-class - 58px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 12: UL.no-class - 139px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 13: P.no-class - 58px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 14: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 15: P.no-class - 58px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 16: TABLE.no-class - 527px (priority: high, splittable: true)
+universal_html_paginator_v2_stable.html:2760 📏 Element 17: TABLE.no-class - 527px (priority: high, splittable: true)
+universal_html_paginator_v2_stable.html:2760 📏 Element 18: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 19: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 20: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 21: DIV.callout - 148px (priority: high, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 22: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 23: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 24: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 25: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 26: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 27: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 28: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 29: P.no-class - 57px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 30: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 31: DIV.callout warning - 230px (priority: high, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 32: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 33: UL.no-class - 180px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 34: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 35: TABLE.no-class - 309px (priority: high, splittable: true)
+universal_html_paginator_v2_stable.html:2760 📏 Element 36: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 37: UL.no-class - 139px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 38: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 39: DIV.callout - 210px (priority: high, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 40: H2.no-class - 47px (priority: medium, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 41: UL.no-class - 201px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2760 📏 Element 42: P.meta - 74px (priority: low, splittable: false)
+universal_html_paginator_v2_stable.html:2816 🧠 Running intelligent page optimization algorithm...
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Cloud Computing in Indian Retail: Current Landscape, Challenges, and Opportunities (2025)" on current page (852px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Overview" on current page (652px remaining)
+universal_html_paginator_v2_stable.html:2990 📝 ULTRA: Moving heading "Mechanics" to next page - page already 50% full (75.9%)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Mechanics" on current page (903px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Key metrics" on current page (543px remaining)
+universal_html_paginator_v2_stable.html:3044 📊 ULTRA: Adding complete table to current page - all 6 rows fit
+universal_html_paginator_v2_stable.html:3038 📊 ULTRA: Moving table to next page - no rows fit in remaining -42px
+universal_html_paginator_v2_stable.html:2990 📝 ULTRA: Moving heading "Case study: Nykaa — unified data platform on AWS" to next page - page already 50% full (55.5%)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Case study: Nykaa — unified data platform on AWS" on current page (903px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Data analytics and AI in practice" on current page (594px remaining)
+universal_html_paginator_v2_stable.html:2990 📝 ULTRA: Moving heading "Current scenario" to next page - page already 50% full (61.5%)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Current scenario" on current page (903px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Challenges" on current page (742px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Opportunities" on current page (465px remaining)
+universal_html_paginator_v2_stable.html:2990 📝 ULTRA: Moving heading "Cloud governance and compliance KPIs" to next page - page already 50% full (70.0%)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Cloud governance and compliance KPIs" on current page (903px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Examples to emulate" on current page (547px remaining)
+universal_html_paginator_v2_stable.html:2990 📝 ULTRA: Moving heading "More fact nuggets" to next page - page already 50% full (57.1%)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "More fact nuggets" on current page (903px remaining)
+universal_html_paginator_v2_stable.html:3007 📝 ULTRA: Keeping heading "Action checklist" on current page (646px remaining)
+universal_html_paginator_v2_stable.html:2692 📢 Page 1: Marked as has-callout for overflow handling
+universal_html_paginator_v2_stable.html:2696 📄 Page 1: 75.9% utilized (721/950px, 8 elements)
+universal_html_paginator_v2_stable.html:2696 📄 Page 2: 104.4% utilized (992/950px, 8 elements)
+universal_html_paginator_v2_stable.html:2696 📄 Page 3: 55.5% utilized (527/950px, 1 elements)
+universal_html_paginator_v2_stable.html:2692 📢 Page 4: Marked as has-callout for overflow handling
+universal_html_paginator_v2_stable.html:2696 📄 Page 4: 61.5% utilized (584/950px, 9 elements)
+universal_html_paginator_v2_stable.html:2692 📢 Page 5: Marked as has-callout for overflow handling
+universal_html_paginator_v2_stable.html:2696 📄 Page 5: 70.0% utilized (665/950px, 7 elements)
+universal_html_paginator_v2_stable.html:2696 📄 Page 6: 57.1% utilized (542/950px, 4 elements)
+universal_html_paginator_v2_stable.html:2692 📢 Page 7: Marked as has-callout for overflow handling
+universal_html_paginator_v2_stable.html:2696 📄 Page 7: 60.9% utilized (579/950px, 5 elements)
+universal_html_paginator_v2_stable.html:2704 🎯 OPTIMIZATION RESULTS:
+universal_html_paginator_v2_stable.html:2705    📚 Total Pages: 7
+universal_html_paginator_v2_stable.html:2706    📊 Average Utilization: 69.3%
+universal_html_paginator_v2_stable.html:2707    💾 Space Saved: 2040px (2.1 pages worth)
+universal_html_paginator_v2_stable.html:2708 🎉 INTELLIGENT PAGINATION COMPLETE!
+universal_html_paginator_v2_stable.html:912 [Status] ✅ Natural flow pagination completed with perfect visual fidelity!
+universal_html_paginator_v2_stable.html:2491 === CSS PAGINATION COMPLETED ===
+universal_html_paginator_v2_stable.html:604 [Violation] 'click' handler took 224ms
+[Violation] Forced reflow while executing JavaScript took 174ms

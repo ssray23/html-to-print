@@ -66,7 +66,13 @@
       "Bash(copy \"universal_html_paginator_v3_stable_baseline.html\" \"universal_html_paginator_v2_stable.html\")",
       "Bash(start \"C:\\Users\\su.ray\\OneDrive - Reply\\Suddha\\Personal Projects\\html-to-print\\universal_html_paginator_v2_stable.html\")",
       "Bash(node:*)",
-      "Bash(copy \"universal_html_paginator_v2_stable.html\" \"paginator_with_css_context_fix.html\")"
+      "Bash(copy \"universal_html_paginator_v2_stable.html\" \"paginator_with_css_context_fix.html\")",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(copy \"universal_html_paginator_v2_stable.html\" \"universal_html_paginator_v2_stable_with_cmyk_fix.html\")",
+      "Bash(git add:*)",
+      "Bash(copy \"universal_html_paginator_v2_stable.html\" \"universal_html_paginator_v2_stable_height_fix.html\")",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

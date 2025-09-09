@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paged.js Test</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+    </style>
+    <script src="https://unpkg.com/pagedjs@0.4.1/dist/paged.polyfill.js" onerror="alert('Error loading Paged.js')"></script>
+</head>
+<body>
+    <div class="pagedjs-content">
+        <h1>Page 1</h1>
+        <p>This is the first page.</p>
+        <div style="page-break-after: always;"></div>
+        <h1>Page 2</h1>
+        <p>This is the second page.</p>
+    </div>
+</body>
+</html>

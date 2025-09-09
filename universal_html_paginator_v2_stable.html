@@ -46,11 +46,9 @@
                 border: none !important;
                 background: white !important;
                 width: 210mm !important;
-                height: 297mm !important;
-                max-height: 297mm !important;
                 min-height: 297mm !important;
                 display: block !important;
-                overflow: hidden !important;
+                overflow: visible !important;
                 position: relative !important;
                 contain: layout style paint size !important;
                 isolation: isolate !important;
@@ -82,14 +80,36 @@
                 break-after: auto !important;
             }
             
-            /* MAXIMUM TABLE PROTECTION */
-            table, caption, thead, tbody, tfoot, tr, th, td {
-                page-break-inside: avoid !important;
-                break-inside: avoid-page !important;
-                page-break-before: auto !important;
-                break-before: auto !important;
-                page-break-after: auto !important;
-                break-after: auto !important;
+            /* PROPER TABLE PAGE BREAKING */
+            table {
+                table-layout: auto !important;           /* Allow flexible column widths */
+                break-inside: auto !important;           /* Allow table to break between rows */
+                page-break-inside: auto !important;      /* Legacy support */
+                orphans: 0 !important;                   /* Don't require minimum rows at page end */
+                widows: 0 !important;                    /* Don't require minimum rows at page start */
+            }
+            
+            thead {
+                display: table-header-group !important; /* Repeat header on each page */
+                break-inside: avoid !important;         /* Never break within header */
+                page-break-inside: avoid !important;    /* Legacy support */
+                break-after: avoid !important;          /* Don't break immediately after header */
+                page-break-after: avoid !important;     /* Legacy support */
+            }
+            
+            tbody {
+                break-inside: auto !important;          /* Allow body to break between rows */
+                page-break-inside: auto !important;     /* Legacy support */
+            }
+            
+            /* CRITICAL: Avoid breaking within table rows */
+            tr {
+                break-inside: avoid-page !important;    /* Never break row across pages */
+                page-break-inside: avoid !important;    /* Legacy support */
+                break-after: auto !important;           /* Allow break after complete row */
+                page-break-after: auto !important;      /* Legacy support */
+                break-before: auto !important;          /* Allow break before row */
+                page-break-before: auto !important;     /* Legacy support */
                 overflow: visible !important;
                 contain: none !important;
             }
@@ -938,9 +958,12 @@
                 console.log('Detected CMYK variables - using ml.html styling mode');
             }
             
-            // MINIMAL sanitization - preserve 100% visual fidelity
-            // Only remove CSS rules that actually break pagination flow
-            const problematicRules = [
+            // DETECT PRE-PAGINATED DOCUMENTS: Check for .page elements to preserve overflow constraints
+            const isPrePaginated = htmlContent.includes('class="page"');
+            console.log('Pre-paginated document detected:', isPrePaginated);
+            
+            // ENHANCED sanitization - remove pagination-breaking rules AND print-unfriendly decorations
+            let problematicRules = [
                 /page-break-[^;]*;/gi,
                 /break-[^;]*;/gi,
                 /@page[^}]*}/gi,
@@ -948,12 +971,32 @@
                 /min-height:\s*100vh[^;]*;/gi,
                 /height:\s*100%[^;]*;/gi,           // Remove 100% heights that cause issues
                 /min-height:\s*100%[^;]*;/gi,
-                /\.page-content\s*\{[^}]*overflow:\s*hidden[^}]*\}/gi,  // Remove overflow:hidden ONLY from page-content
                 /height:\s*calc\([^)]*\)[^;]*;/gi,  // Remove calc() heights that constrain flow
                 /max-height:\s*[^;]*vh[^;]*;/gi,    // Remove viewport-based max heights
                 /width:\s*793px[^;]*;/gi,           // Remove hardcoded 793px width that breaks layout
-                /body\s*\{[^}]*background[^}]*\}/gi // Remove body background that might cause artifacts
+                /body\s*\{[^}]*background[^}]*\}/gi, // Remove body background that might cause artifacts
+                
+                // PRINT-FRIENDLY: Remove decorative containers and excessive spacing
+                /\.document-container\s*\{[^}]*padding:\s*[^;]*;[^}]*\}/gi,  // Remove large container padding
+                /\.document-container\s*\{[^}]*box-shadow:[^}]*\}/gi,        // Remove fancy shadows
+                /\.document-container\s*\{[^}]*border-radius:[^}]*\}/gi,     // Remove rounded corners
+                /\.document-container\s*\{[^}]*background[^}]*\}/gi,         // Remove container backgrounds
+                /\.container\s*\{[^}]*padding:\s*[^;]*cm[^}]*\}/gi,          // Remove excessive cm padding
+                /\.content\s*\{[^}]*padding:\s*[^;]*cm[^}]*\}/gi,            // Remove excessive cm padding
+                /box-shadow:\s*[^;]*;/gi,                                    // Remove all box shadows
+                /border-radius:\s*[^;]*;/gi,                                 // Remove all rounded corners
+                /max-width:\s*21cm[^;]*;/gi,                                 // Remove A4-width constraints
+                /justify-content:\s*center[^;]*;/gi                          // Remove centering that wastes space
             ];
+            
+            // CONDITIONAL: Only remove page-content overflow:hidden for single-container documents
+            // For pre-paginated documents like cloud.html, preserve original overflow constraints
+            if (!isPrePaginated) {
+                problematicRules.push(/\.page-content\s*\{[^}]*overflow:\s*hidden[^}]*\}/gi);
+                console.log('Added page-content overflow removal for single-container document');
+            } else {
+                console.log('PRESERVING page-content overflow constraints for pre-paginated document');
+            }
             
             let sanitized = htmlContent;
             problematicRules.forEach(rule => {
@@ -971,7 +1014,15 @@
             // Comprehensive CSS fixes for all common HTML document formatting issues
             const spacingPreservationCSS = `
             <style>
-            /* ========== LIST FORMATTING ========== */
+            /* ========== PARAGRAPH AND LIST FORMATTING ========== */
+            /* Preserve proper paragraph spacing for readability */
+            .page-content p,
+            .source-content p {
+                margin-bottom: 1.5em !important;
+                text-align: justify !important;
+                line-height: 1.6 !important;
+            }
+            
             ul, ol {
                 padding-left: 2.5em !important;
             }
@@ -1044,6 +1095,32 @@
                 --cmyk-medium-gray: #666666;
                 --cmyk-light-gray: #F5F5F5;
                 --cmyk-border: #000000;
+            }
+            
+            /* PRINT-FRIENDLY CONTAINER STYLING - Remove decorative elements */
+            .source-content .document-container,
+            .page-content .document-container,
+            .source-content .container,
+            .page-content .container {
+                /* Strip all decorative styling for print-friendliness */
+                background: transparent !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: none !important;
+                border: none !important;
+                /* Use minimal, print-appropriate spacing */
+                width: 100% !important;
+            }
+            
+            /* Ensure body and container backgrounds are removed for clean printing */
+            body, .document-viewer, .document-container, .container, .content {
+                background: white !important;
+                background-color: white !important;
+                background-image: none !important;
+                box-shadow: none !important;
+                border: none !important;
             }
             
             
@@ -1205,12 +1282,57 @@
             }
             
             /* Preserve intended backgrounds for content elements */
-            .page-content .callout,
             .page-content .reference-box,
-            .page-content div[class*="box"]:not(.stat-box):not(.text-box),
-            .page-content [style*="background-color"]:not(.stat-box):not(.text-box),
-            .page-content [style*="background:"]:not(.stat-box):not(.text-box) {
+            .page-content div[class*="box"]:not(.stat-box):not(.text-box):not(.callout),
+            .page-content [style*="background-color"]:not(.stat-box):not(.text-box):not(.callout),
+            .page-content [style*="background:"]:not(.stat-box):not(.text-box):not(.callout) {
                 background: inherit !important;
+            }
+            
+            /* CRITICAL: Ensure callout styling is preserved with proper specificity */
+            .paginated-content .callout,
+            .page-content .callout,
+            .source-content .callout {
+                background: #f8f8f8 !important;
+                border-left: 4px solid #ccc !important;
+                padding: 10px 15px !important;
+                margin: 15px 0 !important;
+            }
+            
+            /* CRITICAL: Prevent orphaned headings - CSS-based approach */
+            .paginated-content h1,
+            .paginated-content h2,
+            .paginated-content h3,
+            .paginated-content h4,
+            .paginated-content h5,
+            .paginated-content h6,
+            .page-content h1,
+            .page-content h2,
+            .page-content h3,
+            .page-content h4,
+            .page-content h5,
+            .page-content h6 {
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                orphans: 3 !important;              /* Require at least 3 lines after heading */
+                widows: 3 !important;               /* Require at least 3 lines before heading */
+                margin-bottom: 0.5em !important;    /* Ensure some space after headings */
+            }
+            
+            .paginated-content .callout.warning,
+            .page-content .callout.warning,
+            .source-content .callout.warning {
+                border-left-color: #ff6b35 !important;
+                background: #fff3f0 !important;
+            }
+            
+            .paginated-content .callout.note,
+            .page-content .callout.note,
+            .source-content .callout.note {
+                border-left-color: #4a90e2 !important;
+                background: #f0f7ff !important;
             }
             
             /* FORCE CMYK styling after general rules - HIGHEST SPECIFICITY */
@@ -1485,8 +1607,9 @@
             // Get the body content, or the entire content if no body tag
             let content = tempContainer.querySelector('body') || tempContainer;
             
-            // FLATTEN EXISTING PAGE STRUCTURE - remove .page containers but preserve layout hierarchy
+            // HANDLE DIFFERENT DOCUMENT STRUCTURES
             const pageContainers = content.querySelectorAll('.page');
+            
             if (pageContainers.length > 0) {
                 console.log(`Found pre-paginated structure with ${pageContainers.length} pages - flattening while preserving layout...`);
                 
@@ -1577,6 +1700,54 @@
                 
                 content = flattenedContent;
                 console.log(`Smart flattening complete - extracted ${flattenedContent.children.length} elements while preserving layout hierarchy`);
+            } else {
+                // HANDLE SINGLE-CONTAINER DOCUMENTS (like philo.html)
+                const documentContainers = content.querySelectorAll('.document-container, .container, .content, article, main');
+                
+                if (documentContainers.length > 0) {
+                    console.log(`Found single-container document structure - extracting content for pagination...`);
+                    
+                    const flattenedContent = document.createElement('div');
+                    
+                    documentContainers.forEach(container => {
+                        // Extract all meaningful content from the container
+                        Array.from(container.children).forEach(child => {
+                            // Include headers, sections, paragraphs, etc. - all content elements
+                            if (!['SCRIPT', 'STYLE', 'META', 'TITLE', 'HEAD', 'LINK'].includes(child.tagName)) {
+                                // If it's a section with nested paragraphs, extract the paragraphs individually
+                                if (child.tagName === 'SECTION' && child.children.length > 0) {
+                                    // ALWAYS extract individual elements from section for better pagination
+                                    // Sections are just containers and should be flattened
+                                    console.log(`Processing section with ${child.children.length} child elements...`);
+                                    Array.from(child.children).forEach(sectionChild => {
+                                        if (!['SCRIPT', 'STYLE', 'META', 'TITLE', 'HEAD', 'LINK'].includes(sectionChild.tagName)) {
+                                            flattenedContent.appendChild(sectionChild.cloneNode(true));
+                                            console.log(`Extracted from section: ${sectionChild.tagName}.${sectionChild.className || 'no-class'}`);
+                                        }
+                                    });
+                                } else {
+                                    flattenedContent.appendChild(child.cloneNode(true));
+                                    console.log(`Extracted content element: ${child.tagName}.${child.className || 'no-class'}`);
+                                }
+                            }
+                        });
+                    });
+                    
+                    content = flattenedContent;
+                    console.log(`Single-container extraction complete - extracted ${flattenedContent.children.length} elements for pagination`);
+                } else {
+                    // FALLBACK: If no special containers found, extract direct body children
+                    console.log('No special containers found - using direct body content for pagination');
+                    const flattenedContent = document.createElement('div');
+                    
+                    Array.from(content.children).forEach(child => {
+                        if (!['SCRIPT', 'STYLE', 'META', 'TITLE', 'HEAD', 'LINK'].includes(child.tagName)) {
+                            flattenedContent.appendChild(child.cloneNode(true));
+                        }
+                    });
+                    
+                    content = flattenedContent;
+                }
             }
             
             // Return content as-is without adding extra containers that cause visual artifacts
@@ -2031,23 +2202,21 @@
             const content = document.createElement('div');
             content.className = 'page-content';
             
-            // PRESERVE CSS CONTEXT: Ensure paginated pages have same CSS environment as processed content
-            // Copy the body class and any data attributes that might affect CSS inheritance
-            const processedContent = document.getElementById('processedContent');
+            // CRITICAL CSS PRESERVATION: Styles are now injected at document level, no need to duplicate per-page
             const sourceContent = document.getElementById('sourceContent');
-            if (processedContent) {
-                const bodyElement = processedContent.closest('body') || document.body;
-                if (bodyElement.className) {
-                    page.classList.add(...bodyElement.className.split(' '));
-                }
-                
-                // Copy any data attributes that affect styling
-                Array.from(bodyElement.attributes).forEach(attr => {
-                    if (attr.name.startsWith('data-') && !page.hasAttribute(attr.name)) {
-                        page.setAttribute(attr.name, attr.value);
-                    }
-                });
+            
+            // Copy body classes and data attributes for CSS context
+            const bodyElement = document.body;
+            if (bodyElement.className) {
+                page.classList.add(...bodyElement.className.split(' ').filter(cls => cls.trim()));
             }
+            
+            // Copy all data attributes that might affect CSS inheritance
+            Array.from(bodyElement.attributes).forEach(attr => {
+                if (attr.name.startsWith('data-') && !page.hasAttribute(attr.name)) {
+                    page.setAttribute(attr.name, attr.value);
+                }
+            });
             
             // CRITICAL: Copy CMYK attribute to page-content for ml.html compatibility
             if (sourceContent && sourceContent.hasAttribute('data-has-cmyk')) {
@@ -2247,6 +2416,7 @@
             return actualHeight;
         }
 
+
         // RADICAL NEW APPROACH: CSS-Based Natural Flow Pagination
         // Let browser handle pagination naturally with CSS page-break controls
         async function paginateContent() {
@@ -2263,8 +2433,36 @@
             const paginatedContent = document.getElementById('paginatedContent');
             paginatedContent.innerHTML = '';
             
-            // Add preserved styles to ensure proper styling
+            // DETECT PRE-PAGINATED DOCUMENTS: Check if original HTML had .page elements
+            const originalHTML = uploadedHTMLContent || originalHTML || sourceContent.innerHTML;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = originalHTML;
+            const originalPageElements = tempDiv.querySelectorAll('.page');
+            
+            if (originalPageElements.length > 0) {
+                // This is a pre-paginated document like cloud.html - set attribute for strict constraints
+                paginatedContent.setAttribute('data-original-pages', originalPageElements.length.toString());
+                console.log(`Detected pre-paginated document with ${originalPageElements.length} pages - applying strict page constraints`);
+            } else {
+                // This is a single-container document like philo.html - remove attribute for flexible pagination
+                paginatedContent.removeAttribute('data-original-pages');
+                console.log('Detected single-container document - applying flexible intelligent pagination');
+            }
+            
+            // CRITICAL: Inject preserved styles at DOCUMENT LEVEL for complete CSS inheritance
             if (preservedStyles) {
+                // First, remove any existing preserved styles to avoid duplication
+                const existingStyles = document.head.querySelectorAll('style[data-preserved]');
+                existingStyles.forEach(style => style.remove());
+                
+                // Inject preserved styles at document head level for global access
+                const globalStyleElement = document.createElement('style');
+                globalStyleElement.setAttribute('data-preserved', 'true');
+                globalStyleElement.textContent = preservedStyles.replace(/<\/?style[^>]*>/g, ''); // Extract just CSS content
+                document.head.appendChild(globalStyleElement);
+                console.log('Injected preserved styles at document level for complete CSS inheritance');
+                
+                // Also add to paginated content for fallback
                 paginatedContent.insertAdjacentHTML('afterbegin', preservedStyles);
             }
             
@@ -2278,6 +2476,8 @@
             
             // Add the container to paginated content
             paginatedContent.appendChild(flowContainer);
+            
+            // Table row pagination fix is now integrated into createOptimalPages()
             
             // Create actual visual pages from the natural flow content
             createVisualPagesFromFlow(flowContainer);
@@ -2320,30 +2520,7 @@
                     margin: 297mm 0 20px 0;
                 }
                 
-                /* Table pagination rules */
-                .natural-flow-container table {
-                    page-break-inside: auto;
-                    break-inside: auto;
-                }
-                
-                .natural-flow-container thead {
-                    display: table-header-group;
-                    page-break-after: auto;
-                    break-after: auto;
-                }
-                
-                .natural-flow-container tbody {
-                    display: table-row-group;
-                    page-break-inside: auto;
-                    break-inside: auto;
-                }
-                
-                .natural-flow-container tr {
-                    page-break-inside: avoid;
-                    break-inside: avoid;
-                    page-break-after: auto;
-                    break-after: auto;
-                }
+                /* Table pagination rules - inherit from global rules above */
                 
                 /* Prevent orphans and widows */
                 .natural-flow-container p,
@@ -2372,19 +2549,60 @@
                     color: #999;
                 }
                 
-                /* FIXED: A4 Page styling with proper overflow control */
+                /* ADAPTIVE: A4 Page styling - strict for pre-paginated, flexible for single-container */
                 .page {
                     width: 210mm;
                     min-height: 297mm;
-                    max-height: 297mm; /* CRITICAL: Restore height constraint to prevent overflow */
                     padding: 0.6cm;
                     margin: 0 auto 20px auto;
                     background: white;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                     page-break-after: always;
                     position: relative;
-                    overflow: hidden; /* CRITICAL: Prevent text overflow beyond page */
                     box-sizing: border-box;
+                }
+                
+                /* MODIFIED: Pre-paginated documents - allow overflow for complete table rows */
+                .paginated-content[data-original-pages] .page {
+                    width: 210mm !important;
+                    min-height: 297mm !important;          /* Min height, allow expansion */
+                    overflow: visible !important;          /* ALLOW OVERFLOW: No content clipping */
+                    position: relative !important;
+                    background: white !important;
+                }
+                
+                /* MODIFIED: Allow table overflow to prevent row cutting */
+                .paginated-content[data-original-pages] .page .page-content,
+                .paginated-content[data-original-pages] .page-content {
+                    position: relative !important;       /* CHANGED: Allow natural height expansion */
+                    padding: 20mm !important;            /* CHANGED: Use padding instead of positioning */
+                    width: auto !important;              /* CHANGED: Natural width */
+                    height: auto !important;             /* CHANGED: Natural height expansion */
+                    min-height: 257mm !important;        /* Min height constraint */
+                    overflow: visible !important;        /* ALLOW OVERFLOW: Prevent table row cutting */
+                    box-sizing: border-box !important;   /* Include padding in width calculation */
+                }
+                
+                /* CONTROLLED CALLOUT FIX: Allow minimal overflow but prevent spillage */
+                .paginated-content[data-original-pages] .page-content .callout {
+                    position: relative !important;
+                    z-index: 10 !important;            /* Slightly elevated but not excessive */
+                    margin-bottom: 2mm !important;     /* Minimal extra space after callouts */
+                    max-height: 300px !important;      /* Prevent excessive callout height */
+                    overflow: hidden !important;       /* Clip if callout is too large */
+                }
+                
+                /* SURGICAL: Allow only slight overflow for pages with callouts */
+                .paginated-content[data-original-pages] .page.has-callout .page-content {
+                    height: calc(100% - 30mm) !important; /* Reduce from 40mm to 30mm = 267mm content height */
+                    overflow: visible !important;          /* Allow slight overflow only */
+                    bottom: 10mm !important;              /* Reduce bottom constraint slightly */
+                }
+                
+                /* FLEXIBLE: Single-container documents (philo.html) - allow intelligent flow */
+                .paginated-content:not([data-original-pages]) .page {
+                    overflow: visible; /* Allow natural flow for intelligently paginated content */
+                }
                     border: 1px solid #ddd;
                     border-radius: 4px;
                 }
@@ -2431,9 +2649,10 @@
             flowContainer.style.visibility = 'visible';
             flowContainer.offsetHeight; // Force reflow
             
-            // BALANCED A4 dimensions - prevent overflow while maximizing content
-            const A4_HEIGHT_PX = 950; // Reduced from 1000 to prevent text overflow
-            const MIN_FILL_THRESHOLD = 0.85; // Balanced 85% utilization to ensure content fits
+            // ACTUAL CSS CONSTRAINT: Match the real page-content height for pre-paginated documents
+            // .page-content height = calc(100% - 40mm) = 297mm - 40mm = 257mm ≈ 971px
+            const A4_HEIGHT_PX = 950; // CRITICAL: Match actual CSS constraint (971px - safety margin)
+            const MIN_FILL_THRESHOLD = 0.80; // Slightly lower threshold to prevent text cutoff
             
             // Get all content elements with accurate measurement
             const allContentElements = extractContentElements(flowContainer);
@@ -2453,10 +2672,24 @@
             
             // Render optimized pages
             pages.forEach((pageData, index) => {
-                const page = createStyledPage(index + 1);
+                const pageObj = createStyledPage(index + 1);
+                let hasCallout = false;
+                
                 pageData.elements.forEach(element => {
-                    page.content.appendChild(element.cloneNode(true));
+                    const clonedElement = element.cloneNode(true);
+                    pageObj.content.appendChild(clonedElement);
+                    
+                    // CALLOUT DETECTION: Check if this page contains callout elements
+                    if (element.classList.contains('callout') || clonedElement.querySelector('.callout')) {
+                        hasCallout = true;
+                    }
                 });
+                
+                // MARK PAGES WITH CALLOUTS: Apply special overflow handling
+                if (hasCallout) {
+                    pageObj.page.classList.add('has-callout');
+                    console.log(`📢 Page ${index + 1}: Marked as has-callout for overflow handling`);
+                }
                 
                 const utilizationPercent = ((pageData.totalHeight / A4_HEIGHT_PX) * 100).toFixed(1);
                 console.log(`📄 Page ${index + 1}: ${utilizationPercent}% utilized (${pageData.totalHeight}/${A4_HEIGHT_PX}px, ${pageData.elements.length} elements)`);
@@ -2557,8 +2790,13 @@
             const tag = element.tagName.toLowerCase();
             const className = element.className || '';
             
+            // TABLES ARE SPLITTABLE: Allow breaking between rows, but rows are indivisible
+            if (tag === 'table') {
+                return true;  // Tables can break between rows
+            }
+            
             // Never split these elements
-            if (tag === 'table' || tag === 'img' || tag === 'figure' || 
+            if (tag === 'img' || tag === 'figure' || 
                 className.includes('callout') || className.includes('stat-box') ||
                 className.includes('text-box')) {
                 return false;
@@ -2583,12 +2821,57 @@
             
             while (elementIndex < elementData.length) {
                 const element = elementData[elementIndex];
+                const elementTag = element.element.tagName.toLowerCase();
+                const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(elementTag);
                 
+                // SPECIAL HEADING CHECK: Always apply intelligent decision for headings
+                if (isHeading) {
+                    const decision = makeIntelligentPageDecision(
+                        elementData, elementIndex, currentPageHeight, 
+                        pageHeight, minFillThreshold
+                    );
+                    
+                    if (decision.action === 'finish_page') {
+                        // Finish current page and start new one
+                        if (currentPageElements.length > 0) {
+                            pages.push({
+                                elements: currentPageElements,
+                                totalHeight: currentPageHeight
+                            });
+                        }
+                        currentPageElements = [];
+                        currentPageHeight = 0;
+                    } else if (decision.action === 'add_element') {
+                        // Add heading to current page
+                        currentPageElements.push(element.element);
+                        currentPageHeight += element.height;
+                        elementIndex++;
+                    } else {
+                        // Force fit or other action
+                        currentPageElements.push(element.element);
+                        currentPageHeight += element.height;
+                        elementIndex++;
+                    }
+                }
                 // Check if element fits on current page
-                if (currentPageHeight + element.height <= pageHeight) {
+                else if (currentPageHeight + element.height <= pageHeight) {
                     // Element fits - add it
                     currentPageElements.push(element.element);
                     currentPageHeight += element.height;
+                    
+                    // Check for split table continuation
+                    if (element.splitTable) {
+                        console.log(`📊 ULTRA: Adding remaining table part to next page (${element.splitTable.remainingRows} rows)`);
+                        // Insert remaining table as next element
+                        const remainingElement = {
+                            element: element.splitTable.remainingTable,
+                            height: element.splitTable.remainingRows * 40 + 50, // Approximate height
+                            priority: 'high',
+                            splittable: true
+                        };
+                        elementData.splice(elementIndex + 1, 0, remainingElement);
+                    }
+                    
                     elementIndex++;
                 } else {
                     // Element doesn't fit - apply intelligent decision making
@@ -2607,10 +2890,43 @@
                         }
                         currentPageElements = [];
                         currentPageHeight = 0;
+                    } else if (decision.action === 'add_element') {
+                        // Add element to current page (used for headings with sufficient space)
+                        currentPageElements.push(element.element);
+                        currentPageHeight += element.height;
+                        
+                        // Check for split table continuation
+                        if (element.splitTable) {
+                            console.log(`📊 ULTRA: Adding remaining table part to next page (${element.splitTable.remainingRows} rows)`);
+                            // Insert remaining table as next element
+                            const remainingElement = {
+                                element: element.splitTable.remainingTable,
+                                height: element.splitTable.remainingRows * 40 + 50, // Approximate height
+                                priority: 'high',
+                                splittable: true
+                            };
+                            elementData.splice(elementIndex + 1, 0, remainingElement);
+                        }
+                        
+                        elementIndex++;
                     } else if (decision.action === 'force_fit') {
                         // Force fit the element (for small overflows)
                         currentPageElements.push(element.element);
                         currentPageHeight += element.height;
+                        
+                        // Check for split table continuation
+                        if (element.splitTable) {
+                            console.log(`📊 ULTRA: Adding remaining table part to next page (${element.splitTable.remainingRows} rows)`);
+                            // Insert remaining table as next element
+                            const remainingElement = {
+                                element: element.splitTable.remainingTable,
+                                height: element.splitTable.remainingRows * 40 + 50, // Approximate height
+                                priority: 'high',
+                                splittable: true
+                            };
+                            elementData.splice(elementIndex + 1, 0, remainingElement);
+                        }
+                        
                         elementIndex++;
                     } else if (decision.action === 'skip_and_pack') {
                         // Skip current element and try to pack smaller ones
@@ -2659,15 +2975,145 @@
             const element = elementData[currentIndex];
             const overflow = (currentHeight + element.height) - pageHeight;
             const currentUtilization = currentHeight / pageHeight;
+            const elementTag = element.element.tagName.toLowerCase();
+            
+            // ULTRA-AGGRESSIVE HEADING LOGIC: Prevent orphaned headings
+            const isHeading = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(elementTag);
+            if (isHeading) {
+                // Check remaining space after heading
+                const remainingSpace = pageHeight - (currentHeight + element.height);
+                const minContentSpace = 200; // ULTRA-INCREASED: Minimum space needed for following content (px)
+                
+                // ULTRA-AGGRESSIVE: If page is already 50% full, move heading to next page
+                if (currentUtilization > 0.5) {
+                    console.log(`📝 ULTRA: Moving heading "${element.element.textContent}" to next page - page already 50% full (${(currentUtilization*100).toFixed(1)}%)`);
+                    return { action: 'finish_page' };
+                }
+                
+                // If heading fits but leaves insufficient space for content, move to next page
+                if (overflow <= 0 && remainingSpace < minContentSpace) {
+                    console.log(`📝 ULTRA: Moving heading "${element.element.textContent}" to next page - insufficient space for content (${remainingSpace}px < ${minContentSpace}px)`);
+                    return { action: 'finish_page' };
+                }
+                
+                // If heading doesn't fit, definitely move to next page
+                if (overflow > 0) {
+                    console.log(`📝 ULTRA: Moving heading "${element.element.textContent}" to next page - doesn't fit (overflow: ${overflow}px)`);
+                    return { action: 'finish_page' };
+                }
+                
+                // Heading fits with adequate space - keep it
+                console.log(`📝 ULTRA: Keeping heading "${element.element.textContent}" on current page (${remainingSpace}px remaining)`);
+                return { action: 'add_element' };
+            }
+            
+            // SMART TABLE LOGIC: Split large tables across multiple pages
+            const isTable = elementTag === 'table';
+            if (isTable) {
+                const remainingHeight = pageHeight - currentHeight;
+                const tableEl = element.element;
+                const tbody = tableEl.querySelector('tbody');
+                const thead = tableEl.querySelector('thead');
+                
+                if (tbody && thead) {
+                    const rows = Array.from(tbody.querySelectorAll('tr'));
+                    const headerHeight = thead.offsetHeight || 50;
+                    let availableForRows = remainingHeight - headerHeight - 20; // Safety margin
+                    let safeRowCount = 0;
+                    
+                    // Count how many complete rows can fit in remaining space
+                    for (const row of rows) {
+                        const rowHeight = row.offsetHeight || 40;
+                        if (availableForRows >= rowHeight) {
+                            availableForRows -= rowHeight;
+                            safeRowCount++;
+                        } else {
+                            break;
+                        }
+                    }
+                    
+                    // If no rows can fit on current page, move to next page
+                    if (safeRowCount === 0) {
+                        console.log(`📊 ULTRA: Moving table to next page - no rows fit in remaining ${remainingHeight}px`);
+                        return { action: 'finish_page' };
+                    }
+                    
+                    // If all rows fit, add complete table
+                    if (safeRowCount === rows.length) {
+                        console.log(`📊 ULTRA: Adding complete table to current page - all ${rows.length} rows fit`);
+                        return { action: 'add_element' };
+                    }
+                    
+                    // SPLIT TABLE: Some rows fit, some don't
+                    console.log(`📊 ULTRA: Splitting table - ${safeRowCount}/${rows.length} rows fit on current page`);
+                    
+                    // Create partial table with header + fitting rows
+                    const partialTable = tableEl.cloneNode(false); // Clone table structure
+                    const partialThead = thead.cloneNode(true);
+                    const partialTbody = document.createElement('tbody');
+                    
+                    // Add fitting rows to partial table
+                    for (let i = 0; i < safeRowCount; i++) {
+                        partialTbody.appendChild(rows[i].cloneNode(true));
+                    }
+                    
+                    partialTable.appendChild(partialThead);
+                    partialTable.appendChild(partialTbody);
+                    
+                    // Replace current table element with partial table
+                    element.element = partialTable;
+                    element.height = headerHeight + (safeRowCount * 40); // Approximate height
+                    
+                    // Create remaining table with header + remaining rows
+                    const remainingTable = tableEl.cloneNode(false);
+                    const remainingThead = thead.cloneNode(true);
+                    const remainingTbody = document.createElement('tbody');
+                    
+                    // Add remaining rows
+                    for (let i = safeRowCount; i < rows.length; i++) {
+                        remainingTbody.appendChild(rows[i].cloneNode(true));
+                    }
+                    
+                    remainingTable.appendChild(remainingThead);
+                    remainingTable.appendChild(remainingTbody);
+                    
+                    // Mark that we need to process remaining table next
+                    element.splitTable = {
+                        remainingTable: remainingTable,
+                        remainingRows: rows.length - safeRowCount
+                    };
+                    
+                    console.log(`📊 ULTRA: Created partial table with ${safeRowCount} rows, ${rows.length - safeRowCount} rows remaining`);
+                    return { action: 'add_element' };
+                } else {
+                    // No tbody/thead, handle as normal element
+                    if (overflow > 0) {
+                        console.log(`📊 ULTRA: Moving simple table to next page (overflow: ${overflow}px)`);
+                        return { action: 'finish_page' };
+                    }
+                    console.log(`📊 ULTRA: Adding simple table to current page`);
+                    return { action: 'add_element' };
+                }
+            }
+            
+            // NEVER force-fit text elements (paragraphs, divs with text) - they get cut off
+            const isTextElement = ['p', 'div', 'span', 'section', 'article'].includes(elementTag);
             
             // If current page is well-utilized (>= threshold), finish it
             if (currentUtilization >= minThreshold) {
                 return { action: 'finish_page' };
             }
             
-            // Small overflow with high-priority element - force fit
-            if (overflow <= 50 && element.priority === 'high') {
-                return { action: 'force_fit' };
+            // DISABLED: No more force-fitting - strict height limits to prevent row cutting
+            // Small overflow with high-priority elements is NO LONGER ALLOWED
+            // This was causing pages to exceed height limits and create cascading overflow
+            // if (overflow <= 50 && element.priority === 'high' && !isTextElement && !isTable) {
+            //     return { action: 'force_fit' };
+            // }
+            
+            // STRICT: Never force-fit text elements - always move to next page
+            if (isTextElement && overflow > 0) {
+                return { action: 'finish_page' };
             }
             
             // Large element that would waste space - skip and pack smaller ones
