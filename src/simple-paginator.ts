@@ -44,6 +44,8 @@ class HtmlPaginator {
   private readonly CONTENT_HEIGHT_MM = 297 - (0.6 * 2 * 10); // 285mm
   private readonly CONTENT_HEIGHT_PX = Math.floor(((297 - (0.6 * 2 * 10)) / 25.4) * 96 * 0.75); // ~810px for proper bottom margins
   private elementRegistry: ElementRegistry[] = [];
+  private extractedVariables: Record<string, string> = {};
+  private completeOriginalStyles: string = '';
   
   // Global pagination tolerance setting - controls how aggressively content is packed onto pages
   private PAGINATION_TOLERANCE_PX = 123; // Default 123px tolerance - the SWEET SPOT for optimal space utilization
@@ -89,6 +91,10 @@ class HtmlPaginator {
 
   private async processHTML(): Promise<void> {
     console.log('🔥 processHTML called');
+    
+    // Clear all previous content when uploading a new HTML file
+    this.clearAllContent();
+    
     const sourceContent = this.getSourceContent();
     
     // Check if there's already processed content - just show it
@@ -254,6 +260,24 @@ class HtmlPaginator {
     while (registryIndex < registryItems.length) {
       const registryEntry = registryItems[registryIndex];
       
+      // Handle oversized elements that exceed page capacity
+      if (registryEntry.height > this.CONTENT_HEIGHT_PX * 2) {
+        console.log(`🚨 OVERSIZED ELEMENT DETECTED: Registry[${registryIndex}] (${registryEntry.height}px) exceeds 2x page capacity`);
+        console.log(`🔍 Element details: ${registryEntry.element.tagName}.${registryEntry.element.className || 'no-class'}`);
+        console.log(`📄 Content preview: ${registryEntry.element.textContent?.substring(0, 200)}...`);
+        
+        // Try to break down the oversized element into children
+        const children = Array.from(registryEntry.element.children);
+        if (children.length > 0) {
+          console.log(`🔧 Attempting to break down oversized element into ${children.length} children`);
+          // Skip this element and let the children be processed individually if they exist
+          registryIndex++;
+          continue;
+        } else {
+          console.log(`⚠️ Cannot break down oversized element - no children found. Creating oversized page.`);
+        }
+      }
+
       // Handle tables with smarter placement logic
       if (registryEntry.isTable) {
         const remainingSpace = this.CONTENT_HEIGHT_PX * 0.95 - currentHeight;
@@ -585,7 +609,26 @@ class HtmlPaginator {
     pageContent.style.wordWrap = 'break-word';
     pageContent.style.overflowWrap = 'break-word';
 
-    // Append elements and preserve their original styling
+    // Inject complete original styles directly into this page for 100% visual fidelity
+    if (this.completeOriginalStyles) {
+      console.log('🎨 Injecting complete original styles into paginated page...');
+      const pageStyleElement = document.createElement('style');
+      pageStyleElement.textContent = this.completeOriginalStyles;
+      console.log(`🎨 Injected ${this.completeOriginalStyles.length} characters of original CSS into page`);
+      pageContent.appendChild(pageStyleElement);
+    } else if (this.extractedVariables && Object.keys(this.extractedVariables).length > 0) {
+      console.log('🎨 Fallback: Injecting CSS variables into paginated page...');
+      const pageStyleElement = document.createElement('style');
+      let cssVariables = ':root {\n';
+      for (const [varName, varValue] of Object.entries(this.extractedVariables)) {
+        cssVariables += `  ${varName}: ${varValue};\n`;
+      }
+      cssVariables += '}\n';
+      pageStyleElement.textContent = cssVariables;
+      pageContent.appendChild(pageStyleElement);
+    }
+
+    // Append elements and preserve their original styling (no manual overrides needed)
     pageData.elements.forEach(element => {
       pageContent.appendChild(element);
     });
@@ -634,6 +677,38 @@ class HtmlPaginator {
 
   private getPaginatedContainer(): HTMLElement | null {
     return document.getElementById('paginatedContent') as HTMLElement | null;
+  }
+
+  private clearAllContent(): void {
+    console.log('🧹 Clearing all previous content and starting fresh...');
+    
+    // Clear processed content
+    const sourceContent = this.getSourceContent();
+    if (sourceContent) {
+      sourceContent.innerHTML = '';
+      sourceContent.style.display = 'none';
+      console.log('🧹 Cleared processed content');
+    }
+    
+    // Clear paginated content
+    const paginatedContainer = this.getPaginatedContainer();
+    if (paginatedContainer) {
+      paginatedContainer.innerHTML = '';
+      paginatedContainer.style.display = 'none';
+      console.log('🧹 Cleared paginated content');
+    }
+    
+    // Clear element registry
+    this.elementRegistry = [];
+    console.log('🧹 Cleared element registry');
+    
+    // Clear CSS variables and original styles
+    this.extractedVariables = {};
+    this.completeOriginalStyles = '';
+    console.log('🧹 Cleared CSS variables and original styles');
+    
+    // Reset any status messages
+    this.updateStatus('Ready to process new HTML file...', 'info');
   }
 
   private displayProcessedContent(content: string): void {
@@ -728,9 +803,35 @@ class HtmlPaginator {
     }
   }
 
+  private getElementsForRegistry(container: Element): Element[] {
+    const elements: Element[] = [];
+    const maxElementHeight = this.CONTENT_HEIGHT_PX * 1.5; // 1.5x page height threshold
+    
+    Array.from(container.children).forEach(child => {
+      const rect = child.getBoundingClientRect();
+      const height = Math.ceil(rect.height);
+      
+      // If element is oversized and has children, break it down
+      if (height > maxElementHeight && child.children.length > 0) {
+        console.log(`🔧 Breaking down oversized ${child.tagName}.${child.className || 'no-class'} (${height}px) into ${child.children.length} children`);
+        // Recursively get children instead of the oversized parent
+        elements.push(...this.getElementsForRegistry(child));
+      } else {
+        // Element is appropriately sized or is a leaf element
+        elements.push(child);
+        if (height > maxElementHeight) {
+          console.log(`⚠️ Leaf element ${child.tagName}.${child.className || 'no-class'} is oversized (${height}px) but has no children to break down`);
+        }
+      }
+    });
+    
+    return elements;
+  }
+
   private populateElementRegistry(): void {
     console.log('📋 Populating element registry...');
     this.elementRegistry = [];
+    console.log('📋 Registry population started - clearing existing registry');
     
     const sourceContent = this.getSourceContent();
     if (!sourceContent) {
@@ -765,8 +866,8 @@ class HtmlPaginator {
     measurementContainer.appendChild(clonedContent);
     document.body.appendChild(measurementContainer);
 
-    // Get all child elements (direct children only for now)
-    const elements = Array.from(clonedContent.children);
+    // Get all child elements and recursively break down oversized containers
+    const elements = this.getElementsForRegistry(clonedContent);
     
     elements.forEach((element, index) => {
       const rect = element.getBoundingClientRect();
@@ -795,8 +896,12 @@ class HtmlPaginator {
     document.body.removeChild(measurementContainer);
     console.log(`✅ Element registry populated with ${this.elementRegistry.length} elements`);
     
-    // Display registry table for debugging
-    this.displayElementRegistry();
+    if (this.elementRegistry.length > 0) {
+      // Display registry table for debugging
+      this.displayElementRegistry();
+    } else {
+      console.warn('⚠️ Registry is empty - no elements were registered');
+    }
   }
 
   private displayElementRegistry(): void {
@@ -989,14 +1094,16 @@ class HtmlPaginator {
   }
 
   private extractAndApplyCSSVariables(styleElements: NodeListOf<Element>, fullExtractedStyles?: string): void {
-    console.log('🎨 Extracting CSS variables from original document...');
+    console.log('🎨 Extracting and preserving ALL styles for 100% visual fidelity...');
     
+    let completeStylesCSS = '';
     let cssVariables: Record<string, string> = {};
     
-    styleElements.forEach(styleEl => {
+    styleElements.forEach((styleEl, index) => {
       const cssText = styleEl.textContent || '';
+      completeStylesCSS += `\n/* EXTRACTED STYLE BLOCK ${index + 1} */\n${cssText}\n`;
       
-      // Extract CSS variables (--variable-name: value)
+      // Extract CSS variables for reference (but preserve all styles)
       const variableRegex = /--([\w-]+):\s*([^;]+);/g;
       let match;
       
@@ -1008,9 +1115,30 @@ class HtmlPaginator {
       }
     });
     
-    if (Object.keys(cssVariables).length > 0) {
-      this.applyCSSVariables(cssVariables, fullExtractedStyles);
+    // Store both complete styles and variables
+    this.completeOriginalStyles = completeStylesCSS;
+    this.extractedVariables = cssVariables;
+    
+    console.log(`🎨 Extracted complete styles: ${completeStylesCSS.length} characters`);
+    console.log(`🎨 Found ${Object.keys(cssVariables).length} CSS variables`);
+    
+    // Apply complete original styling for 100% visual fidelity
+    this.applyCompleteOriginalStyles(completeStylesCSS);
+  }
+
+  private applyCompleteOriginalStyles(completeStyles: string): void {
+    console.log('🎨 Applying complete original styles for 100% visual fidelity...');
+    
+    // Create or update global style element for complete original styles
+    let globalStyleElement = document.getElementById('complete-original-styles') as HTMLStyleElement;
+    if (!globalStyleElement) {
+      globalStyleElement = document.createElement('style');
+      globalStyleElement.id = 'complete-original-styles';
+      document.head.appendChild(globalStyleElement);
     }
+    
+    globalStyleElement.textContent = completeStyles;
+    console.log(`🎨 Applied ${completeStyles.length} characters of original CSS`);
   }
 
   private applyCSSVariables(variables: Record<string, string>, fullExtractedStyles?: string): void {

@@ -53,16 +53,7 @@
     display: table-header-group;
 }
 
-.source-content .extracted-page-content thead th {
-    background: var(--cmyk-blue, #fafafa);
-    color: white;
-    font-weight: bold;
-}
-
-.source-content .extracted-page-content:not([data-has-cmyk]) thead th {
-    background: #fafafa !important;
-    color: #111 !important;
-}
+/* TABLE HEADER STYLING REMOVED - Now handled by complete original styles for 100% visual fidelity */
 
 .source-content .extracted-page-content tbody {
     display: table-row-group;
@@ -125,10 +116,18 @@
     margin: 0 0 12px 0;
 }
 
-.source-content .extracted-page-content p,
+.source-content .extracted-page-content p {
+    margin: 0 0 12px 0;
+}
+
+/* List styles - preserve original indentation and spacing */
 .source-content .extracted-page-content ul,
 .source-content .extracted-page-content ol {
-    margin: 0 0 12px 0;
+    margin: 8pt 0 8pt 20pt; /* Original: 8pt 0 8pt 20pt - preserve 20pt left indent */
+}
+
+.source-content .extracted-page-content li {
+    margin-bottom: 4pt; /* Original: margin-bottom: 4pt */
 }
 
 /* GPT5-COMPLIANT PAGINATION STYLES - Multiple A4 pages */
@@ -194,12 +193,10 @@
     display: table-header-group !important;
 }
 
+/* PAGINATED TABLE HEADER STYLING REMOVED - Now handled by complete original styles for 100% visual fidelity */
 .paginated-content thead th,
 .paginated-content .page thead th,
 .paginated-content .page .extracted-page-content thead th {
-    background: #fafafa !important;
-    color: #111 !important;
-    font-weight: bold !important;
     padding: 8px 10px !important;
     border-right: 1px solid #000 !important;
     border-bottom: 1px solid #000 !important;
@@ -277,10 +274,18 @@
     margin: 0 0 12px 0;
 }
 
-.paginated-content .page .extracted-page-content p,
+.paginated-content .page .extracted-page-content p {
+    margin: 0 0 12px 0;
+}
+
+/* List styles for paginated content - preserve original indentation */
 .paginated-content .page .extracted-page-content ul,
 .paginated-content .page .extracted-page-content ol {
-    margin: 0 0 12px 0;
+    margin: 8pt 0 8pt 20pt !important; /* Preserve 20pt left indent */
+}
+
+.paginated-content .page .extracted-page-content li {
+    margin-bottom: 4pt !important; /* Original spacing */
 }
 
 .paginated-content .page:last-child {
