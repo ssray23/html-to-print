@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean HTML to Print Paginator - GPT5 Compliant</title>
+    <link rel="stylesheet" href="paginator.css">
+    <style>
+        /* Basic UI styles for controls */
+        body {
+            font-family: Helvetica, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .controls h1 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .controls p {
+            margin: 0 0 20px 0;
+            color: #666;
+        }
+        
+        .file-input {
+            margin-bottom: 20px;
+        }
+        
+        .file-input input[type="file"] {
+            margin-right: 10px;
+            padding: 8px;
+        }
+        
+        .file-input button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background: #007cba;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .file-input button:hover {
+            background: #005a87;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .status.info {
+            background: #e3f2fd;
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+        }
+        
+        .status.success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .paginated-content {
+            max-width: none;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h1>🖨️ Clean HTML to Print Paginator</h1>
+        <p>GPT5-compliant implementation with Chromium LayoutNG</p>
+        
+        <div class="file-input">
+            <input type="file" id="fileInput" accept=".html" />
+            <button id="processBtn">📄 Process HTML</button>
+            <button id="paginateBtn">📄 Create Pages</button>
+            <button id="exportPdfBtn">🖨️ Export PDF</button>
+        </div>
+        
+        <div id="status" class="status">Ready to process HTML files</div>
+    </div>
+
+    <!-- Processed content container -->
+    <div class="source-content" id="sourceContent" style="display: none;">
+        <!-- Processed content will be displayed here -->
+    </div>
+
+    <!-- Paginated content container -->
+    <div id="paginatedContent" class="paginated-content" style="display: none;">
+        <!-- Paginated pages will be displayed here -->
+    </div>
+
+    <script src="dist/simple-paginator.js"></script>
+</body>
+</html>

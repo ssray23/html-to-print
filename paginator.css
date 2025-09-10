@@ -1,0 +1,325 @@
+/* CLEAN HTML TO PRINT PAGINATOR STYLES - GPT5 COMPLIANT */
+
+/* PROCESSED CONTENT STYLES - Single continuous page (ORIGINAL WORKING VERSION) */
+.source-content {
+    display: block;
+    width: 800px;
+    max-width: 100%;
+    height: auto;
+    min-height: auto;
+    margin: 0 auto 20px auto;
+    background: white;
+    padding: 0.6cm;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* PAGINATED CONTENT STYLES - Multiple A4 pages */
+.paginated-content {
+    display: none;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Extracted page content styling - EXACT ORIGINAL */
+.source-content .extracted-page-content {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #111;
+}
+
+.source-content .extracted-page-content > * {
+    margin-bottom: 12px;
+}
+
+/* Table styles that work */
+.source-content .extracted-page-content table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.source-content .extracted-page-content thead {
+    display: table-header-group;
+}
+
+.source-content .extracted-page-content thead th {
+    background: var(--cmyk-blue, #fafafa);
+    color: white;
+    font-weight: bold;
+}
+
+.source-content .extracted-page-content:not([data-has-cmyk]) thead th {
+    background: #fafafa !important;
+    color: #111 !important;
+}
+
+.source-content .extracted-page-content tbody {
+    display: table-row-group;
+}
+
+.source-content .extracted-page-content th,
+.source-content .extracted-page-content td {
+    padding: 8px 10px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    vertical-align: top;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.source-content .extracted-page-content th:last-child,
+.source-content .extracted-page-content td:last-child {
+    border-right: none;
+}
+
+.source-content .extracted-page-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.source-content .extracted-page-content tbody tr:nth-child(even) td {
+    background: #f5f5f5 !important;
+}
+
+/* Content styling */
+.source-content .extracted-page-content .callout {
+    border-left: 4px solid #ccc;
+    padding: 10px 15px;
+    margin: 15px 0;
+    background: #f8f8f8;
+}
+
+.source-content .extracted-page-content .callout.warning {
+    border-left-color: #ff6b35;
+    background: #fff3f0;
+}
+
+.source-content .extracted-page-content .callout.note {
+    border-left-color: #4a90e2;
+    background: #f0f7ff;
+}
+
+.source-content .extracted-page-content .meta {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.source-content .extracted-page-content h1,
+.source-content .extracted-page-content h2,
+.source-content .extracted-page-content h3,
+.source-content .extracted-page-content h4,
+.source-content .extracted-page-content h5,
+.source-content .extracted-page-content h6 {
+    font-weight: bold;
+    margin: 0 0 12px 0;
+}
+
+.source-content .extracted-page-content p,
+.source-content .extracted-page-content ul,
+.source-content .extracted-page-content ol {
+    margin: 0 0 12px 0;
+}
+
+/* GPT5-COMPLIANT PAGINATION STYLES - Multiple A4 pages */
+.paginated-content .page {
+    width: 210mm !important;
+    height: 297mm !important;
+    box-sizing: border-box !important;
+    padding: 0.6cm !important;
+    margin: 0 auto 20px auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    background: white !important;
+    page-break-after: always !important;
+    position: relative !important;
+}
+
+/* Paginated content should inherit all processed content styles */
+.paginated-content .page .extracted-page-content {
+    /* Inherit all the processed content styling */
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.45;
+    color: #111;
+    width: calc(100% - 0px);
+    height: calc(100% - 0.6cm);  /* Reserve exact 0.6cm space for bottom margin */
+    margin: 0;
+    padding: 0 0 0.6cm 0;  /* Add exact 0.6cm bottom padding for proper margin */
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Ensure all content elements inherit processed styling in paginated view */
+.paginated-content .page .extracted-page-content > * {
+    margin-bottom: 12px;
+}
+
+/* HIGH SPECIFICITY table styling for paginated content */
+.paginated-content table,
+.paginated-content .page table,
+.paginated-content .page .extracted-page-content table {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 250px !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: 1px solid #000 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    margin: 15px 0 !important;
+    font-family: Helvetica, Arial, sans-serif !important;
+    font-size: 11pt !important;
+    display: table !important;
+}
+
+.paginated-content thead,
+.paginated-content .page thead,
+.paginated-content .page .extracted-page-content thead {
+    display: table-header-group !important;
+}
+
+.paginated-content thead th,
+.paginated-content .page thead th,
+.paginated-content .page .extracted-page-content thead th {
+    background: #fafafa !important;
+    color: #111 !important;
+    font-weight: bold !important;
+    padding: 8px 10px !important;
+    border-right: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
+    text-align: left !important;
+}
+
+.paginated-content tbody,
+.paginated-content .page tbody,
+.paginated-content .page .extracted-page-content tbody {
+    display: table-row-group !important;
+}
+
+.paginated-content th,
+.paginated-content td,
+.paginated-content .page th,
+.paginated-content .page td,
+.paginated-content .page .extracted-page-content th,
+.paginated-content .page .extracted-page-content td {
+    padding: 8px 10px !important;
+    border-right: 1px solid #000 !important;
+    border-bottom: 1px solid #000 !important;
+    vertical-align: top !important;
+    text-align: left !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    font-family: Helvetica, Arial, sans-serif !important;
+    font-size: 11pt !important;
+}
+
+.paginated-content th:last-child,
+.paginated-content td:last-child,
+.paginated-content .page th:last-child,
+.paginated-content .page td:last-child,
+.paginated-content .page .extracted-page-content th:last-child,
+.paginated-content .page .extracted-page-content td:last-child {
+    border-right: none !important;
+}
+
+.paginated-content tbody tr:last-child td,
+.paginated-content .page tbody tr:last-child td,
+.paginated-content .page .extracted-page-content tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Content styling inheritance */
+.paginated-content .page .extracted-page-content .callout {
+    border-left: 4px solid #ccc;
+    padding: 10px 15px;
+    margin: 15px 0;
+    background: #f8f8f8;
+}
+
+.paginated-content .page .extracted-page-content .callout.warning {
+    border-left-color: #ff6b35;
+    background: #fff3f0;
+}
+
+.paginated-content .page .extracted-page-content .callout.note {
+    border-left-color: #4a90e2;
+    background: #f0f7ff;
+}
+
+.paginated-content .page .extracted-page-content .meta {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.paginated-content .page .extracted-page-content h1,
+.paginated-content .page .extracted-page-content h2,
+.paginated-content .page .extracted-page-content h3,
+.paginated-content .page .extracted-page-content h4,
+.paginated-content .page .extracted-page-content h5,
+.paginated-content .page .extracted-page-content h6 {
+    font-weight: bold;
+    margin: 0 0 12px 0;
+}
+
+.paginated-content .page .extracted-page-content p,
+.paginated-content .page .extracted-page-content ul,
+.paginated-content .page .extracted-page-content ol {
+    margin: 0 0 12px 0;
+}
+
+.paginated-content .page:last-child {
+    page-break-after: auto !important;
+}
+
+/* Hide UI elements only during print */
+.debug-info, .measurement-container {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Print styles */
+@media print {
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+        font-size: 12pt !important;
+        line-height: 1.4 !important;
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    
+    .controls, .file-input, .source-content, .status, .debug-info, .measurement-container {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    
+    /* Table fragmentation rules only - no nuclear overrides */
+    table { 
+        break-inside: auto !important; 
+        page-break-inside: auto !important; 
+    }
+    thead { 
+        display: table-header-group !important; 
+    }
+    tr { 
+        break-inside: avoid !important; 
+        page-break-inside: avoid !important; 
+    }
+}
