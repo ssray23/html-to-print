@@ -20,9 +20,11 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            max-width: 800px;
+            width: 210mm; /* Exact A4 width to align with processed pages */
+            max-width: 210mm;
             margin-left: auto;
             margin-right: auto;
+            box-sizing: border-box;
         }
         
         .controls h1 {
@@ -86,6 +88,11 @@
             max-width: none;
             margin: 0 auto;
         }
+        
+        /* Hide source content initially - will be shown by JavaScript when needed */
+        .source-content {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -100,19 +107,41 @@
             <button id="exportPdfBtn">🖨️ Export PDF</button>
         </div>
         
+        <div class="tolerance-control" style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
+            <p style="margin-bottom: 10px; font-weight: bold;">📏 Pagination Tolerance: <span id="toleranceValue">123</span>px ⭐ SWEET SPOT</p>
+            <p style="margin-bottom: 10px; font-size: 14px; color: #6c757d;">Controls how aggressively content is packed onto pages. Higher values = less blank space.</p>
+            <input type="range" id="toleranceSlider" min="0" max="300" value="123" 
+                   style="width: 100%; margin-bottom: 10px;" 
+                   oninput="updatePaginationTolerance(this.value)">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #6c757d;">
+                <span>Conservative (0px)</span>
+                <span>Aggressive (300px)</span>
+            </div>
+        </div>
+        
         <div id="status" class="status">Ready to process HTML files</div>
     </div>
 
     <!-- Processed content container -->
-    <div class="source-content" id="sourceContent" style="display: none;">
-        <!-- Processed content will be displayed here -->
-    </div>
+    <div class="source-content" id="sourceContent"></div>
 
     <!-- Paginated content container -->
     <div id="paginatedContent" class="paginated-content" style="display: none;">
         <!-- Paginated pages will be displayed here -->
     </div>
 
+    <script>
+        // Update pagination tolerance setting
+        function updatePaginationTolerance(value) {
+            document.getElementById('toleranceValue').textContent = value;
+            
+            // Update the paginator instance if it exists
+            if (window.paginator) {
+                window.paginator.setPaginationTolerance(parseInt(value));
+                console.log(`📏 Pagination tolerance updated to ${value}px`);
+            }
+        }
+    </script>
     <script src="dist/simple-paginator.js"></script>
 </body>
 </html>

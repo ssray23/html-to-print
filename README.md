@@ -250,9 +250,20 @@ The system maintains two parallel styling approaches:
 
 ### Basic Operation
 1. **Load HTML**: Upload any HTML document using the file input
-2. **Process**: Click "Process HTML" - creates element registry and continuous document
-3. **Paginate**: Click "Create Pages" - generates optimized A4 pages
-4. **Print/Export**: Use Ctrl+P for PDF or print directly
+2. **Adjust Tolerance**: Set pagination aggressiveness using the slider (123px = Sweet Spot ⭐)
+3. **Process**: Click "Process HTML" - creates element registry and continuous document
+4. **Paginate**: Click "Create Pages" - generates optimized A4 pages with your tolerance setting
+5. **Re-process**: Click "Process HTML" again to return to processed view from paginated view
+6. **Print/Export**: Use "Export PDF" button to open browser print dialog for PDF or direct printing
+
+### New Features (Latest Update)
+- **🎯 Adjustable Pagination Tolerance**: Control how aggressively content is packed onto pages
+  - **0px (Conservative)**: More blank space, safer page breaks
+  - **123px (Sweet Spot) ⭐**: Optimal balance - recommended default
+  - **300px (Aggressive)**: Maximum content density, minimal blank space
+- **🎨 Clean Interface**: No empty white space on initial app load
+- **🔄 Smart Process Button**: Shows existing processed content when clicked after pagination
+- **📏 A4-Aligned Controls**: Upload section perfectly matches processed content width (210mm)
 
 ### Debug Features
 ```javascript

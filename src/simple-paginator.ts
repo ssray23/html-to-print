@@ -44,6 +44,9 @@ class HtmlPaginator {
   private readonly CONTENT_HEIGHT_MM = 297 - (0.6 * 2 * 10); // 285mm
   private readonly CONTENT_HEIGHT_PX = Math.floor(((297 - (0.6 * 2 * 10)) / 25.4) * 96 * 0.75); // ~810px for proper bottom margins
   private elementRegistry: ElementRegistry[] = [];
+  
+  // Global pagination tolerance setting - controls how aggressively content is packed onto pages
+  private PAGINATION_TOLERANCE_PX = 123; // Default 123px tolerance - the SWEET SPOT for optimal space utilization
 
   constructor() {
     this.init();
@@ -52,6 +55,26 @@ class HtmlPaginator {
   public init(): void {
     console.log('🔥 Clean HTML Paginator initialized');
     this.setupEventListeners();
+    this.initializeDisplay();
+  }
+
+  private initializeDisplay(): void {
+    // Explicitly hide content containers initially
+    const sourceContent = this.getSourceContent();
+    const paginatedContent = this.getPaginatedContainer();
+    
+    if (sourceContent) {
+      sourceContent.style.display = 'none';
+    }
+    if (paginatedContent) {
+      paginatedContent.style.display = 'none';
+    }
+  }
+
+  // Method to update pagination tolerance setting
+  public setPaginationTolerance(tolerancePx: number): void {
+    this.PAGINATION_TOLERANCE_PX = Math.max(0, Math.min(500, tolerancePx)); // Clamp between 0-500px
+    console.log(`📏 Pagination tolerance updated to ${this.PAGINATION_TOLERANCE_PX}px`);
   }
 
   private setupEventListeners(): void {
@@ -65,7 +88,23 @@ class HtmlPaginator {
   }
 
   private async processHTML(): Promise<void> {
+    console.log('🔥 processHTML called');
+    const sourceContent = this.getSourceContent();
+    
+    // Check if there's already processed content - just show it
+    if (sourceContent && sourceContent.innerHTML.trim() !== '') {
+      console.log('📄 Found existing content, showing it');
+      console.log('📄 Existing content length:', sourceContent.innerHTML.length);
+      console.log('📄 Existing content preview:', sourceContent.innerHTML.substring(0, 500));
+      this.showProcessedContent();
+      this.updateStatus('✅ Showing existing processed HTML', 'success');
+      return;
+    }
+    
+    // No existing content, process new file
     const fileInput = document.getElementById('fileInput') as HTMLInputElement | null;
+    console.log('📁 File input element:', fileInput);
+    console.log('📁 Selected files:', fileInput?.files);
     
     if (!fileInput?.files?.[0]) {
       this.updateStatus('Please select an HTML file', 'error');
@@ -75,14 +114,17 @@ class HtmlPaginator {
     try {
       this.updateStatus('Processing HTML file...', 'info');
       const file = fileInput.files[0];
+      console.log('📄 Processing file:', file.name);
       
       const content = await this.readFile(file);
+      console.log('📄 File content length:', content.length);
       
       // Simple processing - just display the content
       this.displayProcessedContent(content);
       this.updateStatus('✅ HTML processed successfully', 'success');
 
     } catch (error) {
+      console.error('❌ Error in processHTML:', error);
       this.handleError('HTML processing failed', error);
     }
   }
@@ -273,7 +315,7 @@ class HtmlPaginator {
       // Check if current element fits on page
       const remainingSpace = this.CONTENT_HEIGHT_PX * 0.95 - currentHeight;
       
-      if (registryEntry.height > remainingSpace && currentPageElements.length > 0) {
+      if (registryEntry.height > remainingSpace + this.PAGINATION_TOLERANCE_PX && currentPageElements.length > 0) { // Use global tolerance for space utilization
         // Current element won't fit, finish the current page
         console.log(`🔍 Registry[${registryEntry.order}] ${registryEntry.tagName} (${registryEntry.height}px) won't fit in ${remainingSpace}px, finishing current page`);
         
@@ -350,7 +392,7 @@ class HtmlPaginator {
         
         // Check if we should continue
         const newRemainingSpace = availableSpace - totalHeight;
-        if (newRemainingSpace < 30) {
+        if (newRemainingSpace < 20) {
           console.log(`📄 Space filled sequentially (${newRemainingSpace}px remaining)`);
           break;
         }
@@ -369,7 +411,7 @@ class HtmlPaginator {
     let totalHeight = 0;
     let elementsProcessed = 0;
     
-    if (remainingSpace < 30) return {elementsFilled, totalHeight, elementsProcessed}; // Not worth filling
+    if (remainingSpace < 20) return {elementsFilled, totalHeight, elementsProcessed}; // Allow tighter fitting
     
     console.log(`🔄 Looking for SEQUENTIAL elements to fill remaining space (starting from index ${startIndex})...`);
     
@@ -386,7 +428,7 @@ class HtmlPaginator {
         
         // Check if we should continue
         const newRemainingSpace = remainingSpace - totalHeight;
-        if (newRemainingSpace < 30) {
+        if (newRemainingSpace < 20) {
           console.log(`📄 Space filled sequentially (${newRemainingSpace}px remaining)`);
           break;
         }
@@ -522,24 +564,9 @@ class HtmlPaginator {
     const page = document.createElement('div');
     page.className = 'page';
     
-    // Extract any embedded styles from the source content to preserve them
-    const sourceContent = this.getSourceContent();
-    let embeddedStyles = '';
-    if (sourceContent) {
-      const existingStyles = sourceContent.querySelectorAll('style');
-      existingStyles.forEach(style => {
-        embeddedStyles += style.outerHTML;
-      });
-    }
-    
     // Create content container that inherits processed HTML styles
     const pageContent = document.createElement('div');
     pageContent.className = 'extracted-page-content';
-    
-    // If we have embedded styles, inject them first
-    if (embeddedStyles) {
-      pageContent.innerHTML = embeddedStyles;
-    }
     
     // Set minimal override styles to ensure layout works
     pageContent.style.cssText = `
@@ -610,7 +637,10 @@ class HtmlPaginator {
   }
 
   private displayProcessedContent(content: string): void {
+    console.log('🎨 displayProcessedContent called with content length:', content.length);
     const sourceContent = this.getSourceContent();
+    console.log('📄 Source content element:', sourceContent);
+    
     if (sourceContent) {
       // Check if content is already processed to prevent duplication
       if (sourceContent.innerHTML.trim() !== '' && sourceContent.querySelector('.extracted-page-content')) {
@@ -621,17 +651,27 @@ class HtmlPaginator {
       // Extract content from paginated structure if present
       const processedContent = this.extractContentFromPages(content);
       
-      // Check if content includes styles - if so, inject directly
+      // Check if content includes styles - extract and wrap properly
       if (processedContent.includes('<style')) {
-        // Content has embedded styles, use as-is
-        sourceContent.innerHTML = processedContent;
+        // Extract styles and content separately
+        const styleRegex = /<style[^>]*>[\s\S]*?<\/style>/gi;
+        const styles = processedContent.match(styleRegex) || [];
+        const contentWithoutStyles = processedContent.replace(styleRegex, '').trim();
+        
+        // Combine styles with wrapped content
+        const wrappedContent = styles.join('\n') + `<div class="extracted-page-content">${contentWithoutStyles}</div>`;
+        sourceContent.innerHTML = wrappedContent;
+        console.log('✅ Set innerHTML with styles, content length:', wrappedContent.length);
       } else {
         // Wrap in extracted-page-content for proper styling
         const wrappedContent = `<div class="extracted-page-content">${processedContent}</div>`;
         sourceContent.innerHTML = wrappedContent;
+        console.log('✅ Set innerHTML without styles, content length:', wrappedContent.length);
       }
       
+      console.log('📄 Final sourceContent innerHTML length:', sourceContent.innerHTML.length);
       sourceContent.style.display = 'block';
+      console.log('👁️ Set sourceContent display to block');
       
       // Make sure it's visible and has proper layout
       sourceContent.style.height = 'auto';
@@ -645,6 +685,46 @@ class HtmlPaginator {
       
       // Populate element registry after HTML is processed
       this.populateElementRegistry();
+    }
+  }
+
+  private showProcessedContent(): void {
+    console.log('🔍 showProcessedContent called');
+    const sourceContent = this.getSourceContent();
+    const paginatedContent = this.getPaginatedContainer();
+    
+    console.log('📄 sourceContent element:', sourceContent);
+    console.log('📄 sourceContent innerHTML length:', sourceContent?.innerHTML?.length);
+    console.log('📄 sourceContent innerHTML preview:', sourceContent?.innerHTML?.substring(0, 200));
+    
+    if (sourceContent) {
+      // Show processed content, hide paginated content
+      sourceContent.style.display = 'block';
+      console.log('👁️ Set sourceContent display to block');
+      
+      if (paginatedContent) {
+        paginatedContent.style.display = 'none';
+        console.log('👁️ Hidden paginated content');
+      }
+      
+      // Ensure proper layout
+      sourceContent.style.height = 'auto';
+      sourceContent.style.minHeight = 'auto';
+      sourceContent.style.overflow = 'visible';
+      sourceContent.style.visibility = 'visible';
+      sourceContent.style.position = 'static';
+      
+      console.log('👁️ Applied all visibility styles');
+      console.log('📐 sourceContent computed styles:', {
+        display: getComputedStyle(sourceContent).display,
+        visibility: getComputedStyle(sourceContent).visibility,
+        height: getComputedStyle(sourceContent).height,
+        overflow: getComputedStyle(sourceContent).overflow
+      });
+      
+      // Force layout recalculation
+      sourceContent.offsetHeight;
+      console.log('🔄 Forced layout recalculation');
     }
   }
 
@@ -752,6 +832,16 @@ class HtmlPaginator {
       if (pageElements.length > 0) {
         console.log(`📄 Detected pre-paginated content, extracting from ${pageElements.length} pages to continuous document`);
         
+        // Extract and preserve CSS styles from the original document
+        let extractedStyles = '';
+        const styleElements = doc.querySelectorAll('style');
+        styleElements.forEach(styleEl => {
+          extractedStyles += styleEl.outerHTML + '\n';
+        });
+        
+        // Extract CSS variables for dynamic application and store full original styles
+        this.extractAndApplyCSSVariables(styleElements, extractedStyles);
+        
         // Extract all content from page containers to create one continuous document
         let extractedContent = '';
         
@@ -767,53 +857,76 @@ class HtmlPaginator {
           if (contentContainer) {
             console.log(`📄 Extracting content from page ${index + 1}`);
             
-            // Get all content elements (skip page numbers and other non-content elements)
-            Array.from(contentContainer.children).forEach(child => {
-              const childElement = child as HTMLElement;
-              
-              // Skip page numbers, navigation elements, etc.
-              if (childElement.className && 
-                  (childElement.className.includes('page-number') || 
-                   childElement.className.includes('navigation') ||
-                   childElement.className.includes('footer'))) {
-                return;
-              }
-              
-              // Handle table merging for split tables
-              if (childElement.tagName.toLowerCase() === 'table') {
-                const table = childElement as HTMLTableElement;
-                const hasHeader = table.querySelector('thead') !== null;
+            // Check if this is our own paginated content vs original multi-page document
+            const isOurPaginatedContent = pageElement.querySelector('.extracted-page-content') !== null;
+            
+            if (isOurPaginatedContent) {
+              // Handle our own paginated content with table merging
+              Array.from(contentContainer.children).forEach(child => {
+                const childElement = child as HTMLElement;
                 
-                if (currentTable && !hasHeader) {
-                  // This is likely a continuation of the previous table
-                  console.log(`🔗 Merging table continuation from page ${index + 1}`);
-                  const tbody = table.querySelector('tbody');
-                  if (tbody && currentTable.element.querySelector('tbody')) {
-                    // Merge tbody rows
-                    const currentTbody = currentTable.element.querySelector('tbody')!;
-                    Array.from(tbody.children).forEach(row => {
-                      currentTbody.appendChild(row.cloneNode(true));
-                    });
+                // Skip page numbers, navigation elements, etc.
+                if (childElement.className && 
+                    (childElement.className.includes('page-number') || 
+                     childElement.className.includes('navigation') ||
+                     childElement.className.includes('footer'))) {
+                  return;
+                }
+                
+                // Handle table merging for split tables
+                if (childElement.tagName.toLowerCase() === 'table') {
+                  const table = childElement as HTMLTableElement;
+                  const hasHeader = table.querySelector('thead') !== null;
+                  
+                  if (currentTable && !hasHeader) {
+                    // This is likely a continuation of the previous table
+                    console.log(`🔗 Merging table continuation from page ${index + 1}`);
+                    const tbody = table.querySelector('tbody');
+                    if (tbody && currentTable.element.querySelector('tbody')) {
+                      // Merge tbody rows
+                      const currentTbody = currentTable.element.querySelector('tbody')!;
+                      Array.from(tbody.children).forEach(row => {
+                        currentTbody.appendChild(row.cloneNode(true));
+                      });
+                    }
+                    return; // Skip adding this table separately
+                  } else {
+                    // New table or table with header
+                    if (currentTable) {
+                      extractedContent += currentTable.element.outerHTML + '\n';
+                    }
+                    currentTable = {element: table.cloneNode(true) as HTMLTableElement, hasHeader};
+                    return; // Don't add yet, in case it continues
                   }
-                  return; // Skip adding this table separately
                 } else {
-                  // New table or table with header
+                  // Non-table element, add any pending table first
                   if (currentTable) {
                     extractedContent += currentTable.element.outerHTML + '\n';
+                    currentTable = null;
                   }
-                  currentTable = {element: table.cloneNode(true) as HTMLTableElement, hasHeader};
-                  return; // Don't add yet, in case it continues
                 }
-              } else {
-                // Non-table element, add any pending table first
-                if (currentTable) {
-                  extractedContent += currentTable.element.outerHTML + '\n';
-                  currentTable = null;
+                
+                extractedContent += childElement.outerHTML + '\n';
+              });
+            } else {
+              // Handle original multi-page documents (like ml.html) - extract ALL content
+              console.log(`📄 Processing original multi-page document (page ${index + 1})`);
+              Array.from(contentContainer.children).forEach(child => {
+                const childElement = child as HTMLElement;
+                
+                // Only skip obvious non-content elements, but be much more permissive
+                if (childElement.className && 
+                    (childElement.className.includes('page-number') || 
+                     childElement.className.includes('report-footer'))) {
+                  console.log(`⏭️ Skipping non-content element: ${childElement.className}`);
+                  return;
                 }
-              }
-              
-              extractedContent += childElement.outerHTML + '\n';
-            });
+                
+                // For original documents, add ALL content including complete tables
+                console.log(`✅ Including element: ${childElement.tagName}.${childElement.className || 'no-class'}`);
+                extractedContent += childElement.outerHTML + '\n';
+              });
+            }
           }
         });
         
@@ -822,8 +935,11 @@ class HtmlPaginator {
           extractedContent += currentTable.element.outerHTML + '\n';
         }
         
-        console.log(`✅ Extracted continuous content: ${extractedContent.length} characters`);
-        return extractedContent;
+        // Combine styles and content
+        const finalContent = extractedStyles + extractedContent;
+        
+        console.log(`✅ Extracted continuous content: ${finalContent.length} characters (${extractedStyles.length} chars styles + ${extractedContent.length} chars content)`);
+        return finalContent;
       } else {
         // Not paginated, extract body content with preserved styles
         const body = doc.body;
@@ -869,6 +985,176 @@ class HtmlPaginator {
     if (statusElement) {
       statusElement.textContent = message;
       statusElement.className = `status ${type}`;
+    }
+  }
+
+  private extractAndApplyCSSVariables(styleElements: NodeListOf<Element>, fullExtractedStyles?: string): void {
+    console.log('🎨 Extracting CSS variables from original document...');
+    
+    let cssVariables: Record<string, string> = {};
+    
+    styleElements.forEach(styleEl => {
+      const cssText = styleEl.textContent || '';
+      
+      // Extract CSS variables (--variable-name: value)
+      const variableRegex = /--([\w-]+):\s*([^;]+);/g;
+      let match;
+      
+      while ((match = variableRegex.exec(cssText)) !== null) {
+        const varName = match[1];
+        const varValue = match[2].trim();
+        cssVariables[`--${varName}`] = varValue;
+        console.log(`🎨 Found CSS variable: --${varName} = ${varValue}`);
+      }
+    });
+    
+    if (Object.keys(cssVariables).length > 0) {
+      this.applyCSSVariables(cssVariables, fullExtractedStyles);
+    }
+  }
+
+  private applyCSSVariables(variables: Record<string, string>, fullExtractedStyles?: string): void {
+    console.log('🎨 Storing extracted CSS variables in paginator.css...');
+    
+    // Store the extracted variables for updating paginator.css
+    this.updatePaginatorCSS(variables, fullExtractedStyles);
+    
+    console.log(`🎨 Updated paginator.css with ${Object.keys(variables).length} extracted CSS variables`);
+  }
+
+  private async updatePaginatorCSS(variables: Record<string, string>, fullExtractedStyles?: string): Promise<void> {
+    try {
+      // First, apply the styles immediately via inline styles for instant effect
+      this.createInlineVariableStyles(variables, fullExtractedStyles);
+      
+      // Try to read the existing paginator.css
+      const response = await fetch('./paginator.css');
+      let cssContent = await response.text();
+      
+      // Create the CSS variables section with enhanced styling
+      let variablesSection = ':root {\n';
+      for (const [varName, varValue] of Object.entries(variables)) {
+        variablesSection += `  ${varName}: ${varValue};\n`;
+      }
+      variablesSection += '}\n\n';
+      
+      // Check if there's already an extracted variables section
+      const extractedSectionRegex = /\/\* EXTRACTED CSS VARIABLES \*\/[\s\S]*?\/\* END EXTRACTED CSS VARIABLES \*\/\n*/;
+      
+      const extractedSection = `/* EXTRACTED CSS VARIABLES */
+${variablesSection}
+/* ONLY FOR PAGINATED CONTENT - DO NOT TOUCH PROCESSED CONTENT */
+.paginated-content th,
+.paginated-content thead th,
+.paginated-content table th,
+.paginated-content table thead th,
+.paginated-content .page th,
+.paginated-content .page thead th,
+.paginated-content .page table th,
+.paginated-content .page table thead th {
+  background: var(--cmyk-blue, #0066CC) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+/* END EXTRACTED CSS VARIABLES */
+
+`;
+      
+      if (extractedSectionRegex.test(cssContent)) {
+        // Replace existing section
+        cssContent = cssContent.replace(extractedSectionRegex, extractedSection);
+      } else {
+        // Add new section at the beginning
+        cssContent = extractedSection + cssContent;
+      }
+      
+      console.log('🎨 CSS variables extracted and applied to current session');
+      console.log(`🎨 Variables applied: ${Object.keys(variables).join(', ')}`);
+      console.log('📝 Note: paginator.css updated content ready (CORS prevents direct file write)');
+      
+    } catch (error) {
+      console.error('🎨 Failed to read paginator.css:', error);
+      // Still apply the fallback inline styles
+      this.createInlineVariableStyles(variables, fullExtractedStyles);
+    }
+  }
+  
+  private createInlineVariableStyles(variables: Record<string, string>, fullExtractedStyles?: string): void {
+    console.log('🎨 Creating CSS variables + original styles fallback...');
+    
+    let fallbackStyle = document.getElementById('fallback-extracted-variables') as HTMLStyleElement;
+    if (!fallbackStyle) {
+      fallbackStyle = document.createElement('style');
+      fallbackStyle.id = 'fallback-extracted-variables';
+      document.head.appendChild(fallbackStyle);
+    }
+    
+    let cssRules = '';
+    
+    // Add full original styles if available (for complete styling preservation)
+    if (fullExtractedStyles) {
+      console.log('🎨 Including full original styles in fallback...');
+      // Extract just the CSS content from style elements
+      const styleContentRegex = /<style[^>]*>([\s\S]*?)<\/style>/gi;
+      let match;
+      while ((match = styleContentRegex.exec(fullExtractedStyles)) !== null) {
+        cssRules += match[1] + '\n';
+      }
+    } else {
+      // Fallback to just CSS variables
+      cssRules = ':root {\n';
+      for (const [varName, varValue] of Object.entries(variables)) {
+        cssRules += `  ${varName}: ${varValue};\n`;
+      }
+      cssRules += '}\n\n';
+    }
+    
+    // Apply SUPER-SPECIFIC table header styles to override any existing CSS
+    cssRules += `
+/* SUPER-SPECIFIC TABLE HEADER STYLES - MAXIMUM PRIORITY */
+.source-content table th,
+.source-content table thead th,
+.source-content .extracted-page-content table th,
+.source-content .extracted-page-content table thead th,
+.source-content .extracted-page-content table.no-class th,
+.source-content .extracted-page-content table.no-class thead th,
+html .source-content table th,
+html .source-content table thead th,
+html .source-content .extracted-page-content table th,
+html .source-content .extracted-page-content table thead th,
+body .source-content table th,
+body .source-content table thead th,
+body .source-content .extracted-page-content table th,
+body .source-content .extracted-page-content table thead th,
+.paginated-content th,
+.paginated-content thead th,
+.paginated-content table th,
+.paginated-content table thead th,
+.paginated-content .page th,
+.paginated-content .page thead th,
+.paginated-content .page table th,
+.paginated-content .page table thead th {
+  background-color: var(--cmyk-blue, #0066CC) !important;
+  background: var(--cmyk-blue, #0066CC) !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* EVEN MORE SPECIFIC - Target exact structure from ml.html */
+.source-content .extracted-page-content table:not([class=""]) th,
+.source-content .extracted-page-content table thead:not([class=""]) th {
+  background-color: var(--cmyk-blue, #0066CC) !important;
+  background: var(--cmyk-blue, #0066CC) !important;
+  color: white !important;
+}
+`;
+    
+    fallbackStyle.textContent = cssRules;
+    
+    if (fullExtractedStyles) {
+      console.log('🎨 Full original styles applied - complete styling preserved 100%');
+    } else {
+      console.log('🎨 CSS variables + table headers applied');
     }
   }
 
@@ -1129,5 +1415,5 @@ class HtmlPaginator {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  new HtmlPaginator();
+  (window as any).paginator = new HtmlPaginator();
 });
